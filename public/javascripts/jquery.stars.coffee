@@ -5,6 +5,7 @@ class Stars
   constructor: (input) ->
     @el = $('<div class="stars">')
     @input = $(input).hide().after(@el)
+      .change @leave # re-render on input change
 
     for [1..@input.attr('max')]
       $("<div class='star'>")

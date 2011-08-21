@@ -50,8 +50,8 @@ load = ->
         $form = $(this).closest('form').toggleClass('view edit')
         $form[0].reset()
         $('input, textarea', $form)
+          .change() # reset stars
           .prop('disabled', $form.is('.view'))
-          # TODO reset stars
       .find('input[type=range]').stars()
 
   $('#page.teams-edit').each ->

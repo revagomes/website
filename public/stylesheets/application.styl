@@ -212,9 +212,11 @@ aside
   background-color hsla(0, 0%, 95%, 0.5)
   clear left
   overflow hidden
+  line-height 100%
   .person, .team
     float left
     width 120px
+    margin-right 10px
     img.avatar
       width 40px
       height auto
@@ -237,7 +239,7 @@ aside
       text-align center
   .voter
     text-align center
-  .stars
+  div.stars
     display inline-block
     .star
       display inline-block
@@ -248,6 +250,8 @@ aside
         background transparent url(/images/star.png) no-repeat 0 -16px
   th
     font-size small
+    text-align center
+  tr.stars td
     text-align center
   input[type=range]
     width 100px
@@ -262,7 +266,6 @@ aside
 form.vote
   box-shadow inset 0 0 5px hsla(200, 30%, 50%, 0.2)
   background-color hsla(200, 30%, 80%, 0.2)
-form.vote
   &.edit
     .view
       display none

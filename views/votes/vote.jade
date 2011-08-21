@@ -19,7 +19,7 @@ li.vote
       tr
         - each d in Vote.dimensions
           th: label( for: d )= Vote.label(d)
-      tr
+      tr.stars
         - each d in Vote.dimensions
           td!= stars(vote[d])
       tr: td( colspan: 4 )
