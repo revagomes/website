@@ -8,8 +8,8 @@ that lets you build Phone, SMS and IM apps - all using the same Node.js
 code base.
 
 On the phone side, Tropo integrates with SIP (the industry standard for
-VoIP telephony) and Skype. On the SMS side, Tropo supports both inbound
-and outbound text messages in both the US and Canada.
+VoIP telephony) and Skype. On the SMS side, Tropo supports sending inbound
+and outbound text messages from both U.S. and Canadian numbers.  (It's also possible to send to [a host of international destinations](https://www.tropo.com/docs/webapi/international_dialing_sms.htm) from U.S. numbers.)
 
 Tropo is 100% free for development use - no upfront commitments and no
 strings attached.  [Signing up for an account] is free, and you can
