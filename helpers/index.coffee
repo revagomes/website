@@ -64,6 +64,11 @@ module.exports = (app) ->
     deployment: app.enabled 'deployment'
     voting: app.enabled 'voting'
     Vote: mongoose.model 'Vote'
+    stars: (count) ->
+      stars = for i in [1..5]
+        state = if i <= count then ' filled' else ''
+        "<div class='star#{state}'></div>"
+      "<div class='stars'>#{stars.join ''}</div>"
 
   app.dynamicHelpers
 

@@ -2,6 +2,7 @@
   p.sign-in: a.scary.button( href: '/login' ) Sign in to vote
 - else
   form.vote(
+    'class': vote ? 'view' : 'edit',
     action: vote ? '/votes/' + vote.id : '/teams/' + team.id + '/votes',
     method: 'POST'
   )
@@ -18,20 +19,19 @@
       = user.login
       .role= user.role
       - if (vote && !user.voter)
-        .edit: a.disabled.edit( href: '#' ) Edit your vote
+        .view.change: a.change( href: '#' ) Edit your vote
     - if (user.voter)
       .voter
         - if (vote)
           | You
           span.heart ♥ 
           | this entry
-          .disabled
-            a.edit( href: '#' ) Change your mind
-          .enabled
+          .view: a.change( href: '#' ) Change your mind
+          .edit
             input( type: 'hidden', name: '_method', value: 'DELETE' )
             input.scary( type: 'submit', value: 'Delete your vote' )
             | 
-            a.cancel( href: '#' ) Cancel
+            a.change( href: '#' ) Cancel
         - else
           input.scary( type: 'submit', value: '♥ this entry' )
     - else if (user.contestant || user.judge)
@@ -42,15 +42,16 @@
         tr
           - each d in Vote.dimensions
             td: input( name: d, id: d, type: 'range', min: 0, max: 5,
-                       value: vote ? vote[d] : 0 )
+              value: vote ? vote[d] : 0
+              disabled: !!vote )
         tr: td( colspan: 4 )
-          textarea.enabled( name: 'comment',
+          textarea.edit( name: 'comment',
                     placeholder: 'Be awesome. Give some feedback.'
                   )= vote && vote.comment
           - if (vote)
-            .comment.disabled!= markdown(vote.comment)
-            input.enabled( type: 'submit', value: 'Save' )
+            .comment.view!= markdown(vote.comment)
+            input.edit( type: 'submit', value: 'Save' )
             | 
-            a.enabled.cancel( href: '#' ) Cancel
+            a.edit.change( href: '#' ) Cancel
           - else
             input.scary( type: 'submit', value: 'Vote' )

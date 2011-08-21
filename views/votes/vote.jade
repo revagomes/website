@@ -21,6 +21,6 @@ li.vote
           th: label( for: d )= Vote.label(d)
       tr
         - each d in Vote.dimensions
-          td: input( name: d, id: d, type: 'range', min: 0, max: 5, value: vote[d], disabled: true )
+          td!= stars(vote[d])
       tr: td( colspan: 4 )
         .comment!= markdown(vote.comment)

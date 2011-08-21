@@ -230,13 +230,22 @@ aside
       margin-left 45px
     .role
       font-size small
-  .edit
-    clear left
-    font-size small
-    margin-top 1em
-    text-align center
+    > .change
+      clear left
+      font-size small
+      margin-top 1em
+      text-align center
   .voter
     text-align center
+  .stars
+    display inline-block
+    .star
+      display inline-block
+      width 16px
+      height 16px
+      background transparent url(/images/star.png) no-repeat 0 0
+      &.filled
+        background transparent url(/images/star.png) no-repeat 0 -16px
   th
     font-size small
     text-align center
@@ -250,14 +259,17 @@ aside
   .heart
     font-size large
     color red
-  .stars img
-    width: 13px
-    height: 14px
 form.vote
   box-shadow inset 0 0 5px hsla(200, 30%, 50%, 0.2)
   background-color hsla(200, 30%, 80%, 0.2)
-form.vote[action^="/votes"] .enabled /* TODO fix for IE */
-  display none
+form.vote
+  &.edit
+    .view
+      display none
+    .star
+      cursor pointer
+  &.view .edit
+    display none
 
 #page
   position relative
@@ -460,7 +472,7 @@ form.vote[action^="/votes"] .enabled /* TODO fix for IE */
       margin 0.5em 0
 
 #page.teams-show, #page.people-show
-  #inner > .edit
+  #inner > div.edit
     float right
     margin-top 15px
 

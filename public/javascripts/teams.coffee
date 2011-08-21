@@ -44,45 +44,15 @@ load = ->
           .addClass('selected')
     .hashchange()
 
-    $('input[type=range]').each ->
-      $this = $(this)
-      max = parseInt($this.attr('max'))
-      $stars = $('<div class=stars>')
-        .css(position: 'relative', display: 'inline-block')
-      $empty = $('<div class=empty>').appendTo($stars)
-      $filled = $('<div class=filled>').appendTo($stars)
-      for [1..max]
-        $empty.append('<img src="/images/star-empty.png">')
-        $filled.append('<img src="/images/star-filled.png">')
-      fill = (val=$this.val()) ->
-        $filled.width($empty.width() * val / max)
-
-      $stars.find('img')
-        .css(cursor: 'pointer')
-        .hover (e) ->
-          return if $this.attr('disabled')
-          if e.type is 'mouseenter'
-            fill($(this).prevAll('img').length + 1)
-          else fill()
-        .click (e) ->
-          return if $this.attr('disabled')
-          $this.val($(this).prevAll('img').length + 1)
-          fill()
-
-      $this.hide().after($stars)
-      $filled.css(position: 'absolute', top: 0, left: 0, overflow: 'hidden')
-        .height($empty.height())
-      fill()
-
-    # initially disable any vote edit form
-    $('form.vote[action^="/votes"]').each ->
-      $(':input', this).prop 'disabled', true
-      $('a.edit, a.cancel', this).click (e) ->
+    $('form.vote')
+      .delegate 'a.change', 'click', (e) ->
         e.preventDefault()
-        $form = $(this).closest('form')
-        $('.disabled, .enabled', $form).toggle()
+        $form = $(this).closest('form').toggleClass('view edit')
         $form[0].reset()
-        $('input, textarea', $form).prop 'disabled', (i, d) -> !d
+        $('input, textarea', $form)
+          .prop('disabled', $form.is('.view'))
+          # TODO reset stars
+      .find('input[type=range]').stars()
 
   $('#page.teams-edit').each ->
 
