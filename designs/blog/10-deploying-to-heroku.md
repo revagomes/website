@@ -147,7 +147,7 @@ Store the app in Git:
 Add the Heroku remote that the Node.js Knockout organizers have created
 for you:
 
-    $ git remote add heroku git@heroku.com:nko2-sharp-rain-871.git
+    $ git remote add heroku git@heroku.com:nko2-my-team.git
 
 Alternatively, if you were going to create a repository from scratch,
 you would create the app on the Cedar stack (<b style="color:firebrick;">note: you should not do
@@ -182,9 +182,9 @@ Deploy your code:
            Procfile declares types -> web
     -----> Compiled slug size is 3.2MB
     -----> Launching... done, v2
-           http://sharp-rain-871.herokuapp.com deployed to Heroku
+           http://nko2-my-team.herokuapp.com deployed to Heroku
 
-    To git@heroku.com:sharp-rain-871.git
+    To git@heroku.com:nko2-my-team.git
      * [new branch]      master -> master
 
 Before looking at the app on the web, we'll need to scale the web
@@ -222,15 +222,16 @@ To add your Node Knockout team members to the app, use the `sharing:add`
 command:
 
     $ heroku sharing:add jane@example.com
-    jane@example.com added as a collaborator on sharp-rain-871.
+    jane@example.com added as a collaborator on nko2-my-team.
 
 **Note: the app that has been provisioned for your team for Node.js
 Knockout will already have your team members added as collaborators.
-Contact all@nodeknockout.com if you need to change collaborators.**
+Contact [all@nodeknockout.com] if you need to change collaborators.**
 
 Read more about [collaborators][12].
 
 [12]: http://devcenter.heroku.com/articles/sharing
+[all@nodeknockout.com]: mailto:all@nodeknockout.com
 
 Setting NODE\_ENV
 -----------------
@@ -260,7 +261,7 @@ terminal for experimenting in your app's environment:
 This console has nothing loaded other than the Node.js standard library.
 From here you can `require` some of your application files.
 
-Read more about [one-off admin proesses][13].
+Read more about [one-off admin processes][13].
 
 [13]: http://devcenter.heroku.com/articles/oneoff-admin-ps
 
@@ -377,7 +378,7 @@ for free, including [MongoDB][22], [CouchDB][23], [advanced full text
 indexing][24], [Memcached][25], [realtime publishing][26], [Neo4j][27],
 and [SMS publishing][28].
 
-**Note: please contact all@nodeknockout.com if you need ownership of
+**Note: please contact [all@nodeknockout.com] if you need ownership of
 your app to add addons.**
 
 [21]: http://addons.heroku.com/
@@ -393,13 +394,10 @@ Adding a Custom Domain
 ----------------------
 
 Your app automatically gets a hostname like
-`furious-river-173.herokuapp.com`.  You can change the first part with
-[`heroku rename`][29] or by setting a name when you create the app
-initially.  You can also use [your own domain name][30].
+`nko2-my-team.herokuapp.com`.  <b style="color:firebrick">Note: please
+do not run `heroku rename` on your Node.js Knockout Heroku app.</b>
 
-<b style="color:firebrick">Note: please do not run `heroku rename` on your
-Node.js Knockout Heroku app.</b> We use the Heroku slug we set-up for you in
-order to direct judges to your app. You may use a custom domain.
+You can use [your own domain name][30].
 
 [29]: http://devcenter.heroku.com/articles/renaming-apps
 [30]: http://devcenter.heroku.com/articles/custom-domains
