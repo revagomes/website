@@ -50,7 +50,7 @@ This simple web server listening on port 8000 will respond to incoming
 HTTP requests (Tropo uses the POST method to to connect to your app)
 with the following JSON:
 
-    {"tropo":[{ "say":{"value":"Hello, World!"}}]}
+    {"tropo":[{ "say":{"value":"Hello, World!" }}]}
 
 When a user makes a phone call to this app, Tropo to output the phrase
 "Hello, World" via Text-to-Speech (TTS) with the standard TTS engine.
