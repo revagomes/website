@@ -38,9 +38,11 @@ h1= title(team.name)
     .platform#heroku
       ol
         li require('nko')('#{team.code}');
-        li heroku create --stack cedar
-        li heroku config:add NODE_ENV=production
+        li gem install heroku
+        li heroku login
+        li git remote add heroku git@heroku.com:nko2-#{team.slug}.git
         li git push heroku master
+        li: a( href: 'http://blog.nodeknockout.com/XXX' ) Detailed instuctions
     .platform#linode
       ol
         li require('nko')('#{team.code}');
