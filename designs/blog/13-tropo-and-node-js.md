@@ -12,7 +12,7 @@ Phone, SMS and IM apps - all using the same Node.js code base.
 On the phone side, Tropo integrates with SIP (the industry standard for
 VoIP telephony) and Skype. On the SMS side, Tropo supports sending
 inbound and outbound text messages from both U.S. and Canadian numbers.
-(It's also possible to send to [a host of international destinations]
+(It's also possible to send to [a host of international destinations][]
 from U.S. numbers.)
 
 [a host of international destinations]: https://www.tropo.com/docs/webapi/international_dialing_sms.htm
@@ -132,7 +132,7 @@ Now lets look at a slightly more advanced example:
 
 Since interaction with the Tropo platform occurs via HTTP, Tropo apps
 are a great fit for the Express Framework.  When you [create your Tropo
-application], simply set the URL to this app - wherever it happens to be
+application][], simply set the URL to this app - wherever it happens to be
 running - as the application start URL.
 
 [create your Tropo application]: https://www.tropo.com/docs/webapi/creating_first_app.htm
