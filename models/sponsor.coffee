@@ -363,9 +363,10 @@ module.exports = [
     simple, low flat fees with no hidden fees or account minimums. A pioneer in
     integrating new social media as part of its innovative online trading
     platform, TradeKing recently launched a trading and market data API
-    available at developers.tradeking.com.
+    available at [developers.tradeking.com][2].
 
     [1]: http://www.tradeking.com
+    [2]: http://developers.tradeking.com
     '''
 ,
   name:  'Tropo'
