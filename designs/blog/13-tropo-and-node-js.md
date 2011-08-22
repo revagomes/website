@@ -1,4 +1,4 @@
-# Countdown to KO #13: Build Phone and SMS apps with Tropo and Node.js
+# Countdown to KO #13: Build Phone and SMS Apps with Tropo and Node.js
 
 *This is the 13th in series of posts leading up [Node.js Knockout][1],
 and covers using [Tropo][] in your node app.*
@@ -7,7 +7,7 @@ and covers using [Tropo][] in your node app.*
 [Tropo]: http://www.tropo.com
 
 [Tropo][] is a multi-channel communication platform that lets you build
-Phone, SMS and IM apps - all using the same Node.js code base.
+Phone, SMS and IM apps - all using the same Node.js codebase.
 
 On the phone side, Tropo integrates with SIP (the industry standard for
 VoIP telephony) and Skype. On the SMS side, Tropo supports sending
