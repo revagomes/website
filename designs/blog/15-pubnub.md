@@ -1,12 +1,12 @@
 # Countdown to KO #15: Publish/Subscribe with PubNub
 
 *This is the 15th in series of posts leading up [Node.js Knockout][1],
-and covers using [PubNub] in your node app.*
+and covers using [PubNub][] in your node app.*
 
 [1]: http://nodeknockout.com
 [PubNub]: http://www.pubnub.com
 
-[PubNub] lets you connect mobile phones, tablets, web browsers and more
+[PubNub][] lets you connect mobile phones, tablets, web browsers and more
 with a 2 Function Publish/Subscribe API (send/receive).
 
 ## HTML Interface

@@ -1,7 +1,7 @@
 # Countdown to KO #16: TradeKing
 
 *This is the 16th in series of posts leading up [Node.js Knockout][1],
-and covers using [TradeKing] in your node app.*
+and covers using [TradeKing][] in your node app.*
 
 [1]: http://nodeknockout.com
 [TradeKing]: http://tradeking.com

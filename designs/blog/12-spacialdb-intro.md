@@ -1,7 +1,7 @@
 # Countdown to KO #12: SpacialDB Intro
 
 *This is the 12th in series of posts leading up [Node.js Knockout][1],
-and covers using [SpacialDB] in your node app.*
+and covers using [SpacialDB][] in your node app.*
 
 [1]: http://nodeknockout.com
 [SpacialDB]: http://spacialdb.com

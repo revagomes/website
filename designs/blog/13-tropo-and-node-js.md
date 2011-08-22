@@ -1,12 +1,12 @@
 # Countdown to KO #13: Build Phone and SMS apps with Tropo and Node.js
 
 *This is the 13th in series of posts leading up [Node.js Knockout][1],
-and covers using [Tropo] in your node app.*
+and covers using [Tropo][] in your node app.*
 
 [1]: http://nodeknockout.com
 [Tropo]: http://www.tropo.com
 
-[Tropo] is a multi-channel communication platform that lets you build
+[Tropo][] is a multi-channel communication platform that lets you build
 Phone, SMS and IM apps - all using the same Node.js code base.
 
 On the phone side, Tropo integrates with SIP (the industry standard for
@@ -18,7 +18,7 @@ from U.S. numbers.)
 [a host of international destinations]: https://www.tropo.com/docs/webapi/international_dialing_sms.htm
 
 Tropo is 100% free for development use - no upfront commitments and no
-strings attached.  [Signing up for an account] is free, and you can
+strings attached.  [Signing up for an account][] is free, and you can
 deploy phone and SMS numbers for free in development (we have tons in
 both the US and Canada).  We won't ask you for payment information until
 you're ready to deploy your application to production.
@@ -55,7 +55,7 @@ with the following JSON:
 When a user makes a phone call to this app, Tropo to output the phrase
 "Hello, World" via Text-to-Speech (TTS) with the standard TTS engine.
 One of the really nice features is that we support TTS in [multiple
-languages] - 24 in all - so if your app has an international audience,
+languages][] - 24 in all - so if your app has an international audience,
 Tropo is a logical fit.
 
 [multiple languages]: https://www.tropo.com/docs/webapi/international_speaking_other_languages.htm

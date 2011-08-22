@@ -1,13 +1,13 @@
 # Countdown to KO #11: Node Twilio
 
 *This is the 11th in series of posts leading up [Node.js Knockout][1],
-and covers using [Twilio] in your node app.*
+and covers using [Twilio][] in your node app.*
 
 [1]: http://nodeknockout.com
 [Twilio]: http://www.twilio.com
 
 For this example we'll be using the node-twilio helper library by
-[Stephen Walters] to get you started with the basics of initiating a
+[Stephen Walters][] to get you started with the basics of initiating a
 call and then answering it.
 
 [Stephen Walters]: https://github.com/sjwalter
@@ -16,7 +16,7 @@ Start off by installing node-twilio using npm:
 
     $ npm install twilio
 
-Parts of node-twilio depend on the [express] framework so you should
+Parts of node-twilio depend on the [express][] framework so you should
 install express now too if you haven't already:
 
 [express]: http://expressjs.com/
@@ -24,7 +24,7 @@ install express now too if you haven't already:
     $ npm install express
 
 Once you've gotten your environment setup for node development, you'll
-need to sign up for a [Twilio] account if you don't already have one.
+need to sign up for a [Twilio][] account if you don't already have one.
 This will give you a Twilio Account Sid and an Auth Token which you'll
 need to develop your application.
 
