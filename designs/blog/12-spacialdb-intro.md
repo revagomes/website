@@ -18,7 +18,7 @@ makes it easy by:
 
   * Instantly provisioning Geospatial databases
   * Prebuilt functions to perform spatial queries and analysis
-  * Wealth of knowledge and tutorials at the [SpacialDB Devcenter]
+  * Wealth of knowledge and tutorials at the [SpacialDB Devcenter][]
   * Easy mobile SDK integration
   * Built on Open Source PostGIS database with a vibrant community and
     support
@@ -135,8 +135,8 @@ We want Shapefiles. Most prevalent geospatial data format currently
 available on the web... SpacialDB envisions changing that (but more on
 that later). For now lets get the following datasets:
 
-* [boundary_with_populations_germany (zip)](http://j.mp/iwO6Ee) from GeoCommons
-* [german_cities_ranked_by_population (zip)](http://j.mp/mc5sEc) from GeoCommons
+* [boundary\_with\_populations\_germany (zip)](http://j.mp/iwO6Ee) from GeoCommons
+* [german\_cities\_ranked\_by\_population (zip)](http://j.mp/mc5sEc) from GeoCommons
 
 ## Download the PostGIS plugin
 
