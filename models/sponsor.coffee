@@ -186,11 +186,11 @@ module.exports = [
   url:   'http://www.nodejitsu.com/'
   description:
     '''
-    enterprise-class cloud hosting for node.js applications and websites. We're
+    Enterprise-class cloud hosting for node.js applications and websites. We're
     in __private beta__! [Signup for our beta session][1] and we'll send you an
     email. Also, [come hack with us during node.js knockout][2].
 
-    [1]: http://www.nodejitsu.com/#/home 
+    [1]: http://www.nodejitsu.com/
     [2]: http://nodeknockout.com/locations#nyc
     '''
 ,
