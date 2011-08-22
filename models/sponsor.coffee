@@ -286,14 +286,22 @@ module.exports = [
   url:   'http://www.sequoiacap.com/'
   description:
     '''
-    Sequoia Capital caters to the founders and management who have selected us
-    as their business partners. We have learned that the only way to help
-    develop a fabulous company is one step at a time. This only happens if the
-    company makes wonderful products or delivers a service that thrills large
-    numbers of customers. If that occurs then founders, management, and
-    employees of these companies prosper. It is only then that the investor
-    deserves to be rewarded. It has to happen in that order. There are no
-    shortcuts.
+    Sequoia Capital provides [venture capital funding][1] to founders of
+    startups who want to turn [business ideas][2] into enduring companies. As
+    the "Entrepreneurs Behind the Entrepreneurs", Sequoia Capital's Partners
+    have worked with innovators such as Steve Jobs of Apple Computer, Larry
+    Ellison of Oracle, Bob Swanson of Linear Technology, Sandy Lerner and Len
+    Bozack of Cisco Systems, Dan Warmenhoven of NetApp, Jerry Yang and David
+    Filo of Yahoo!, Jen-Hsun Huang of NVIDIA, Michael Marks of Flextronics,
+    Larry Page and Sergey Brin of Google, Chad Hurley and Steve Chen of
+    YouTube, Dominic Orr and Keerti Melkote of Aruba Networks, Tony Hsieh of
+    Zappos, Omar Hamoui of Admob, Steve Streit of Green Dot and Reid Hoffman
+    and Jeff Weiner of LinkedIn. To learn more about Sequoia Capital visit
+    [www.sequoiacap.com/us][3].
+
+    [1]: http://www.sequoiacap.com/us
+    [2]: http://www.sequoiacap.com/ideas
+    [3]: http://www.sequoiacap.com/us
     '''
 ,
   name:  'Spreecast'
