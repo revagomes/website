@@ -281,6 +281,21 @@ module.exports = [
     [1]: http://sleepless.com/
     '''
 ,
+  name:  'Sequoia Capital'
+  image: 'sequoiacap.png'
+  url:   'http://www.sequoiacap.com/'
+  description:
+    '''
+    Sequoia Capital caters to the founders and management who have selected us
+    as their business partners. We have learned that the only way to help
+    develop a fabulous company is one step at a time. This only happens if the
+    company makes wonderful products or delivers a service that thrills large
+    numbers of customers. If that occurs then founders, management, and
+    employees of these companies prosper. It is only then that the investor
+    deserves to be rewarded. It has to happen in that order. There are no
+    shortcuts.
+    '''
+,
   name:  'Spreecast'
   image: 'spreecast.png'
   url:   'http://spreecast.com/'
