@@ -144,7 +144,15 @@ Store the app in Git:
     $ git add .
     $ git commit -m "init"
 
-Create the app on the Cedar stack:
+Add the Heroku remote that the Node.js Knockout organizers have created
+for you:
+
+    $ git remote add heroku git@heroku.com:nko2-sharp-rain-871.git
+
+Alternatively, if you were going to create a repository from scratch,
+you would create the app on the Cedar stack (**note: you should not do
+this during Node.js Knockout, and should instead use the repository that
+has been provisioned for your team):
 
     $ heroku create --stack cedar
     Creating sharp-rain-871... done, stack is cedar
@@ -216,12 +224,16 @@ command:
     $ heroku sharing:add jane@example.com
     jane@example.com added as a collaborator on sharp-rain-871.
 
+**Note: the app that has been provisioned for your team for Node.js
+Knockout will likely already have your team members added as
+collaborators.**
+
 Read more about [collaborators][12].
 
 [12]: http://devcenter.heroku.com/articles/sharing
 
 Setting NODE\_ENV
----------------
+-----------------
 
 The Express framework uses the `NODE_ENV` environment variable to
 determine some behaviors related to caching.  If you're using Express,
@@ -231,6 +243,9 @@ set a config var with this value:
     Adding config vars:
       NODE_ENV => production
     Restarting app... done, v3.
+
+**Note: this will already have been done in the app that has been
+provisioned for your team for Node.js Knockout.**
 
 Console
 -------
