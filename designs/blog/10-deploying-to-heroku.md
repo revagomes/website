@@ -1,6 +1,3 @@
-**TODO: update with changes from https://gist.github.com/e981060e6cdb86b2f106
-(since 8748dd)**
-
 # Countdown to KO #10: Deploying Your Node.js App to Heroku
 
 *This is the 10th in series of posts leading up [Node.js Knockout][1],
@@ -150,8 +147,8 @@ Store the app in Git:
 Create the app on the Cedar stack:
 
     $ heroku create --stack cedar
-    Creating radiant-river-296... done, stack is cedar
-    http://radiant-river-296.herokuapp.com/ | git@heroku.com:radiant-river-296.git
+    Creating sharp-rain-871... done, stack is cedar
+    http://sharp-rain-871.herokuapp.com/ | git@heroku.com:sharp-rain-871.git
     Git remote heroku added
 
 Deploy your code:
@@ -164,21 +161,22 @@ Deploy your code:
     Total 9 (delta 2), reused 0 (delta 0)
 
     -----> Heroku receiving push
+    -----> Updating alpha language packs... done
     -----> Node.js app detected
     -----> Vendoring node 0.4.7
-    -----> Installing dependencies with npm 1.0.6
-           mime@1.2.2 ./node_modules/express/node_modules/mime
-           connect@1.4.1 ./node_modules/express/node_modules/connect
-           qs@0.1.0 ./node_modules/express/node_modules/qs
+    -----> Installing dependencies with npm 1.0.8
            express@2.1.0 ./node_modules/express
+           ├── mime@1.2.2
+           ├── qs@0.3.1
+           └── connect@1.6.2
            Dependencies installed
     -----> Discovering process types
            Procfile declares types -> web
-    -----> Compiled slug size is 3.1MB
-    -----> Launching... done, v4
-           http://radiant-river-296.herokuapp.com deployed to Heroku
+    -----> Compiled slug size is 3.2MB
+    -----> Launching... done, v2
+           http://sharp-rain-871.herokuapp.com deployed to Heroku
 
-    To git@heroku.com:radiant-river-296.git
+    To git@heroku.com:sharp-rain-871.git
      * [new branch]      master -> master
 
 Before looking at the app on the web, we'll need to scale the web
@@ -216,11 +214,23 @@ To add your Node Knockout team members to the app, use the `sharing:add`
 command:
 
     $ heroku sharing:add jane@example.com
-    jane@example.com added as a collaborator on radiant-river-296.
+    jane@example.com added as a collaborator on sharp-rain-871.
 
 Read more about [collaborators][12].
 
 [12]: http://devcenter.heroku.com/articles/sharing
+
+Setting NODE\_ENV
+---------------
+
+The Express framework uses the `NODE_ENV` environment variable to
+determine some behaviors related to caching.  If you're using Express,
+set a config var with this value:
+
+    $ heroku config:add NODE_ENV=production
+    Adding config vars:
+      NODE_ENV => production
+    Restarting app... done, v3.
 
 Console
 -------
