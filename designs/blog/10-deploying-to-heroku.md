@@ -225,8 +225,8 @@ command:
     jane@example.com added as a collaborator on sharp-rain-871.
 
 **Note: the app that has been provisioned for your team for Node.js
-Knockout will likely already have your team members added as
-collaborators.**
+Knockout will already have your team members added as collaborators.
+Contact all@nodeknockout.com if you need to change collaborators.**
 
 Read more about [collaborators][12].
 
@@ -377,6 +377,8 @@ for free, including [MongoDB][22], [CouchDB][23], [advanced full text
 indexing][24], [Memcached][25], [realtime publishing][26], [Neo4j][27],
 and [SMS publishing][28].
 
+**Note: please contact all@nodeknockout.com if you need ownership of
+your app to add addons.**
 
 [21]: http://addons.heroku.com/
 [22]: http://addons.heroku.com/mongohq
@@ -394,6 +396,10 @@ Your app automatically gets a hostname like
 `furious-river-173.herokuapp.com`.  You can change the first part with
 [`heroku rename`][29] or by setting a name when you create the app
 initially.  You can also use [your own domain name][30].
+
+<b style="color:firebrick">Note: please do not run `heroku rename` on your
+Node.js Knockout Heroku app.</b> We use the Heroku slug we set-up for you in
+order to direct judges to your app. You may use a custom domain.
 
 [29]: http://devcenter.heroku.com/articles/renaming-apps
 [30]: http://devcenter.heroku.com/articles/custom-domains
