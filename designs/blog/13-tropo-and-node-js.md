@@ -1,6 +1,6 @@
 # Countdown to KO #13: Build Phone and SMS apps with Tropo and Node.js
 
-*This is the 12th in series of posts leading up [Node.js Knockout][1],
+*This is the 13th in series of posts leading up [Node.js Knockout][1],
 and covers using [Tropo] in your node app.*
 
 [1]: http://nodeknockout.com
