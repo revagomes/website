@@ -20,6 +20,7 @@ module.exports = (app) ->
     _: _
 
     markdown: (str) -> if str? then md.parse str, md.flags.noHTML else ''
+    markdown_ok: " <a href='http://daringfireball.net/projects/markdown/syntax'>Markdown</a> ok."
 
     relativeDate: require 'relative-date'
 

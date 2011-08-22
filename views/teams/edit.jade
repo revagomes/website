@@ -1,4 +1,4 @@
-h1 Edit your Team
+h1= title('Edit ' + team.name)
 
 form( method: 'POST', action: '/teams/' + team )
   input( type: 'hidden', name: '_method', value: 'PUT' )

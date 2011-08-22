@@ -14,6 +14,15 @@ TeamSchema = module.exports = new mongoose.Schema
     required: true
     unique: true
   description: String
+  project:
+    name: String
+    description: String
+    instructions: String
+    colophon: String
+    votable:
+      type: Boolean
+      default: true
+    technical: Boolean
   emails:
     type: [ mongoose.SchemaTypes.Email ]
     validate: [ ((v) -> v.length <= 4), 'max' ]

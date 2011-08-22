@@ -76,6 +76,10 @@ app.all '/teams/:id/invites/:inviteId', [m.loadTeam, m.ensureAccess], (req, res)
 app.get '/teams/:id/edit', [m.loadTeam, m.ensureAccess, m.loadTeamPeople], (req, res) ->
   res.render2 'teams/edit', team: req.team, people: req.people
 
+# edit project
+app.get '/teams/:id/project/edit', [m.loadTeam, m.ensureAccess], (req, res) ->
+  res.render2 'projects/edit', team: req.team, project: req.team.project
+
 # update
 app.put '/teams/:id', [m.loadTeam, m.ensureAccess], (req, res, next) ->
   unless req.user.admin

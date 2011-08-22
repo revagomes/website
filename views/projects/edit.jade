@@ -1,0 +1,56 @@
+h2= title('Edit ' + team.name + "'s Project")
+
+:markdown
+  Feel free to fill out this information any time before coding ends. Use
+  it to help judges get an idea of what you've accomplished.
+
+form( method: 'POST', action: '/teams/' + team )
+  input( type: 'hidden', name: '_method', value: 'PUT' )
+
+  != _csrf
+  != partial('errors', { errors: team.errors })
+
+  .name
+    h3: label( for: 'projectName' ) Project Name
+    input( type: 'text', name: 'project[name]', id: 'projectName', value: project.name, placeholder: 'Name your creation' )
+
+  .description
+    h3: label( for: 'projectDescription' ) Description
+    .note
+      | What does your project do?
+      != markdown_ok
+    textarea( name: 'project[description]', id: 'projectDescription' )= project.description
+
+  .instructions
+    h3: label( for: 'projectInstructions' ) Instructions
+    .note
+      | Give judges a summary of how to use your project.
+      b If your project only works on certain browsers list them here.
+      != markdown_ok
+    textarea( name: 'project[instructions]', id: 'projectInstructions' )= project.instructions
+
+  .colophon
+    h3: label( for: 'projectColophon' ) Colophon
+    .note
+      | What libraries, icons, web service APIs, and tools did you use?
+      != markdown_ok
+    textarea( name: 'project[colophon]', id: 'projectColophon' )= project.colophon
+
+  .votable
+    input( type: 'hidden', name: 'project[votable]', value: false )
+    input( type: 'checkbox', name: 'project[votable]', id: 'projectVotable', value: true, checked: project.votable )
+    label( for: 'projectVotable' ) Yes! I want judges to vote on my entry.
+    .note
+      | Uncheck this box if your project isn't ready to be judged when the
+      | competition ends.
+    .technical
+      input( type: 'hidden', name: 'project[technical]', value: false )
+      input( type: 'checkbox', name: 'project[technical]', id: 'projectTechnical', value: true, checked: project.technical )
+      label( for: 'projectTechnical' )!= "I'd prefer <a href='/judges/technical'>technical judges</a>."
+      .note
+        | Please only select this box if your project cannot be evaluated fairly
+        | by non-technical judges.
+
+  input( type: 'submit', value: 'Save' )
+  | 
+  a( href: '/teams/' + team ) Cancel
