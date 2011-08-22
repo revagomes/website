@@ -150,11 +150,11 @@ for you:
     $ git remote add heroku git@heroku.com:nko2-sharp-rain-871.git
 
 Alternatively, if you were going to create a repository from scratch,
-you would create the app on the Cedar stack (**note: you should not do
+you would create the app on the Cedar stack (<b style="color:firebrick;">note: you should not do
 this during Node.js Knockout, and should instead use the repository that
-has been provisioned for your team):
+has been provisioned for your team</b>):
 
-    $ heroku create --stack cedar
+    $ heroku create --stack cedar # DON'T DO THIS FOR NODE KNOCKOUT
     Creating sharp-rain-871... done, stack is cedar
     http://sharp-rain-871.herokuapp.com/ | git@heroku.com:sharp-rain-871.git
     Git remote heroku added
