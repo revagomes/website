@@ -1,9 +1,19 @@
 app = require '../config/app'
 { ensureAuth, loadPerson, loadPersonTeam } = require './middleware'
 Team = app.db.model 'Team'
+url = require 'url'
 
-app.get '/login', (req, res) ->
-  req.session.returnTo = req.param('returnTo') or req.header('referrer')
+setReturnTo = (req, res, next) ->
+  unless req.returnTo = req.param('returnTo')
+    r = url.parse(req.header('referrer') or '')
+    p = r.pathname
+    if r.host is req.header('host') and p and p isnt '/login' and p isnt '/'
+      referrer = "#{p}#{r.search or ''}#{r.hash or ''}"
+    req.returnTo = referrer
+  next()
+
+app.get '/login', [setReturnTo], (req, res) ->
+  req.session.returnTo = req.returnTo
   res.render2 'login'
 
 app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next) ->
@@ -31,12 +41,14 @@ app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next
   else if returnTo = req.session.returnTo
     delete req.session.returnTo
     res.redirect returnTo
-  else if req.user.judge or req.user.nomination or req.team
-    res.redirect returnTo or "/people/#{req.person.id}"
+  else if req.user.judge or req.user.nomination
+    res.redirect "/people/#{req.person.id}"
+  else if req.team
+    res.redirect "/teams/#{req.team}"
   else
     res.redirect '/teams/new'
 
 # order matters
-app.get '/login/:service?', (req, res, next) ->
-  req.session.returnTo or= req.param('returnTo') or req.header('referrer')
+app.get '/login/:service?', [setReturnTo], (req, res, next) ->
+  req.session.returnTo or= req.returnTo
   res.redirect "/auth/#{req.param('service') or 'github'}"
