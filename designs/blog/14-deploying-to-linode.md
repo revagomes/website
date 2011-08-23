@@ -24,7 +24,7 @@ or 64-bit) and are easily adaptable to Debian.
 If you're going to be installing something like [mongodb][5], 64-bit is [highly
 recommended][6]. If you're going to be using [redis][7] heavily, [maybe you
 want 32-bit][8]. The choice is up to you and it's possible to wipe the VPS
-later and pick a different option, but that could be time you don't have.
+later and pick a different option, but that could take time you don't have.
 
 [4]: http://www.linode.com/faq.cfm#which-distributions-do-you-offer
 [5]: http://www.mongodb.org/
@@ -54,8 +54,8 @@ picked a root password. SSH in as root to complete the next steps. Your
 linode's IP address can be found on the Remote Access tab from the control
 panel.
 
-All of the commands below prefixed with `#` should be run as `root`. Any
-prefixed with `$` are run as the `deploy` user (set up later).
+**All of the commands below prefixed with `#` should be run as `root`. Any
+prefixed with `$` are run as the `deploy` user (set up later).**
 
 [9]: https://manager.linode.com/
 
@@ -99,7 +99,7 @@ need to be root or use `sudo`: `sudo npm install -g coffee-script`.
 # Deploying
 
 Now that we have `node` and `npm` installed on our linode, we want to get our
-app out there and running. The rest of this guide uses my version of the
+app out there and running. The rest of this guide uses a version of the
 [Knocking out Socket.IO example app][11] to deploy with.
 
 [11]: https://github.com/visnup/knocking-out-socket.io
@@ -137,9 +137,9 @@ You can safely ignore the "Permission denied (publickey)" part for now.
 ### SSH keys
 
 Drop your SSH public keys into `/home/deploy/.ssh/authorized_keys` to make
-deploying and SSHing in much easier later. While you're at it, you should add
+deploying and SSHing in much easier later. <b style="color:firebrick">While you're at it, you should add
 the [Knockout organizers' public ssh key][14] for auditing at the end of the
-competition. SSH access for organizers is a required step in deploys to Linode.
+competition.</b> SSH access for organizers is a required step in deploys to Linode.
 
     $ curl http://nodeknockout.com/id_nko2.pub >> ~/.ssh/authorized_keys
     $ chmod 600 ~/.ssh/authorized_keys
