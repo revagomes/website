@@ -16,14 +16,15 @@ This post will get you going with a Node.js/[Socket.IO][3] app on Linode.
 # Pick your Linux distro
 
 Linode has a [choice of Linux distribution][4]. This blog post will be using
-Ubuntu 11.04 64-bit.
+_Ubuntu 11.04_. The same instructions definitely apply to Ubuntu 10.04 (32-bit
+or 64-bit) and are easily adaptable to Debian.
 
 ## 32-bit or 64-bit?
 
-If you're going to be installing something like [mongodb][5], [64-bit is highly
+If you're going to be installing something like [mongodb][5], 64-bit is [highly
 recommended][6]. If you're going to be using [redis][7] heavily, [maybe you
 want 32-bit][8]. The choice is up to you and it's possible to wipe the VPS
-later and pick a different option, but that means setting everything up again.
+later and pick a different option, but that could be time you don't have.
 
 [4]: http://www.linode.com/faq.cfm#which-distributions-do-you-offer
 [5]: http://www.mongodb.org/
@@ -34,15 +35,17 @@ later and pick a different option, but that means setting everything up again.
 # TL;DR StackScripts
 
 Setting up your own server from scratch is not for the faint of heart. If you
-mostly know what you're doing already, then this guide should be full of good
-directions to take.
+know what you're doing, then this guide should be full of good directions to
+take: read on. If you don't want to muck around with apt-get, upstart, sudoers,
+and more, [use the StackScript][19]:
 
-If you need to get up and running quickly on Linode with node, [I've also
-written a StackScript][19] that should make the following setup a lot more
-automated. It runs through all of the server-side steps below automatically
-with a minimum of fuss on your part.
+  1. ![Deploy using StackScripts](http://f.cl.ly/items/1j1W210A0b430d2N2E3H/Deploy%20using%20StackScripts.png)
+  2. ![Search for knockout](http://f.cl.ly/items/052Q020a192s0N1V2N37/Search%20for%20knockout.png)
 
-[19]: #
+After your linode is booted up from that, skip to the [deploy
+script](#deploy-script) section.
+
+[19]: https://gist.github.com/1165971
 
 # Boot and SSH in
 
@@ -58,10 +61,11 @@ prefixed with `$` are run as the `deploy` user (set up later).
 
 # Install `git` and other tools
 
-We'll definitely need `git` later for deploys and most likely a C compiler
-(for node modules with C-bindings) too:
+We'll definitely need `git` and most likely a C compiler (for compiling node
+modules with C-bindings):
 
-    # apt-get install -y git build-essential
+    # apt-get install -y build-essential curl
+    # apt-get install -y git || apt-get install -y git-core
 
 # Install node.js
 
@@ -87,15 +91,16 @@ If you'd really rather compile from source:
 
     # curl http://npmjs.org/install.sh | clean=no sh
 
-By default, this will install `npm` in `/usr/bin`. When you install modules
-with `npm` later, they'll get installed to your local working directory. If you
-use npm to install modules globally, you'll need to be root or use `sudo`.
+By default, this will install `npm` in `/usr/bin` when using the apt-get method
+above. When you install modules with `npm` later, they'll get installed to your
+local working directory. If you use npm to install modules globally, you'll
+need to be root or use `sudo`: `sudo npm install -g coffee-script`.
 
 # Deploying
 
 Now that we have `node` and `npm` installed on our linode, we want to get our
-app out there and running. The rest of this guide uses the [Knocking out
-Socket.IO example app][11] to deploy with.
+app out there and running. The rest of this guide uses my version of the
+[Knocking out Socket.IO example app][11] to deploy with.
 
 [11]: https://github.com/visnup/knocking-out-socket.io
 
@@ -109,8 +114,8 @@ own where your app code lives and switch to it:
 
 ### Set `NODE_ENV` to production
 
-Setting `NODE_ENV` will tell frameworks such as [Express][12] to turn on many
-of its caching features. It's also important for telling [our knockout check-in
+Setting `NODE_ENV` will tell frameworks such as [Express][12] to turn on its
+caching features. It's also important for telling [our knockout check-in
 module][13] to notify us of a deploy from your server.
 
     $ echo 'export NODE_ENV="production"' >> ~/.profile
@@ -134,7 +139,7 @@ You can safely ignore the "Permission denied (publickey)" part for now.
 Drop your SSH public keys into `/home/deploy/.ssh/authorized_keys` to make
 deploying and SSHing in much easier later. While you're at it, you should add
 the [Knockout organizers' public ssh key][14] for auditing at the end of the
-competition. This will be a required step in deploys to Linode.
+competition. SSH access for organizers is a required step in deploys to Linode.
 
     $ curl http://nodeknockout.com/id_nko2.pub >> ~/.ssh/authorized_keys
     $ chmod 600 ~/.ssh/authorized_keys
@@ -143,8 +148,8 @@ competition. This will be a required step in deploys to Linode.
 
 ### Upstart script
 
-We're going to use [upstart][15] to make sure our app is running on server
-start along with restarting it if it should die. As root:
+We're going to use [upstart][15] to make sure our node app is running on server
+start along with restarting it if it should die. As `root`:
 
     # cat <<'EOF' > /etc/init/node.conf 
     description "node server"
@@ -186,26 +191,29 @@ for stopping and starting the node process:
 
 [15]: http://upstart.ubuntu.com/
 
-## Deploy script
+<h2 id="deploy-script">Deploy script</h2>
+
+Ok! The server's ready. Now onto our local development machine setup.
 
 We're going to use [TJ][16]'s [deploy shell script][17] to make deploying our
-code repeatable and easy for everyone on the team. Back on your local
-development machine:
+code repeatable and easy for everyone on the team. On your local machine, in
+your project's root directory:
 
     $ curl -O https://raw.github.com/visionmedia/deploy/master/bin/deploy
     $ chmod +x ./deploy
     $ cat <<EOF > deploy.conf
     [linode]
     user deploy
-    host 96.126.101.54
-    repo git@github.com:visnup/knocking-out-socket.io.git
+    host __96.126.102.14__ # CHANGE ME
+    repo __git@github.com:visnup/knocking-out-socket.io.git__ # CHANGE ME
     ref origin/master
     path /home/deploy/app
     post-deploy npm install && [ -e ../shared/pids/node.pid ] && sudo restart node || sudo start node
     test sleep 1 && curl localhost >/dev/null
     EOF
 
-Make sure to change the IP address and GitHub repo to ones for your team
+Make sure to change the __IP address__ and __GitHub repo__ to ones for your
+team.
 
 Now run `./deploy linode setup` to get things setup:
 
@@ -231,8 +239,8 @@ And finally `./deploy linode` to deploy:
       ○ successfully deployed origin/master
 
 You should commit both `./deploy` and `./deploy.conf` to your git repo. That
-way, anyone on your team can just run `./deploy linode` later to push a deploy
-out. Make sure to add everyone's SSH keys to the `deploy` user.
+way, anyone on your team can just run `./deploy linode` later to push a new
+deploy out. Make sure to add everyone's SSH keys to the `deploy` user too.
 
 [16]: https://github.com/visionmedia
 [17]: https://github.com/visionmedia/deploy
@@ -264,3 +272,10 @@ user.
 # Try it out
 
 You should now be able to hit your linode directly and see your app running!
+
+# Problems?
+
+If you run into any problems, we're here to help. Email <all@nodeknockout.com>
+or try us on [Twitter][20].
+
+[20]: http://twitter.com/node_knockout
