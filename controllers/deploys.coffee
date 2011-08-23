@@ -12,7 +12,11 @@ app.all '/teams/:code/deploys', [m.loadTeam], (req, res) ->
 
   attr = _.clone req.body || {}
   attr.teamId = req.team.id
-  attr.remoteAddress = req.socket.remoteAddress
+  attr.remoteAddress =
+    if req.query.subdomain
+      req.query.subdomain + '.nodejitsu.com'
+    else
+      req.socket.remoteAddress
 
   deploy = new Deploy attr
   deploy.save (err, deploy) ->
