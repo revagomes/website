@@ -121,4 +121,8 @@ TeamSchema.pre 'save', (next) ->
       """
     next()
 
+## delete team members
+TeamSchema.pre 'remove', (next) ->
+  Person.remove role: 'contestant', _id: { $in: @peopleIds }, next
+
 Team = mongoose.model 'Team', TeamSchema
