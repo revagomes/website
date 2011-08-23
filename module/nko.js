@@ -9,7 +9,8 @@ module.exports = function ping(code, callback) {
     throw Error('Go to http://nodeknockout.com/teams/mine to get your code.');
 
   var params = {
-    hostname: os.hostname(),
+    hostname: os.hostname(),  // joyent, linode
+    subdomain: process.env.SUBDOMAIN,  // nodejitsu
     os: os.type(),
     release: os.release()
   },
