@@ -204,8 +204,8 @@ your project's root directory:
     $ cat <<EOF > deploy.conf
     [linode]
     user deploy
-    host __96.126.102.14__ # CHANGE ME
-    repo __git@github.com:visnup/knocking-out-socket.io.git__ # CHANGE ME
+    host __96.126.102.14__
+    repo __git@github.com:visnup/knocking-out-socket.io.git__
     ref origin/master
     path /home/deploy/app
     post-deploy npm install && [ -e ../shared/pids/node.pid ] && sudo restart node || sudo start node
