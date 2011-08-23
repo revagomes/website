@@ -16,7 +16,7 @@ This post will get you going with a Node.js/[Socket.IO][3] app on Linode.
 # Pick your Linux distro
 
 Linode has a [choice of Linux distribution][4]. This blog post will be using
-_Ubuntu 11.04_. The same instructions definitely apply to Ubuntu 10.04 (32-bit
+__Ubuntu 11.04__. The same instructions definitely apply to Ubuntu 10.04 (32-bit
 or 64-bit) and are easily adaptable to Debian.
 
 ## 32-bit or 64-bit?
@@ -39,8 +39,8 @@ know what you're doing, then this guide should be full of good directions to
 take: read on. If you don't want to muck around with apt-get, upstart, sudoers,
 and more, [use the StackScript][19]:
 
-  1. ![Deploy using StackScripts](http://f.cl.ly/items/1j1W210A0b430d2N2E3H/Deploy%20using%20StackScripts.png)
-  2. ![Search for knockout](http://f.cl.ly/items/052Q020a192s0N1V2N37/Search%20for%20knockout.png)
+![Deploy using StackScripts](http://f.cl.ly/items/1j1W210A0b430d2N2E3H/Deploy%20using%20StackScripts.png)<br/>
+![Search for knockout](http://f.cl.ly/items/052Q020a192s0N1V2N37/Search%20for%20knockout.png)
 
 After your linode is booted up from that, skip to the [deploy
 script](#deploy-script) section.
