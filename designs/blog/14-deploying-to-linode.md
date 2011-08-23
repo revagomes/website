@@ -31,6 +31,19 @@ later and pick a different option, but that means setting everything up again.
 [7]: http://redis.io/
 [8]: http://redis.io/topics/faq
 
+# TL;DR StackScripts
+
+Setting up your own server from scratch is not for the faint of heart. If you
+mostly know what you're doing already, then this guide should be full of good
+directions to take.
+
+If you need to get up and running quickly on Linode with node, [I've also
+written a StackScript][19] that should make the following setup a lot more
+automated. It runs through all of the server-side steps below automatically
+with a minimum of fuss on your part.
+
+[19]: #
+
 # Boot and SSH in
 
 Boot your Linode from the [Linode dashboard][9]. When creating your Linode, you
@@ -86,12 +99,12 @@ Socket.IO example app][11] to deploy with.
 
 [11]: https://github.com/visnup/knocking-out-socket.io
 
-## Setting up a `deploy` user
+## Setting up a deploy user
 
 No one wants their own code running as root, right? Create a `deploy` user to
 own where your app code lives and switch to it:
 
-    # useradd -m -s /bin/bash deploy
+    # useradd -U -m -s /bin/bash deploy
     # su - deploy
 
 ### Set `NODE_ENV` to production
@@ -219,7 +232,7 @@ And finally `./deploy linode` to deploy:
 
 You should commit both `./deploy` and `./deploy.conf` to your git repo. That
 way, anyone on your team can just run `./deploy linode` later to push a deploy
-out.
+out. Make sure to add everyone's SSH keys to the `deploy` user.
 
 [16]: https://github.com/visionmedia
 [17]: https://github.com/visionmedia/deploy
@@ -251,15 +264,3 @@ user.
 # Try it out
 
 You should now be able to hit your linode directly and see your app running!
-
-# StackScripts
-
-Setting up your own server from scratch is not for the faint of heart. If you
-mostly know what you're doing already, then I hope this guide has pointed you
-in good directions.
-
-[I've also written a StackScript][19] for Linode that should make setup a lot
-more automated. It runs through all of the above steps automatically with a
-minimum of fuss and typing on your part.
-
-[19]: #
