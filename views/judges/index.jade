@@ -1,8 +1,4 @@
-h1= title('Judges') + ' (' + judges.length + ')'
-
-.nominate
-  h2 We Need Judges! 
-    a.button.scary( href: '/judges/new') Nominate a Judge
+h1= title((typeof(subset) === 'undefined' ? '': subset + ' ') + 'Judges') + ' (' + judges.length + ')'
 
 ul.judges
   - each judge in judges
