@@ -82,7 +82,7 @@ PersonSchema.plugin auth,
         Person.findOne 'fb.id': face.id, role: 'voter',
           (err, person) ->
             return promise.fail err if err
-            person ||= new Person
+            person ||= new Person role: 'voter'
             person.updateWithFB face, accessTok, accessTokExtra.expires,
               (err, updatedUser) ->
                 return promise.fail err if err
@@ -157,7 +157,6 @@ PersonSchema.method 'updateWithFB', (facebook, token, expires, callback) ->
   Person.createWithFB.call
     create: (params, callback) =>
       _.extend this, params
-      @role ||= 'voter'
       @name ||= @fb.name.full
       @location ||= facebook.location.name
       @bio ||= facebook.bio
