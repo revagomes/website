@@ -39,10 +39,16 @@ PersonSchema.plugin auth,
             foundUser.updateWithGithub ghUser, (err, updatedUser) ->
               return promise.fail err if err
               promise.fulfill updatedUser
-          else
-            Person.createWithGithub ghUser, accessTok, (err, createdUser) ->
+          else if sess.invite
+            Team = mongoose.model 'Team'
+            Team.findOne 'invites.code': sess.invite, (err, team) ->
               return promise.fail err if err
-              promise.fulfill createdUser
+              return promise.fulfill(id: null) unless team
+              Person.createWithGithub ghUser, accessTok, (err, createdUser) ->
+                return promise.fail err if err
+                promise.fulfill createdUser
+          else
+            promise.fulfill id: null
         promise
   twitter:
     everyauth:
