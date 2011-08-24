@@ -114,9 +114,9 @@ module.exports = [
   url:   'http://www.joyent.com/'
   description:
     '''
-    Cloud Software for Service Providers. Increase growth and widen margins by
-    operating public, private, and hybrid clouds and managing services on your
-    existing networks.
+    Joyent is a global cloud computing software and service provider that
+    offers an integrated cloud technology suite designed for developers,
+    service providers and enterprises.
     '''
 ,
   name:  'Linode'

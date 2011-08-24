@@ -2,7 +2,6 @@ _ = require 'underscore'
 mongoose = require 'mongoose'
 auth = require 'mongoose-auth'
 env = require '../config/env'
-facebookAuthRename = require '../lib/facebook_auth_rename'
 ROLES = [ 'nomination', 'contestant', 'judge', 'voter' ]
 
 # auth decoration
@@ -38,7 +37,7 @@ PersonSchema.plugin auth,
         Person.findOne 'github.id': ghUser.id, role: 'contestant',
           (err, foundUser) ->
             if foundUser
-              foundUser.updateWithGithub ghUser, (err, updatedUser) ->
+              foundUser.updateWithGithub ghUser, accessTok, (err, updatedUser) ->
                 return promise.fail err if err
                 promise.fulfill updatedUser
             else if sess.invite
@@ -81,10 +80,14 @@ PersonSchema.plugin auth,
       scope: 'email'
       findOrCreateUser: (session, accessTok, accessTokExtra, face) ->
         promise = @Promise()
-        fb = facebookAuthRename accessTok, accessTokExtra, face
-        Person.findOrCreateFromFacebook fb, (err, person) ->
-          return promise.fail err if err
-          promise.fulfill person
+        Person.findOne 'fb.id': face.id, role: 'voter',
+          (err, person) ->
+            return promise.fail err if err
+            person ||= new Person role: 'voter'
+            person.updateWithFB face, accessTok, accessTokExtra.expires,
+              (err, updatedUser) ->
+                return promise.fail err if err
+                promise.fulfill updatedUser
         promise
 
 ROLES.forEach (t) ->
@@ -130,15 +133,15 @@ PersonSchema.method 'join', (team, invite) ->
     team.emails = _.without team.emails, old.email
     old.remove()
 
-PersonSchema.method 'updateWithGithub', (ghUser, callback) ->
+PersonSchema.method 'updateWithGithub', (ghUser, token, callback) ->
   Person.createWithGithub.call
     create: (params, callback) =>
       _.extend this, params
       @slug = @github.login
-      @company or= @github.company
-      @location or= @github.location
+      @company ||= @github.company
+      @location ||= @github.location
       @save callback
-    , ghUser, null, callback
+    , ghUser, token, callback
 
 PersonSchema.method 'updateWithTwitter', (twitter, token, secret, callback) ->
   Person.createWithTwitter.call
@@ -153,23 +156,18 @@ PersonSchema.method 'updateWithTwitter', (twitter, token, secret, callback) ->
       @save callback
     , twitter, token, secret, callback
 
-PersonSchema.method 'updateFromFacebook', (facebook) ->
-  @slug = @_id
-  @fb = facebook
-  @name ||= facebook.name
-  @location ||= facebook.location
-  @imageURL ||= facebook.picture
-  @role ||= 'voter'
-
-PersonSchema.static 'findBySlug', (slug, rest...) ->
-  Person.findOne { slug: slug }, rest...
-
-PersonSchema.static 'findOrCreateFromFacebook', (facebook, callback) ->
-  Person.findOne 'fb.id': facebook.id, (error, person) ->
-    return callback(error) if error
-    person ||= new Person
-    try person.updateFromFacebook facebook catch e then callback(e)
-    person.save (err) -> callback(err, person)
+PersonSchema.method 'updateWithFB', (facebook, token, expires, callback) ->
+  Person.createWithFB.call
+    create: (params, callback) =>
+      _.extend this, params
+      @slug = @_id
+      @name ||= @fb.name.full
+      @location ||= facebook.location.name
+      @bio ||= facebook.bio
+      @email ||= @fb.email
+      @imageURL ||= "http://graph.facebook.com/#{@fb.id}/picture?type=square"
+      @save callback
+    , facebook, token, expires, callback
 
 Person = mongoose.model 'Person', PersonSchema
 Person.ROLES = ROLES
