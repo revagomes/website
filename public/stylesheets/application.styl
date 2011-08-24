@@ -315,7 +315,7 @@ form.vote
         li
           display inline
           margin 0 1ex
-    > h1
+    > h1, form > h1
       inverted()
       margin 0 0 0 -23px
       padding-left 23px
@@ -508,6 +508,19 @@ form.vote
     ul
       margin 0.5em 0
 
+#page.teams-edit #entry
+  .votable, .technical
+    margin 1em 0px
+    .note
+      font-size small
+      font-style italic
+      margin-top 0.5em
+  .technical
+    margin-left 2em
+  textarea
+    width 98%
+    height 5em
+
 #page.teams-show #inner
   ul.people
     line-height 200%
@@ -516,13 +529,13 @@ form.vote
     line-height 150%
   p.sign-in
     text-align center
-  h2.deploy-status
+  h2.deploy-status, h2.entry-info-missing
     text-align center
     font-size x-large
     inverted()
     box-shadow none
     border-radius 2px
-    &.pending
+    &.pending, &.entry-info-missing
       background red url('/images/noise.png')
     &.done
       background green url('/images/noise.png')
@@ -533,6 +546,12 @@ form.vote
     a
       color white
       font-style italic
+  h2.entry-info-missing
+    a.button
+      font-size small
+      font-style normal
+      vertical-align middle
+      margin-left 0.25em
   h2.deploy-status.done + .instructions
     display none
   ul.platforms
@@ -546,22 +565,28 @@ form.vote
         font-style italic
       a.selected
         color black
-  .platform
+  .platform, .entry
     display none
     box-shadow inset 0 0 5px hsla(0, 0%, 0%, 0.1)
     background-color hsla(0, 0%, 95%, 0.5)
     padding 5px
     border-radius 2px
   .entry
+    display block
     margin-top 1em
     overflow hidden
-    img#screenshot
-      width 240px
-      height 148px
+    padding 10px 20px
+    h2, h3, h4
+      margin-top 0px
+    img.screenshot
+      width 160px
+      height 93px
       float left
       margin-right 10px
       border solid 1px hsla(0, 0%, 0%, 0.2)
       border-radius 2px
+    .clear
+      clear both
 
 #page.teams #inner
   form.search
@@ -753,16 +778,3 @@ form.person
       background url(/images/734m/suit.png) no-repeat -640px 0
     .dude.littleguy
       background url(/images/734m/littleguy.png) no-repeat -640px 75px
-
-#page.projects-edit
-  .votable, .technical
-    margin 1em 0px
-    .note
-      font-size small
-      font-style italic
-      margin-top 0.5em
-  .technical
-    margin-left 2em
-  textarea
-    width 98%
-    height 5em

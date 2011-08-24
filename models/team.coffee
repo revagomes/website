@@ -14,8 +14,9 @@ TeamSchema = module.exports = new mongoose.Schema
     required: true
     unique: true
   description: String
-  project:
+  entry:
     name: String
+    url: String
     description: String
     instructions: String
     colophon: String
