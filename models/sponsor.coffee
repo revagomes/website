@@ -46,6 +46,24 @@ module.exports = [
     Web developers to access, edit and share projects anywhere, anytime. 
     '''
 ,
+  name:  'Cloud Foundry'
+  image: 'cloudfoundry.png'
+  url:   'http://www.cloudfoundry.com/'
+  description:
+    '''
+    [Cloud Foundry&trade;][1] is the industry’s first open platform as a
+    service and Micro Cloud Foundry&trade; is the industry’s first downloadable
+    PaaS for your computer. Initiated by VMware, Cloud Foundry delivers access
+    to modern frameworks including Spring for Java, Ruby for Rails and Sinatra,
+    node.js, Grails, Scala on Lift and more. It provides application services
+    including RabbitMQ and MySQL, MongoDB, Redis and more from third parties
+    and the open source community. Cloud Foundry is downloadable and
+    dramatically enhances developers’ abilities to build, test and deploy their
+    applications with symmetry between private, public and hybrid clouds.
+
+    [1]: http://www.cloudfoundry.com/
+    '''
+,
   name:  'Couchbase'
   image: 'couchbase.png'
   url:   'http://www.couchbase.com/'
