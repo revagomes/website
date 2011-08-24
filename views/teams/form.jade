@@ -1,8 +1,6 @@
 != _csrf
 != partial('errors', { errors: team.errors })
 
-h2 Team
-
 .name
   h3: label( for: 'name' ) Name
   input( type: 'text', name: 'name', id: 'name', placeholder: 'Witty Team Name',
@@ -31,4 +29,3 @@ h2 Team
     h3: label( for: 'description' ) Description
     textarea( name: 'description', id: 'description', placeholder: "If you're looking for more members, advertise here." )= team.description
     .note!= markdown_ok
-
