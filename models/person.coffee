@@ -57,7 +57,6 @@ PersonSchema.plugin auth,
       myHostname: env.hostname
       consumerKey: env.twitter_app_id
       consumerSecret: env.secrets.twitter
-      authorizePath: '/oauth/authenticate'
       findOrCreateUser: (session, accessTok, accessTokExtra, twit) ->
         promise = @Promise()
         screenName = new RegExp("^#{RegExp.escape twit.screen_name}$", 'i')
