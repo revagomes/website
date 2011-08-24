@@ -116,6 +116,18 @@ TeamSchema.post 'save', ->
     invite.remove() unless !invite or _.include(@emails, invite.email)
   @save() if @isModified 'invites'
 
+## remove team members
+TeamSchema.path('peopleIds').set (v) ->
+  v.init = @peopleIds
+  v
+TeamSchema.pre 'save', (next) ->
+  toString = (i) -> i.toString()
+  o = @peopleIds.init.map toString
+  n = @peopleIds.map toString
+  Person.remove role: 'contestant', _id: { $in: _.difference(o, n) }, next
+TeamSchema.pre 'remove', (next) ->
+  Person.remove role: 'contestant', _id: { $in: @peopleIds }, next
+
 ## search index
 TeamSchema.pre 'save', (next) ->
   only = name: 1, location: 1, 'github.login': 1, 'twit.screenName': 1
@@ -129,9 +141,5 @@ TeamSchema.pre 'save', (next) ->
       #{_.pluck(people, 'location').join(';')}
       """
     next()
-
-## delete team members
-TeamSchema.pre 'remove', (next) ->
-  Person.remove role: 'contestant', _id: { $in: @peopleIds }, next
 
 Team = mongoose.model 'Team', TeamSchema
