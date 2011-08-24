@@ -14,7 +14,7 @@ h1= title(team.entry.name || team.name)
 - if (admin || (deployment && team.includes(user)))
   - lastDeploy = team.lastDeploy
   - if (lastDeploy)
-    h2.deploy-status.done Successfully deployed
+    h2.deploy-status.done Successfully Deployed
       .details
         - lastDeployedAt = new Date(lastDeploy._id.generationTime)
         time( datetime: lastDeployedAt.toISOString(),
@@ -23,7 +23,7 @@ h1= title(team.entry.name || team.name)
         &nbsp;&mdash;
         a( href: '#instructions' ) Show deploy instructions
   - else
-    h2.deploy-status.pending Not yet deployed
+    h2.deploy-status.pending Not Yet Deployed
   .instructions
     ul.platforms
       li: label use:
