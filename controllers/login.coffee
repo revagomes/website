@@ -17,7 +17,9 @@ app.get '/login', [setReturnTo], (req, res) ->
   res.render2 'login'
 
 app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next) ->
-  if invite = req.session.invite
+  if !req.person
+    return next 401
+  else if invite = req.session.invite
     Team.findOne 'invites.code': invite, (err, team) ->
       return next err if err
       if team

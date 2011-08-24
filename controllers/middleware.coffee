@@ -35,12 +35,14 @@ module.exports =
       next()
 
   loadPersonTeam: (req, res, next) ->
+    return next() unless req.person
     req.person.team (err, team) ->
       return next err if err
       req.team = team
       next()
 
   loadPersonVotes: (req, res, next) ->
+    return next() unless req.person
     req.person.votes (err, votes) ->
       return next err if err
       req.votes = votes

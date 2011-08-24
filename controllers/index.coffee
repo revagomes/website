@@ -6,7 +6,7 @@ m = require './middleware'
 
 # middleware
 loadCurrentPersonWithTeam = (req, res, next) ->
-  return next() unless req.loggedIn
+  return next() unless req.person
   req.user.team (err, team) ->
     return next err if err
     req.team = team

@@ -2,7 +2,6 @@ _ = require 'underscore'
 mongoose = require 'mongoose'
 auth = require 'mongoose-auth'
 env = require '../config/env'
-twitterAuthRename = require '../lib/twitter_auth_rename'
 facebookAuthRename = require '../lib/facebook_auth_rename'
 ROLES = [ 'nomination', 'contestant', 'judge', 'voter' ]
 
@@ -54,10 +53,16 @@ PersonSchema.plugin auth,
       authorizePath: '/oauth/authenticate'
       findOrCreateUser: (session, accessTok, accessTokExtra, twit) ->
         promise = @Promise()
-        twitter = twitterAuthRename accessTok, accessTokExtra, twit
-        Person.findOrCreateFromTwitter twitter, (err, person) ->
-          return promise.fail err if err
-          promise.fulfill person
+        screenName = new RegExp("^#{RegExp.escape twit.screen_name}$", 'i')
+        Person.findOne
+          $or: [ { 'twit.id': twit.id }, { twitterScreenName: screenName } ]
+          (err, person) ->
+            return promise.fail err if err
+            return promise.fulfill(id: null) unless person
+            person.updateWithTwitter twit, accessTok, accessTokExtra,
+              (err, updatedUser) ->
+                return promise.fail err if err
+                promise.fulfill updatedUser
         promise
   facebook:
     everyauth:
@@ -126,13 +131,17 @@ PersonSchema.method 'updateWithGithub', (ghUser, callback) ->
       @save callback
     , ghUser, null, callback
 
-PersonSchema.method 'updateFromTwitter', (twitter) ->
-  @twit = twitter
-  @twitterScreenName = twitter.screenName
-  @name ||= twitter.name
-  @location ||= twitter.location
-  @bio ||= twitter.description
-  @imageURL ||= twitter.profileImageUrl.replace('_normal.', '.')
+PersonSchema.method 'updateWithTwitter', (twitter, token, secret, callback) ->
+  Person.createWithTwitter.call
+    create: (params, callback) =>
+      _.extend this, params
+      @twitterScreenName = @twit.screenName
+      @name ||= @twit.name
+      @location ||= @twit.location
+      @bio ||= @twit.description
+      @imageURL ||= @twit.profileImageUrl.replace('_normal.', '.')
+      @save callback
+    , twitter, token, secret, callback
 
 PersonSchema.method 'updateFromFacebook', (facebook) ->
   @fb = facebook
@@ -140,17 +149,6 @@ PersonSchema.method 'updateFromFacebook', (facebook) ->
   @location ||= facebook.location
   @imageURL ||= facebook.picture
   @role ||= 'voter'
-
-PersonSchema.static 'findOrCreateFromTwitter', (twitter, callback) ->
-  Person.findOne
-    $or: [
-      { twitterScreenName: new RegExp("^#{RegExp.escape twitter.screenName}$", 'i') }
-      { 'twit.id': twitter.id }]
-    (error, person) ->
-      return callback(error) if error
-      person ||= new Person
-      try person.updateFromTwitter twitter catch e then callback(e)
-      person.save (err) -> callback(err, person)
 
 PersonSchema.static 'findOrCreateFromFacebook', (facebook, callback) ->
   Person.findOne 'fb.id': facebook.id, (error, person) ->
