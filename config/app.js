@@ -60,6 +60,9 @@ app.configure(function() {
       preManipulate: {
         '^': [
           function(file, path, index, isLast, callback) {
+            callback(file.replace(/#socketIoPort#/g, env.port));
+          }
+          , function(file, path, index, isLast, callback) {
             if (/\.coffee$/.test(path)) {
               callback(coffee.compile(file));
             } else {
