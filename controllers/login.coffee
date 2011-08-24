@@ -29,7 +29,7 @@ app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next
           team.save (err) ->
             return next err if err
             delete req.session.invite
-            res.redirect "/people/#{req.person.id}"
+            res.redirect "/people/#{req.person.slug}"
       else
         res.redirect '/teams/new'
   else if code = req.session.team
@@ -44,7 +44,7 @@ app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next
     delete req.session.returnTo
     res.redirect returnTo
   else if req.user.judge or req.user.nomination
-    res.redirect "/people/#{req.person.id}"
+    res.redirect "/people/#{req.person.slug}"
   else if req.team
     res.redirect "/teams/#{req.team}"
   else

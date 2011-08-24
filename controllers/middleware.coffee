@@ -25,7 +25,8 @@ module.exports =
 
   loadPerson: (req, res, next) ->
     if id = req.params.personId or req.params.id
-      Person.findById id, (err, person) ->
+      findBy = if /^[0-9a-fA-F]{24}$/.test(id) then 'findById' else 'findBySlug'
+      Person[findBy] id, (err, person) ->
         return next err if err
         return next 404 unless person
         req.person = person

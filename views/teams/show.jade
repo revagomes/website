@@ -61,7 +61,7 @@ h1= title(team.name)
     - each person in people
       li
         img.avatar( src: avatar_url(person) )
-        a( href: '/people/' + person.id )= person.github.login
+        a( href: '/people/' + person.slug )= person.github.login
         - if (person.location)
           |  &mdash;
           = person.location

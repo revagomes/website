@@ -17,6 +17,7 @@ PersonSchema = module.exports = new mongoose.Schema
   admin: Boolean
   role: { type: String, enum: ROLES }
   technical: Boolean
+  slug: String
 PersonSchema.plugin require('mongoose-types').useTimestamps
 PersonSchema.plugin auth,
   everymodule:
@@ -133,6 +134,7 @@ PersonSchema.method 'updateWithGithub', (ghUser, callback) ->
   Person.createWithGithub.call
     create: (params, callback) =>
       _.extend this, params
+      @slug = @github.login
       @company or= @github.company
       @location or= @github.location
       @save callback
@@ -143,6 +145,7 @@ PersonSchema.method 'updateWithTwitter', (twitter, token, secret, callback) ->
     create: (params, callback) =>
       _.extend this, params
       @twitterScreenName = @twit.screenName
+      @slug = @twit.screenName
       @name ||= @twit.name
       @location ||= @twit.location
       @bio ||= @twit.description
@@ -151,11 +154,15 @@ PersonSchema.method 'updateWithTwitter', (twitter, token, secret, callback) ->
     , twitter, token, secret, callback
 
 PersonSchema.method 'updateFromFacebook', (facebook) ->
+  @slug = @_id
   @fb = facebook
   @name ||= facebook.name
   @location ||= facebook.location
   @imageURL ||= facebook.picture
   @role ||= 'voter'
+
+PersonSchema.static 'findBySlug', (slug, rest...) ->
+  Person.findOne { slug: slug }, rest...
 
 PersonSchema.static 'findOrCreateFromFacebook', (facebook, callback) ->
   Person.findOne 'fb.id': facebook.id, (error, person) ->
