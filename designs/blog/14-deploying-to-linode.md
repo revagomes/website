@@ -13,6 +13,10 @@ This post will get you going with a Node.js/[Socket.IO][3] app on Linode.
 
 [3]: http://socket.io/
 
+# Do I need to sign up with Linode?
+
+Short answer: no. Linode will be providing VPSs during the competition and judging period for teams as a deploy option. More details before the competition.
+
 # Pick your Linux distro
 
 Linode has a [choice of Linux distribution][4]. This blog post will be using
