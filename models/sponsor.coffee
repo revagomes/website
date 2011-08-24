@@ -115,8 +115,13 @@ module.exports = [
   description:
     '''
     Joyent is a global cloud computing software and service provider that
-    offers an integrated cloud technology suite designed for developers,
-    service providers and enterprises.
+    offers an integrated technology suite designed for service providers,
+    enterprises, and developers. Joyent Cloud delivers public cloud services to
+    some of the most innovative companies in the world, including LinkedIn,
+    Gilt Groupe and Kabam. Joyent offerings also include Platform-as-a-Service
+    based on Node.js, the open source server-side JavaScript development
+    environment. For more information, visit <http://www.joyentcloud.com/> and
+    <http://www.joyent.com/>.
     '''
 ,
   name:  'Linode'
