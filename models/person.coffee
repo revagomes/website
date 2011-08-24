@@ -34,21 +34,22 @@ PersonSchema.plugin auth,
       appSecret: env.secrets.github
       findOrCreateUser: (sess, accessTok, accessTokExtra, ghUser) ->
         promise = @Promise()
-        Person.findOne 'github.id': ghUser.id, (err, foundUser) ->
-          if foundUser
-            foundUser.updateWithGithub ghUser, (err, updatedUser) ->
-              return promise.fail err if err
-              promise.fulfill updatedUser
-          else if sess.invite
-            Team = mongoose.model 'Team'
-            Team.findOne 'invites.code': sess.invite, (err, team) ->
-              return promise.fail err if err
-              return promise.fulfill(id: null) unless team
-              Person.createWithGithub ghUser, accessTok, (err, createdUser) ->
+        Person.findOne 'github.id': ghUser.id, role: 'contestant',
+          (err, foundUser) ->
+            if foundUser
+              foundUser.updateWithGithub ghUser, (err, updatedUser) ->
                 return promise.fail err if err
-                promise.fulfill createdUser
-          else
-            promise.fulfill id: null
+                promise.fulfill updatedUser
+            else if sess.invite
+              Team = mongoose.model 'Team'
+              Team.findOne 'invites.code': sess.invite, (err, team) ->
+                return promise.fail err if err
+                return promise.fulfill(id: null) unless team
+                Person.createWithGithub ghUser, accessTok, (err, createdUser) ->
+                  return promise.fail err if err
+                  promise.fulfill createdUser
+            else
+              promise.fulfill id: null
         promise
   twitter:
     everyauth:
@@ -62,6 +63,7 @@ PersonSchema.plugin auth,
         screenName = new RegExp("^#{RegExp.escape twit.screen_name}$", 'i')
         Person.findOne
           $or: [ { 'twit.id': twit.id }, { twitterScreenName: screenName } ]
+          role: { $in: [ 'judge', 'nomination' ] }
           (err, person) ->
             return promise.fail err if err
             return promise.fulfill(id: null) unless person
