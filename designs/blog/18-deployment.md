@@ -7,7 +7,7 @@ and covers deployment.
 
 ### Overview
 
-[Joyent][Joyent], [Heroku][Heroku], and [Linode][Linode] are providing free, private instances where you may deploy your code during the competition. You will receive an invitation to each service via email before the competition starts.  The choice of service for your submission is up to you (kinda like Pokémon):
+[Joyent][Joyent], [Heroku][Heroku], and [Linode][Linode] will provide free, private instances where you may deploy your code during the competition. You will receive an invitation to each service via email before the competition starts.  The choice of service for your submission is up to you (kinda like Pokémon):
 
 - Joyent provides a full VPS with root-level access combined with the ease of
 git push deployment. But note that Joyent only provides Solaris (ZFS!).
@@ -27,11 +27,11 @@ awesome it is.
 
 ### Setting up Heroku
 
-1. Follow the invitation link in the invitation email you received from Heroku.  Supply your email address and password in the invitation page.
+1. Follow the invitation link in the invitation email you received from Heroku.  Create a password in the invitation page.
 
-1. Install the heroku gem version 2.4.2 on your development machine.
+1. Install the heroku gem on your development machine.
 
-    <code><pre>gem install heroku -v 2.4.2</pre></code>
+    <code><pre>gem install heroku</pre></code>
     
 1. Configure your heroku login credentials, using the same email and password you supplied in step 1.  Answer yes when prompted to use your existing ssh key.
 
