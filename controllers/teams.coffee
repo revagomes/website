@@ -83,7 +83,7 @@ app.get '/teams/:id/entry/edit', [m.loadTeam, m.ensureAccess], (req, res) ->
 # update
 app.put '/teams/:id', [m.loadTeam, m.ensureAccess], (req, res, next) ->
   unless req.user.admin
-    delete req.body[attr] for attr in ['slug', 'code', 'search']
+    delete req.body[attr] for attr in ['slug', 'code', 'search', 'scores']
     delete req.body.entry.url if req.body.entry
   _.extend req.team, req.body
   req.team.save (err) ->
