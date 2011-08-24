@@ -56,7 +56,7 @@ app.post '/teams', (req, res, next) ->
 # my team
 app.get '/teams/mine(\/edit)?', [m.ensureAuth, m.loadPerson, m.loadPersonTeam], (req, res, next) ->
   return next 404 unless req.team
-  res.redirect "/teams/#{req.team.id}#{req.params[0] || ''}"
+  res.redirect "/teams/#{req.team}#{req.params[0] || ''}"
 
 # show (join)
 app.get '/teams/:id', [m.loadTeam, m.loadTeamPeople, m.loadTeamVotes, m.loadMyVote], (req, res) ->
