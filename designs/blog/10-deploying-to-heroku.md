@@ -22,12 +22,14 @@ Cedar.
 [5]: http://expressjs.com/
 
 Sign Up for a Heroku Account
-----------------------------
+-------------------------
 
 If you don't already have a Heroku account, visit [the signup page][6]
 to create an account.  It's free and just takes a minute.  Once you sign
 up, you'll receive an invitation email that will allow you to set your
 password.
+
+Even if you don't sign up for a heroku account, you'll get an invitation before the competition starts to join an app created by the Knockout organizers. __If using Heroku, this will be the app that you should deploy to for the competition.__
 
 [6]: https://api.heroku.com/signup
 
