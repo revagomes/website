@@ -121,6 +121,7 @@ TeamSchema.path('peopleIds').set (v) ->
   v.init = @peopleIds
   v
 TeamSchema.pre 'save', (next) ->
+  return next() unless @peopleIds.init
   toString = (i) -> i.toString()
   o = @peopleIds.init.map toString
   n = @peopleIds.map toString
