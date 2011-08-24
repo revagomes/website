@@ -16,7 +16,9 @@ PersonSchema = module.exports = new mongoose.Schema
   admin: Boolean
   role: { type: String, enum: ROLES }
   technical: Boolean
-  slug: String
+  slug:
+    type: String
+    index: true
 PersonSchema.plugin require('mongoose-types').useTimestamps
 PersonSchema.plugin auth,
   everymodule:
@@ -146,7 +148,7 @@ PersonSchema.method 'updateWithGithub', (ghUser, token, callback) ->
   Person.createWithGithub.call
     create: (params, callback) =>
       _.extend this, params
-      @slug = @github.login
+      @slug = @github.login.toLowerCase()
       @company ||= @github.company
       @location ||= @github.location
       @save callback
@@ -157,7 +159,7 @@ PersonSchema.method 'updateWithTwitter', (twitter, token, secret, callback) ->
     create: (params, callback) =>
       _.extend this, params
       @twitterScreenName = @twit.screenName
-      @slug = @twit.screenName
+      @slug = @twitterScreenName.toLowerCase()
       @name ||= @twit.name
       @location ||= @twit.location
       @bio ||= @twit.description
