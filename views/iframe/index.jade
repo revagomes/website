@@ -57,7 +57,9 @@ html
         #x
           display inline-block
     - if (css)
+      <!--[if lt IE 7]><!-->
       link( rel: 'stylesheet', href: css)
+      <!--<![endif]-->
   body
     #button( class: req.vote ? 'voted' : '' )
       #icon
