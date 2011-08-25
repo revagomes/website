@@ -19,7 +19,7 @@ app.get '/login', [setReturnTo], (req, res) ->
 app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next) ->
   if !req.person
     return next 401
-  else if invite = req.session.invite
+  else if not req.user.role and (invite = req.session.invite)
     Team.findOne 'invites.code': invite, (err, team) ->
       return next err if err
       if team
