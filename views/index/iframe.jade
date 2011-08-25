@@ -56,6 +56,8 @@ html
           display none
         #x
           display inline-block
+    - if (css)
+      link( rel: 'stylesheet', href: css)
   body
     #button( class: req.vote ? 'voted' : '' )
       #icon
