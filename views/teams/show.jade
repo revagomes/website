@@ -32,22 +32,24 @@ h1= title(team.entry.name || team.name)
       li: a( href: '#linode' ) Linode
     .platform#joyent
       ol
-        li require('nko')('#{team.code}');
+        li require('nko')('#{team.code}'); 
+          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
         li git remote add joyent git://no.de/foo.git
         li git push joyent master
     .platform#heroku
-      .detailed: a( href: 'http://blog.nodeknockout.com/post/9262660989/countdown-to-ko-10-deploying-your-node-js-app-to' ) Detailed instuctions
       ol
+        a( href: 'http://blog.nodeknockout.com/post/9262660989/countdown-to-ko-10-deploying-your-node-js-app-to' ) Detailed instuctions
+        li require('nko')('#{team.code}'); 
+          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
         li heroku login
         li git remote add heroku git@heroku.com:nko2-#{team.slug}.git
-        li require('nko')('#{team.code}');
         li git push heroku master
     .platform#linode
       ol
-        li require('nko')('#{team.code}');
-        li install linux
+        a( href: 'http://blog.nodeknockout.com/post/9300619913/countdown-to-ko-14-deploying-your-node-js-app-to' ) Detailed instuctions
+        li require('nko')('#{team.code}'); 
+          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
         li export NODE_ENV=production
-        li deploy it, yo
 
 - if (!team.entry.name)
   - if (admin || team.includes(user))
