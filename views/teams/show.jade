@@ -47,7 +47,20 @@ h1= title(team.entry.name || team.name)
     .platform#linode
       ol
         a( href: 'http://blog.nodeknockout.com/post/9300619913/countdown-to-ko-14-deploying-your-node-js-app-to' ) Detailed instuctions
-        li require('nko')('#{team.code}'); 
+        li
+          a( href: 'https://manager.linode.com/' ) Login
+          table
+            tr
+              th Username
+              td= team.linode.username
+            tr
+              th Password
+              td= team.linode.password
+            tr
+              th IP
+              td= team.linode.ip_address
+        li
+          | require('nko')('#{team.code}');
           a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
         li export NODE_ENV=production
 
