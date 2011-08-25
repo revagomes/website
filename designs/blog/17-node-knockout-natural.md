@@ -24,7 +24,7 @@ the various components, and outline the future plans.
 
 # Installation
 
-"natural" is available as an npm and can be install as such:
+"natural" is available as an npm and can be installed as such:
 
     $ npm install natural
 
