@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+require('coffee-script');
+var env = require('./config/env')
+  , repl = require('repl').start();
+
+repl.context.db = require('./models')(env.mongo_url);
