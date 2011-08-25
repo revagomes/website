@@ -1,7 +1,7 @@
 # Countdown to KO #18: Load Testing with blitz.io
 
 *This is the 18th in series of posts leading up [Node.js Knockout][1],
-and covers using [blitz.io][] to load test your app.*
+and covers using [blitz.io][] to load test your node app.*
 
 [1]: http://nodeknockout.com
 [blitz.io]: http://blitz.io
