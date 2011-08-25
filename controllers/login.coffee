@@ -32,7 +32,8 @@ app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next
             res.redirect "/people/#{req.person.id}"
       else
         res.redirect '/teams/new'
-  else if code = req.session.team
+  else if false and req.user.contestant and (code = req.session.team)
+    # no longer needed now that all teams are created
     Team.findOne code: code, (err, team) ->
       return next err if err
       if team
