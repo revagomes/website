@@ -1,4 +1,4 @@
-# Countdown to KO #17: Node.js Knockout Natural
+# Countdown to KO #17: Natural Language Processing with Natural
 
 *This is the 17th in series of posts leading up [Node.js Knockout][1],
 and covers using [natural][] in your node app. This post was written
