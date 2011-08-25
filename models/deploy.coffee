@@ -33,7 +33,7 @@ DeploySchema.path('remoteAddress').validate (v) ->
       'heroku'
     else if inNetwork v, '96.126.12.0/24', '74.207.251.0/24'
       'linode'
-    else if @hostname.match(/\.nodejitsu\.com$/)
+    else if @hostname?.match(/\.nodejitsu\.com$/)
       'nodejitsu'
   @platform?
 , 'not production'
