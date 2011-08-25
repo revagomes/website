@@ -45,6 +45,7 @@ module.exports = (app) ->
 
     locations: (people) ->
       _(people).chain()
+        .compact()
         .pluck('location')
         .reduce((r, p) ->
           if p

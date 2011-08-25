@@ -20,6 +20,7 @@ ul.teams
           - each m in members
             - if (m)
               li: a( href: '/people/' + m.id)= m.login
+      .location= locations(members)
       .description!= markdown(team.description)
   - q = req.query
   - q.page = (+req.query.page || 1) + 1
