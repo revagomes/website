@@ -6,6 +6,11 @@
   h3: label( for: 'entryName' ) Entry Name
   input( type: 'text', name: 'entry[name]', id: 'entryName', value: entry.name, placeholder: 'Name your creation' )
 
+- if (admin)
+  .name
+    h3: label( for: 'entryURL' ) Entry URL
+    input( type: 'text', name: 'entry[url]', id: 'entryURL', value: entry.url )
+
 .description
   h3: label( for: 'entryDescription' ) Description
   .note

@@ -38,12 +38,22 @@ DeploySchema.path('remoteAddress').validate (v) ->
   @platform?
 , 'not production'
 
+DeploySchema.method 'urlForTeam', (team) ->
+  'http://' + switch @platform
+    when 'joyent', 'nodejitsu', 'localdomain' then @hostname
+    when 'heroku' then "nko2-#{team.slug}.herokuapp.com"
+    when 'linode' then @remoteAddress
+
 # callbacks
 DeploySchema.post 'save', ->
   @team (err, team) =>
     throw err if err
     team.lastDeploy = @toObject()
-    team.save()
+    team.entry.url = @urlForTeam team
+    team.save (err) ->
+      throw err if err
+      team.prettifyURL()
+      team.updateScreenshot()
 
 Deploy = mongoose.model 'Deploy', DeploySchema
 
