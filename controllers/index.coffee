@@ -48,12 +48,3 @@ app.get '/services', [m.ensureAuth], (req, res, next) ->
   Service.sorted (error, services) ->
     next error if error
     res.render2 'index/services', services: services
-
-app.get '/iframe/:teamId/authed', [m.loadTeam, m.loadMyVote], (req, res) ->
-  res.render 'index/iframe-authed', layout: false, vote: req.vote
-
-app.get '/iframe/:teamId', [m.loadTeam, m.loadMyVote], (req, res) ->
-  css = req.query.css if /^https?:\/\//.test(req.query.css)
-  Vote.count teamId: req.team._id, type: 'voter', (err, count) ->
-    next err if err
-    res.render 'index/iframe', layout: false, vote: req.vote, count: count, css: css
