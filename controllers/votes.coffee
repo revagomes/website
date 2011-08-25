@@ -6,19 +6,30 @@ Vote = app.db.model 'Vote'
 ensureVoting = (req, res, next) ->
   if app.enabled 'voting' then next() else next 401
 
-# create
-app.post '/teams/:teamId/votes', [ensureVoting, m.ensureAuth], (req, res, next) ->
+buildVote = (req) ->
   attr = _.clone req.body
   attr.audit?.remoteAddress = req.socket.remoteAddress
   attr.audit?.remotePort = req.socket.remotePort
   _.extend attr,
     personId: req.user.id
-    teamId: req.params.teamId
+    teamId: req.team.id
     type: req.user.role
   vote = new Vote attr
+
+# create
+app.post '/teams/:teamId/votes', [ensureVoting, m.ensureAuth, m.loadTeam], (req, res, next) ->
+  vote = buildVote req
   vote.save (err) ->
     return next err if err
     res.redirect 'back'
+
+# create - iframe
+app.post '/teams/:teamId/votes.iframe', [ensureVoting, m.loadTeam], (req, res, next) ->
+  return res.send 401 unless req.user?.voter
+  vote = buildVote req
+  vote.save (err) ->
+    res.send 500 if err
+    res.send vote.id, 200
 
 # update
 app.put '/votes/:id', [ensureVoting, m.loadVote, m.ensureAccess], (req, res, next) ->
@@ -33,3 +44,10 @@ app.delete '/votes/:id', [ensureVoting, m.loadVote, m.ensureAccess], (req, res, 
   req.vote.remove (err) ->
     return next err if err
     res.redirect 'back'
+
+# delete - iframe
+app.delete '/votes/:id.iframe', [ensureVoting, m.loadVote], (req, res, next) ->
+  return res.send 401 unless req.user?.id is req.vote.id
+  req.vote.remove (err) ->
+    return next err if err
+    res.send 200

@@ -1,0 +1,166 @@
+html
+  head
+    :stylus
+      body
+        margin 0
+        padding 0
+        background-color transparent
+        font-family Helvetica, Arial, sans-serif
+      #count
+        margin-left 0.5ex
+      #button
+        font-size large
+        font-weight bold
+        border 1px solid black
+        padding 5px
+        display inline-block
+        cursor pointer
+        #icon
+          display inline-block
+        #heart
+          color red
+        #facebook
+          color blue
+        #x
+          color gray
+          border 1px solid gray
+      #button #heart, #button #x
+        display none
+      #button.voted
+        cursor default
+        #heart
+          display inline
+        #facebook
+          display none
+      #button.voted #icon:hover
+        cursor pointer
+        #heart
+          display none
+        #x
+          display inline
+  body
+    #button( class: req.vote ? 'voted' : '' )
+      #icon
+        span#facebook F
+        span#heart ♥
+        span#x X
+      |  Vote NKO
+    span#count= count
+    script
+      (function() {
+        var XHR
+          , $ = function(x) { return document.getElementById(x); }
+          , button = $('button')
+          , _csrf = "_csrf=" + encodeURIComponent( "#{req.session._csrf}")
+          , nko =
+            { voter: #{req.user && req.user.voter ? 'true' : 'false' }
+            , vote: "#{vote && vote.id}"
+            , team: "#{req.team}" };
+
+        button.onclick = function(e) {
+          if (nko.voter) {
+            vote()
+          } else {
+            auth(e);
+          }
+        };
+        $('x').onclick = function(e) {
+          unvote()
+        };
+
+        function update(clss, delta) {
+          var $count = $('count')
+            , count = parseInt($count.innerHTML);
+          button.className = clss;
+          $count.innerHTML = count + delta;
+        }
+
+        function vote() {
+          if (nko.vote) { return; } // already have voted
+
+          post('/teams/' + nko.team + '/votes.iframe', _csrf, function(xhr) {
+            if (xhr.status === 200) {
+              nko.vote = xhr.responseText;
+              update('voted', 1);
+            } else {
+              error(xhr, 'Error could not vote.');
+            }
+          });
+        }
+
+        function unvote() {
+          del('/votes/' + nko.vote, _csrf, function(xhr) {
+            if (xhr.status === 200) {
+              nko.vote = null;
+              update('', -1);
+            } else {
+              error(xhr, 'Error could not remove vote.');
+            }
+          });
+        }
+
+        function error(xhr, msg) {
+          if (xhr.status === 401) { // unauthorized
+            nko.voter = false;
+            nko.vote = null;
+          }
+          alert(msg + ' Pleast try again.');
+        }
+
+        function auth(e) {
+          popup("/login/facebook?returnTo=" + location.pathname + "/authed",
+            e, 600, 420, 'facebook');
+        }
+
+        // called by the popup window when auth is complete
+        window.authed = function(v) {
+          nko.voter = true;
+          nko.vote = v;
+          console.log(v);
+          update(v ? 'voted' : '', 0);
+          vote();
+        }
+
+        function popup(href, e, w, h, target) {
+          var x = e.screenX - w / 2
+            , y = e.screenY - h / 2
+            , attrs = [
+                'height=' + h, 'width=' + w,
+                'left=' + x, 'top=' + y ].join(',')
+            , win = window.open(href, target, attrs);
+
+          if (!win) {
+            // TBD popups are blocked!
+          }
+
+          if (win && 'focus' in win) win.focus();
+        }
+
+        function post(url, data, fn) {
+          send('POST', url, data, fn);
+        }
+
+        function del(url, data, fn) {
+          send('DELETE', url, data, fn);
+        }
+
+        function send(method, url, data, fn) {
+          var xhr = new XHR;
+          xhr.open(method, url, true);
+          xhr.onreadystatechange = function(e) {
+            if (xhr.readyState === 4) {
+              fn(xhr)
+            }
+          };
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.send(data);
+        }
+
+        XHR = XMLHttpRequest || (function() {
+          try {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+          } catch (e) {
+            return null;
+          }
+        })();
+      }).call(this);
