@@ -25,6 +25,30 @@ awesome it is.
 [Linode]: http://www.linode.com/index.cfm
 [Linux distro]: http://www.linode.com/faq.cfm#which-distributions-do-you-offer
 
+### Setting up No.de
+
+1. Log in to no.de (or create an account)
+
+2. click "Order a Machine" button in the upper right hand corner
+
+3. click on the smart machine you ordered
+
+4. follow the instructions to add the host to your ssh config file
+
+5. set up your dependencies
+
+    <code><pre>
+    npm init
+    npm install --save nko
+    </pre></code>
+
+5. make sure that joyent knows about your ssh key (in your account
+   settings, in the upper right hand corner)
+
+6. make sure your app is listening on port 80:
+
+    <code><pre>app.listen(parseInt(process.env.PORT) || 7777);</pre></code>
+
 ### Setting up Heroku
 
 1. Follow the invitation link in the invitation email you received from Heroku.  Create a password in the invitation page.
