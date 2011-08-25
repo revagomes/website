@@ -8,11 +8,6 @@ about how to use Joyent's [no.de][] service. This post was written by
 [no.de]: http://no.de
 [3]: http://nodeknockout.com/people/4e2819db6fd024010000192e
 
-npm is a [NodeJS](http://nodejs.org/) package manager.  As its name
-would imply, you can use it to install node programs.  Also, if you use
-it in development, it makes it easier to specify and link dependencies.
-
-
 These instructions will tell you how to deploy your code on Joyent's
 no.de service.
 
