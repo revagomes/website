@@ -1,4 +1,4 @@
-# Coundown to KO #2: no.de Getting Started Guide
+# Coundown to KO #20: no.de Getting Started Guide
 
 _This is the 20th in series of posts leading up to [Node.js Knockout][1]
 about how to use Joyent's [no.de][] service. This post was written by
