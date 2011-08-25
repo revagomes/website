@@ -10,7 +10,7 @@ app.all '/teams/:code/deploys', [m.loadTeam], (req, res) ->
   util.log "#{'DEPLOY'.magenta} #{req.team.name} (#{req.team.id})"
   req.session.destroy()
 
-  attr = _.clone req.body || {}
+  attr = _.clone req.query || {}
   attr.teamId = req.team.id
   attr.remoteAddress = req.socket.remoteAddress
 
