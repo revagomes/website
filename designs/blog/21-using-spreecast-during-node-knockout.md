@@ -99,7 +99,7 @@ you can select a thumbnail for the session and add additional information about 
 You can also deactivate the session if you need to (which essentially hides it
 from everyone).
 
-![Spreecast tags](http://f.cl.ly/items/3F062w1J1c2S1V0v2s3v/spreecast-startuplife-tags.png)
+![Spreecast tags](http://dl.dropbox.com/u/30568/spreecast-tags.png)
 
 ##Sharing and Tagging
 
