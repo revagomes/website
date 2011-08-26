@@ -127,7 +127,7 @@ The no.de hosting service has just launched!  **Please send support inquiries to
 1. Create an account at [no.de](http://no.de) (or login).
 
 1. Click "Order a Machine" button in the upper right hand corner.
-   - We will assume you name your smart machine `your-team-slug`.
+   - In the following instructions, we will assume you name your smart machine `your-team-slug`.
 
 1. Click on the smart machine you ordered.
 
