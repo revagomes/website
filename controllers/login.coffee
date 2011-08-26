@@ -49,9 +49,10 @@ app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next
   else if req.team
     res.redirect "/teams/#{req.team}"
   else
-    res.redirect '/teams/new'
+    res.redirect '/'
 
 # order matters
 app.get '/login/:service?', [setReturnTo], (req, res, next) ->
+  req.logout()
   req.session.returnTo or= req.returnTo
   res.redirect "/auth/#{req.param('service') or 'github'}"
