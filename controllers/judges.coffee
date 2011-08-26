@@ -36,7 +36,7 @@ app.post '/judges', (req, res) ->
       req.flash 'info', """
         Thanks for nominating #{judge.name} as a judge.
         We will review and process him/her shortly."""
-      res.redirect "people/#{judge.slug}"
+      res.redirect "people/#{judge}"
 
 # edit (just redirects to person/edit with twitter login)
 app.get '/judges/:judgeId/edit', (req, res, next) ->
