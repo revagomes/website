@@ -1,6 +1,9 @@
 :markdown
   Feel free to fill out this information any time before coding ends. Use
-  it to help judges get an idea of what you've accomplished.
+  it to help judges get an idea of what you've accomplished. [Markdown][1] ok
+  for all fields.
+
+  [1]: http://daringfireball.net/projects/markdown/syntax
 
 .name
   h3: label( for: 'entryName' ) Entry Name
@@ -13,37 +16,34 @@
 
 .description
   h3: label( for: 'entryDescription' ) Description
-  .note
+  p.note
     | What does your entry do?
-    != markdown_ok
   textarea( name: 'entry[description]', id: 'entryDescription' )= entry.description
 
 .instructions
   h3: label( for: 'entryInstructions' ) Instructions
-  .note
+  p.note
     | Give judges a summary of how to use your entry.
     b If your entry only works on certain browsers list them here.
-    != markdown_ok
   textarea( name: 'entry[instructions]', id: 'entryInstructions' )= entry.instructions
 
 .colophon
   h3: label( for: 'entryColophon' ) Colophon
-  .note
+  p.note
     | What libraries, icons, web service APIs, and tools did you use?
-    != markdown_ok
   textarea( name: 'entry[colophon]', id: 'entryColophon' )= entry.colophon
 
 .votable
   input( type: 'hidden', name: 'entry[votable]', value: 0 )
   input( type: 'checkbox', name: 'entry[votable]', id: 'entryVotable', checked: entry.votable )
   label( for: 'entryVotable' ) Yes! I want judges to vote on my entry.
-  .note
+  p.note
     | Uncheck this box if your entry isn't ready to be judged when the
     | competition ends.
   .technical
     input( type: 'hidden', name: 'entry[technical]', value: 0 )
     input( type: 'checkbox', name: 'entry[technical]', id: 'entryTechnical', checked: entry.technical )
     label( for: 'entryTechnical' )!= "I'd prefer <a href='/judges/technical'>technical judges</a>."
-    .note
+    p.note
       | Please only select this box if your entry cannot be evaluated fairly
       | by non-technical judges.
