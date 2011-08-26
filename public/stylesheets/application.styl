@@ -529,66 +529,62 @@ form.vote
     line-height 150%
   p.sign-in
     text-align center
-  h2.deploy-status, h2.entry-info-missing
+  ul.steps
     text-align center
-    font-size x-large
-    inverted()
-    box-shadow none
-    border-radius 2px
-    &.pending, &.entry-info-missing
-      background red url('/images/noise.png')
-    &.done
-      background green url('/images/noise.png')
-    .details
-      font-size small
-      font-family 'Droid Sans'
-      font-weight normal
-    a
-      color white
-      font-style italic
-  h2.entry-info-missing
-    a.button
-      font-size small
-      font-style normal
-      vertical-align middle
-      margin-left 0.25em
-  h2.deploy-status.done + .instructions
-    display none
-  ul.platforms
-    text-align center
-    margin 0.5em 0
+    margin 1em 0 0
     li
       display inline-block
-      margin 0 1ex
-      label
-        font-size small
-        font-style italic
+      margin 0 1em
+      padding-left 18px
+      &.pending
+        background url('/images/cross.png') no-repeat 0 5px
+      &.done
+        background url('/images/tick.png') no-repeat 0 5px
+      a
+        padding-bottom 8px
       a.selected
         color black
-  .platform, .entry
-    display none
+        background url('/images/spout.png') no-repeat center bottom
+  .step, .entry-info
     box-shadow inset 0 0 5px hsla(0, 0%, 0%, 0.1)
     background-color hsla(0, 0%, 95%, 0.5)
     padding 10px
     border-radius 2px
+  .step
+    margin-top 5px
+    display none
+    h2
+      margin-top 0
+      text-align center
+      font-size x-large
+      inverted()
+      box-shadow none
+      border-radius 2px
+      &.pending
+        background red url('/images/noise.png')
+      &.done
+        background green url('/images/noise.png')
+  .step.entry
+    text-align center
+    a.button
+      font-size medium
+      margin-left 0.25em
+  .step.deploy
+    ul
+      padding-left 20px
+      margin 0.5em 0
+      list-style-type disc
     table
       border-collapse collapse
-    th, td
-      padding 0
-    th
-      padding-right 1em
-      font-weight normal
-    ol
-      font-size small
-      a + li
-        margin-top 0.5em
-    ul
-      margin 0.5em 0
-  .entry
+      th, td
+        padding 0
+      th
+        padding-right 1em
+  .entry-info
     display block
     margin-top 1em
     overflow hidden
-    padding 10px 20px
+    padding 20px
     h2, h3, h4
       margin-top 0px
     img.screenshot

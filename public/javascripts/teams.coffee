@@ -26,19 +26,16 @@ load = ->
         $n.text('done').delay(500).fadeOut 'slow', -> $t.show()
 
     # deploy instructions
-    $('a[href="#instructions"]').click ->
-      $('.instructions').slideToggle()
-      false
-    $('.platform')
+    $('.step')
       .addClass(-> $(this).attr('id'))
       .removeProp('id')
     $(window).hashchange (e) ->
-      hash = location.hash || '#joyent'
-      $('.platform')
+      hash = location.hash || '#nothing-at-all'
+      $('.step')
         .hide()
         .filter(hash.replace('#', '.'))
           .show()
-      $('ul.platforms a')
+      $('ul.steps a')
         .removeClass('selected')
         .filter('a[href="' + hash + '"]')
           .addClass('selected')
