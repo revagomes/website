@@ -1,7 +1,9 @@
 - if (team.includes(user, session.team) || admin)
   .edit: a.button( href: '/teams/' + team + '/edit' ) Edit
 
-h1= title(team.entry.name || team.name)
+h1
+  = title(team.entry.name || team.name)
+  != partial('secrets')
 
 - if (team.invited(session.invite))
   h2 You're invited to this team!
@@ -40,6 +42,7 @@ h1= title(team.entry.name || team.name)
           a( href: team.entry.url )= team.entry.url
     - else
       h2.pending Not Yet Deployed
+    != partial('secrets')
     h3.scary Do not deploy until coding start!
     h4 Deploy check-in &mdash; 
       a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) More info

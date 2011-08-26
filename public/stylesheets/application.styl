@@ -524,8 +524,24 @@ form.vote
     height 5em
 
 #page.teams-show #inner
-  ul.people
-    line-height 200%
+  h1 .secrets
+    text-align left
+    margin-top 0
+    &, & code
+      font-size x-small
+    label
+      color hsla(0, 0%, 100%, .5)
+  .secrets
+    font-family 'Droid Sans'
+    text-align center
+    margin-top 0.5em
+    label
+      color hsla(0, 0%, 0%, 0.5)
+      margin-right 1ex
+    code
+      margin-right 1em
+    &.pending label
+      color red
   p.accept
     text-align center
     line-height 150%
@@ -605,6 +621,8 @@ form.vote
       border-radius 2px
     .clear
       clear both
+  ul.people
+    line-height 200%
 
 #page.teams #inner
   form.search
