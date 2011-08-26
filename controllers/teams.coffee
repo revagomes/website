@@ -16,6 +16,7 @@ app.get /^\/teams(\/pending)?\/?$/, (req, res, next) ->
     ids = _.reduce teams, ((r, t) -> r.concat(t.peopleIds)), []
     only =
       email: 1
+      slug: 1
       name: 1
       location: 1
       imageURL: 1

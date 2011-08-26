@@ -14,12 +14,12 @@ ul.teams
             li.invites (#{team.invites.length} invited)
           - each m in members
             - if (m)
-              li: a( href: '/people/' + m.id )
+              li: a( href: '/people/' + m )
                 img.avatar( src: avatar_url(m), title: m.login )
         ul.members
           - each m in members
             - if (m)
-              li: a( href: '/people/' + m.id)= m.login
+              li: a( href: '/people/' + m )= m.login
       .location= locations(members)
       .description!= markdown(team.description)
   - q = req.query

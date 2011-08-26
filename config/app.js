@@ -60,6 +60,9 @@ app.configure(function() {
       preManipulate: {
         '^': [
           function(file, path, index, isLast, callback) {
+            callback(file.replace(/#socketIoPort#/g, env.port));
+          }
+          , function(file, path, index, isLast, callback) {
             if (/\.coffee$/.test(path)) {
               callback(coffee.compile(file));
             } else {
@@ -84,6 +87,7 @@ app.configure(function() {
         'vendor/jquery.transloadit2.js',
         'vendor/md5.js',
         'application.coffee',
+        'dashboard.js',
         '*'
       ]
       , 'postManipulate': {
@@ -109,7 +113,6 @@ app.configure(function() {
 app.configure('development', function() {
   app.use(express.static(app.paths.public));
   app.use(express.profiler());
-  app.enable('deployment');
   app.enable('voting');
   require('../lib/mongo-log')(app.db.mongo);
 });
@@ -121,7 +124,6 @@ app.configure('production', function() {
     else
       next();
   });
-  app.disable('deployment');
   app.disable('voting');
 });
 

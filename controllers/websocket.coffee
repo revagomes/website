@@ -1,5 +1,7 @@
 util = require 'util'
 app = require '../config/app'
+dashboard = require './dashboard'
+dashboard app
 
 app.ws?.sockets.on 'connection', (client) ->
   client.on 'message', (data) ->

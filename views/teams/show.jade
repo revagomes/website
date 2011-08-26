@@ -11,68 +11,77 @@ h1= title(team.entry.name || team.name)
     img( src: '/images/github.png', style: 'margin-bottom: -4px;' )
     | github
 
-- if (admin || (deployment && team.includes(user)))
-  - lastDeploy = team.lastDeploy
-  - if (lastDeploy)
-    h2.deploy-status.done Successfully Deployed
-      .details
-        - lastDeployedAt = new Date(lastDeploy._id.generationTime)
-        time( datetime: lastDeployedAt.toISOString(),
-              title: lastDeployedAt.toISOString() )
-          = relativeDate(lastDeployedAt)
-        &nbsp;&mdash;
-        a( href: '#instructions' ) Show deploy instructions
-  - else
-    h2.deploy-status.pending Not Yet Deployed
-  .instructions
-    ul.platforms
-      li: label use:
-      li: a( href: '#joyent' ) Joyent
-      li: a( href: '#heroku' ) Heroku
-      li: a( href: '#linode' ) Linode
-    .platform#joyent
-      ol
-        li require('nko')('#{team.code}'); 
-          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
-        li git remote add joyent git://no.de/foo.git
-        li git push joyent master
-    .platform#heroku
-      ol
-        a( href: 'http://blog.nodeknockout.com/post/9262660989/countdown-to-ko-10-deploying-your-node-js-app-to' ) Detailed instuctions
-        li require('nko')('#{team.code}'); 
-          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
-        li heroku login
-        li git remote add heroku git@heroku.com:nko2-#{team.slug}.git
-        li git push heroku master
-    .platform#linode
-      ol
-        a( href: 'http://blog.nodeknockout.com/post/9300619913/countdown-to-ko-14-deploying-your-node-js-app-to' ) Detailed instuctions
-        li
-          a( href: 'https://manager.linode.com/' ) Login
-          table
-            tr
-              th Username
-              td= team.linode.username
-            tr
-              th Password
-              td= team.linode.password
-            tr
-              th IP
-              td= team.linode.ip_address
-        li
-          | require('nko')('#{team.code}');
-          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
-        li export NODE_ENV=production
+- if (admin || team.includes(user))
+  ul.steps
+    li( class: team.entry.name ? 'done' : 'pending' )
+      a( href: '#entry' ) Entry info
+    li( class: team.lastDeploy ? 'done' : 'pending' )
+      a( href: '#deploy' ) Deploy
 
-- if (!team.entry.name)
-  - if (admin || team.includes(user))
-    h2.entry-info-missing Entry Info Missing
-      a.button( href: '/teams/' + team + '/edit' ) Add &raquo;
-- else
-  .entry
+  .step#entry
+    - if (!team.entry.name)
+      h2.pending Entry Info Missing
+      p Describe to judges what your entry is about.
+        a.button( href: '/teams/' + team + '/edit' ) Add &raquo;
+    - else
+      h2.done Entry Info Complete
+      p Change this information any time before coding ends.
+        a.button( href: '/teams/' + team + '/edit' ) Edit &raquo;
+
+  .step#deploy
+    - if (lastDeploy = team.lastDeploy)
+      h2.done Successfully Deployed
+        .details
+          - lastDeployedAt = new Date(lastDeploy._id.generationTime)
+          time( datetime: lastDeployedAt.toISOString(),
+                title: lastDeployedAt.toISOString() )
+            = relativeDate(lastDeployedAt)
+          |  &mdash;
+          a( href: team.entry.url )= team.entry.url
+    - else
+      h2.pending Not Yet Deployed
+    h3.scary Do not deploy until coding start!
+    h4 Deploy check-in &mdash; 
+      a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) More info
+    ul
+      li require('nko')('
+        b= team.code
+        | '); \/\/ team code
+      li export NODE_ENV=production
+
+    h4 Joyent no.de &mdash; 
+      a( href: 'http://blog.nodeknockout.com/post/9393790204/coundown-to-ko-20-no-de-getting-started-guide' ) More info
+
+    h4 Heroku &mdash; 
+      a( href: 'http://blog.nodeknockout.com/post/9262660989/countdown-to-ko-10-deploying-your-node-js-app-to' ) More info
+    ul
+      li heroku login
+      li git remote add heroku git@heroku.com:nko2-#{team.slug}.git
+      li git push heroku master
+
+    h4 Linode &mdash; 
+      a( href: 'http://blog.nodeknockout.com/post/9300619913/countdown-to-ko-14-deploying-your-node-js-app-to' ) More info
+    ul
+      li
+        | Login to
+        a( href: 'https://manager.linode.com/' ) Linode Manager
+        table
+          tr
+            th Username
+            td= team.linode.username
+          tr
+            th Password
+            td= team.linode.password
+          tr
+            th IP
+            td= team.linode.ip_address
+
+- if (team.entry.name)
+  .entry-info
     - if (url = team.entry.url)
-      img.screenshot( src: 'http://pinkyurl.com/i?url=' + encodeURIComponent(url) + '&out-format=png&resize=160x93' )
-      h2: a( href: url  )= team.entry.name
+      a( href: url )
+        img.screenshot( src: 'http://pinkyurl.com/i?url=' + encodeURIComponent(url) + '&out-format=png&resize=160x93' )
+      h2: a( href: url )= team.entry.name
     - else
       img.screenshot( src: '/images/blank.png' )
       h2= team.entry.name
@@ -89,7 +98,7 @@ h1= title(team.entry.name || team.name)
     - each person in people
       li
         img.avatar( src: avatar_url(person) )
-        a( href: '/people/' + person.slug )= person.github.login
+        a( href: '/people/' + person )= person.github.login
         - if (person.location)
           |  &mdash;
           = person.location

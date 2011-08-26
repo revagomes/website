@@ -234,7 +234,9 @@ var nko = {};
 
     //// networking
     var dudes = nko.dudes = {};
-    var ws = nko.ws = io.connect();
+    var ws = nko.ws = io.connect(null, {
+      'port': '#socketIoPort#'
+    });
     ws.on('connect', function() {
       (function heartbeat() {
         nko.send({ obj: me }, true);
