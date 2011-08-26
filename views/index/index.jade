@@ -21,6 +21,10 @@ section
     h2: a( href: 'http://webchat.freenode.net/') #nodeknockout&nbsp;#node.js
     ul
 
+h1 Deploys
+div.deploys
+  ul
+
 script#tweet.template(type="text/html")
   li
     img.avatar
@@ -39,3 +43,12 @@ script#team.template(type="text/html")
       .progress
       .count
     .message
+
+script#deploy.template(type="text/html")
+  li
+    img.screenshot
+    a.name
+    .by by 
+      a.team
+    .when
+    .platform

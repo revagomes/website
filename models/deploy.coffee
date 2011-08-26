@@ -10,6 +10,7 @@ DeploySchema = module.exports = new mongoose.Schema
   os: String
   remoteAddress: String
   platform: String
+DeploySchema.plugin require('mongoose-types').useTimestamps
 
 # associations
 DeploySchema.method 'team', (callback) ->
