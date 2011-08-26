@@ -18,7 +18,7 @@ the contest.</b>_
 
 # Instructions
 
-For these instructions you will need two keys, both avaiable on [your
+For these instructions you will need two keys, both available on [your
 team page][]:
 
 ![Slug and secret](http://f.cl.ly/items/2v0e2D1C1H1m3t2w090c/Screen%20Shot%202011-08-26%20at%201.04.37%20PM.png)
