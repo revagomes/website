@@ -45,6 +45,7 @@ module.exports = (app) ->
 
     locations: (people) ->
       _(people).chain()
+        .compact()
         .pluck('location')
         .reduce((r, p) ->
           if p
@@ -62,7 +63,6 @@ module.exports = (app) ->
       </a>
       """
 
-    deployment: app.enabled 'deployment'
     voting: app.enabled 'voting'
     Vote: mongoose.model 'Vote'
     stars: (count) ->

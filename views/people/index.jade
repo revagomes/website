@@ -2,7 +2,7 @@ h1 People
 ul
   - each person in people
     li
-      a( href: '/people/' + person.id )= person.name || '?'
+      a( href: '/people/' + person )= person.name || '?'
       |  -
       = person.role
       - if (person.contestant)

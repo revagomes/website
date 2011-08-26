@@ -2,11 +2,12 @@ app = require '../config/app'
 Team = app.db.model 'Team'
 Person = app.db.model 'Person'
 Service = app.db.model 'Service'
+Vote = app.db.model 'Vote'
 m = require './middleware'
 
 # middleware
 loadCurrentPersonWithTeam = (req, res, next) ->
-  return next() unless req.person
+  return next() unless req.user
   req.user.team (err, team) ->
     return next err if err
     req.team = team
@@ -40,7 +41,7 @@ app.get '/judging', (req, res) ->
   res.redirect '/judges/new'
 
 app.get '/now', (req, res) ->
-  res.end Date.now().toString()
+  res.send Date.now().toString()
 
 app.get '/services', [m.ensureAuth], (req, res, next) ->
   return next 401 unless req.user.contestant or req.user.admin

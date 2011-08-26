@@ -1,13 +1,9 @@
-h1= title('Judges') + ' (' + judges.length + ')'
-
-.nominate
-  h2 We Need Judges! 
-    a.button.scary( href: '/judges/new') Nominate a Judge
+h1= title((typeof(subset) === 'undefined' ? '': subset + ' ') + 'Judges') + ' (' + judges.length + ')'
 
 ul.judges
   - each judge in judges
     li
       img.avatar( src: avatar_url(judge, 80) )
-      h3: a( href: '/people/' + judge.id )= judge.name
+      h3: a( href: '/people/' + judge )= judge.name
       != partial('people/details', { person: judge })
       .bio!= markdown(judge.bio)

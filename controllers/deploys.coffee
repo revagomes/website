@@ -10,13 +10,11 @@ app.all '/teams/:code/deploys', [m.loadTeam], (req, res) ->
   util.log "#{'DEPLOY'.magenta} #{req.team.name} (#{req.team.id})"
   req.session.destroy()
 
-  attr = _.clone req.body || {}
+  return res.end 'ok' if req.query.nop?
+
+  attr = _.clone req.query || {}
   attr.teamId = req.team.id
-  attr.remoteAddress =
-    if req.query.subdomain
-      req.query.subdomain + '.nodejitsu.com'
-    else
-      req.socket.remoteAddress
+  attr.remoteAddress = req.socket.remoteAddress
 
   deploy = new Deploy attr
   deploy.save (err, deploy) ->

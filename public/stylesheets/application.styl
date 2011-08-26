@@ -315,7 +315,7 @@ form.vote
         li
           display inline
           margin 0 1ex
-    > h1
+    > h1, form > h1
       inverted()
       margin 0 0 0 -23px
       padding-left 23px
@@ -508,6 +508,21 @@ form.vote
     ul
       margin 0.5em 0
 
+#page.teams-edit #entry
+  p.note
+    margin 0.5em 0
+  .votable, .technical
+    margin 1em 0px
+    .note
+      font-size small
+      font-style italic
+      margin-top 0.5em
+  .technical
+    margin-left 2em
+  textarea
+    width 98%
+    height 5em
+
 #page.teams-show #inner
   ul.people
     line-height 200%
@@ -516,52 +531,80 @@ form.vote
     line-height 150%
   p.sign-in
     text-align center
-  h2.deploy-status
+  ul.steps
     text-align center
-    font-size x-large
-    inverted()
-    box-shadow none
-    border-radius 2px
-    &.pending
-      background red url('/images/noise.png')
-    &.done
-      background green url('/images/noise.png')
-    .details
-      font-size small
-      font-family 'Droid Sans'
-      font-weight normal
-    a
-      color white
-      font-style italic
-  h2.deploy-status.done + .instructions
-    display none
-  ul.platforms
-    text-align center
-    margin 0.5em 0
+    margin 1.25em 0 0
     li
       display inline-block
-      margin 0 1ex
-      label
-        font-size small
-        font-style italic
+      margin 0 1em
+      padding-left 18px
+      &.pending
+        background url('/images/cross.png') no-repeat 0 5px
+      &.done
+        background url('/images/tick.png') no-repeat 0 5px
+      a
+        padding-bottom 8px
       a.selected
         color black
-  .platform
-    display none
+        background url('/images/spout.png') no-repeat center bottom
+  .step, .entry-info
     box-shadow inset 0 0 5px hsla(0, 0%, 0%, 0.1)
     background-color hsla(0, 0%, 95%, 0.5)
-    padding 5px
+    padding 10px
     border-radius 2px
-  .entry
+  .step
+    margin-top 5px
+    display none
+    h2
+      margin-top 0
+      text-align center
+      font-size x-large
+      inverted()
+      box-shadow none
+      border-radius 2px
+      .details
+        font-size small
+        font-family 'Droid Sans', monospace
+        font-weight normal
+        a
+          color white
+      &.pending
+        background red url('/images/noise.png')
+      &.done
+        background green url('/images/noise.png')
+  .step.entry
+    text-align center
+    a.button
+      font-size medium
+      margin-left 0.25em
+  .step.deploy
+    ul
+      padding-left 20px
+      margin 0.5em 0
+      list-style-type disc
+    table
+      border-collapse collapse
+      th, td
+        padding 0
+      th
+        padding-right 1em
+  .entry-info
+    display block
     margin-top 1em
     overflow hidden
-    img#screenshot
-      width 240px
-      height 148px
+    padding 20px
+    h2, h3, h4
+      margin-top 0px
+    img.screenshot
+      width 160px
+      height 93px
       float left
-      margin-right 10px
-      border solid 1px hsla(0, 0%, 0%, 0.2)
+      margin-left -5px
+      margin-right 15px
+      border solid 2px hsla(0, 0%, 0%, 0.1)
       border-radius 2px
+    .clear
+      clear both
 
 #page.teams #inner
   form.search
@@ -606,6 +649,8 @@ form.vote
           margin 0.5em 0
         img
           display none
+        h1
+          font-size 1.5em
   .more, #infscr-loading
     text-align center
     padding-top 1em
@@ -634,6 +679,10 @@ form.vote
       margin-bottom -2px
   .team, .bio
     clear left
+
+#page.errors-404 #inner
+  .troll
+    text-align center
 
 #page.errors-500 #inner
   code

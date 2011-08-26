@@ -19,7 +19,7 @@ app.get '/login', [setReturnTo], (req, res) ->
 app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next) ->
   if !req.person
     return next 401
-  else if invite = req.session.invite
+  else if not req.user.role and (invite = req.session.invite)
     Team.findOne 'invites.code': invite, (err, team) ->
       return next err if err
       if team
@@ -29,10 +29,11 @@ app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next
           team.save (err) ->
             return next err if err
             delete req.session.invite
-            res.redirect "/people/#{req.person.id}"
+            res.redirect "/people/#{req.person}"
       else
         res.redirect '/teams/new'
-  else if code = req.session.team
+  else if false and req.user.contestant and (code = req.session.team)
+    # no longer needed now that all teams are created
     Team.findOne code: code, (err, team) ->
       return next err if err
       if team
@@ -44,13 +45,14 @@ app.get '/login/done', [ensureAuth, loadPerson, loadPersonTeam], (req, res, next
     delete req.session.returnTo
     res.redirect returnTo
   else if req.user.judge or req.user.nomination
-    res.redirect "/people/#{req.person.id}"
+    res.redirect "/people/#{req.person}"
   else if req.team
     res.redirect "/teams/#{req.team}"
   else
-    res.redirect '/teams/new'
+    res.redirect '/'
 
 # order matters
 app.get '/login/:service?', [setReturnTo], (req, res, next) ->
+  req.logout()
   req.session.returnTo or= req.returnTo
   res.redirect "/auth/#{req.param('service') or 'github'}"

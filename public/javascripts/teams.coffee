@@ -26,19 +26,20 @@ load = ->
         $n.text('done').delay(500).fadeOut 'slow', -> $t.show()
 
     # deploy instructions
-    $('a[href="#instructions"]').click ->
-      $('.instructions').slideToggle()
-      false
-    $('.platform')
+    $('.step')
       .addClass(-> $(this).attr('id'))
       .removeProp('id')
+    $('ul.steps a').click (e) ->
+      if location.hash == $(this).attr('href')
+        e.preventDefault()
+        location.hash = 'none'
     $(window).hashchange (e) ->
-      hash = location.hash || '#joyent'
-      $('.platform')
+      hash = location.hash || $('ul.steps li.pending:first a').attr('href')
+      $('.step')
         .hide()
         .filter(hash.replace('#', '.'))
           .show()
-      $('ul.platforms a')
+      $('ul.steps a')
         .removeClass('selected')
         .filter('a[href="' + hash + '"]')
           .addClass('selected')
@@ -65,6 +66,12 @@ load = ->
       $delete.css
         left: pos.left + ($form.width() - $delete.outerWidth()) / 2
         top: pos.top
+
+    $('#entryVotable')
+      .change ->
+        $('.votable .technical').toggle $(this).is(':checked')
+        true
+      .change()
 
     $('a.pull', this).click ->
       li = $(this).closest('li')

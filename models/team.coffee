@@ -1,6 +1,9 @@
 _ = require 'underscore'
 mongoose = require 'mongoose'
 rbytes = require 'rbytes'
+querystring = require 'querystring'
+request = require 'request'
+util = require 'util'
 
 InviteSchema = require './invite'
 [Invite, Person, Deploy, Vote] = (mongoose.model m for m in ['Invite', 'Person', 'Deploy', 'Vote'])
@@ -14,8 +17,9 @@ TeamSchema = module.exports = new mongoose.Schema
     required: true
     unique: true
   description: String
-  project:
+  entry:
     name: String
+    url: String
     description: String
     instructions: String
     colophon: String
@@ -34,6 +38,7 @@ TeamSchema = module.exports = new mongoose.Schema
   code:
     type: String
     default: -> rbytes.randomBytes(12).toString('base64')
+  linode: {}
   search: String
 TeamSchema.plugin require('mongoose-types').useTimestamps
 TeamSchema.index updatedAt: -1
@@ -58,6 +63,20 @@ TeamSchema.method 'includes', (person, code) ->
   @code == code or person and _.any @peopleIds, (id) -> id.equals(person.id)
 TeamSchema.method 'invited', (invite) ->
   _.detect @invites, (i) -> i.code == invite
+
+TeamSchema.method 'prettifyURL', ->
+  return unless url = @entry.url
+  r = request.get url, (error, response, body) =>
+    throw error if error
+    @entry.url = (if typeof(r.uri) is 'string' then r.uri else r.uri.href) or @entry.url
+    @save()
+
+TeamSchema.method 'updateScreenshot', (callback) ->
+  return unless url = @entry.url
+  qs = querystring.stringify url: url, expire: 1, resize: '160x93', 'out-format': 'png'
+  r = request.get "http://pinkyurl.com/i?#{qs}", (error, response, body) ->
+    throw error if error
+    # no callback
 
 # associations
 TeamSchema.method 'people', (next) ->

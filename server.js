@@ -2,6 +2,7 @@ require('coffee-script');
 
 [ 'login',
   'index',
+  'iframe',
   'people',
   'judges',
   'teams',

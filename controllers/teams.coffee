@@ -16,6 +16,7 @@ app.get /^\/teams(\/pending)?\/?$/, (req, res, next) ->
     ids = _.reduce teams, ((r, t) -> r.concat(t.peopleIds)), []
     only =
       email: 1
+      slug: 1
       name: 1
       location: 1
       imageURL: 1
@@ -76,14 +77,15 @@ app.all '/teams/:id/invites/:inviteId', [m.loadTeam, m.ensureAccess], (req, res)
 app.get '/teams/:id/edit', [m.loadTeam, m.ensureAccess, m.loadTeamPeople], (req, res) ->
   res.render2 'teams/edit', team: req.team, people: req.people
 
-# edit project
-app.get '/teams/:id/project/edit', [m.loadTeam, m.ensureAccess], (req, res) ->
-  res.render2 'projects/edit', team: req.team, project: req.team.project
+# edit entry
+app.get '/teams/:id/entry/edit', [m.loadTeam, m.ensureAccess], (req, res) ->
+  res.render2 'entries/edit', team: req.team, entry: req.team.entry
 
 # update
 app.put '/teams/:id', [m.loadTeam, m.ensureAccess], (req, res, next) ->
   unless req.user.admin
-    delete req.body[attr] for attr in ['slug', 'code', 'search']
+    delete req.body[attr] for attr in ['slug', 'code', 'search', 'scores']
+    delete req.body.entry.url if req.body.entry
   _.extend req.team, req.body
   req.team.save (err) ->
     return next err if err and err.name != 'ValidationError'

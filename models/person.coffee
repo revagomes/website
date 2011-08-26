@@ -16,6 +16,9 @@ PersonSchema = module.exports = new mongoose.Schema
   admin: Boolean
   role: { type: String, enum: ROLES }
   technical: Boolean
+  slug:
+    type: String
+    index: true
 PersonSchema.plugin require('mongoose-types').useTimestamps
 PersonSchema.plugin auth,
   everymodule:
@@ -89,12 +92,18 @@ PersonSchema.plugin auth,
                 promise.fulfill updatedUser
         promise
 
+# instance methods
+PersonSchema.method 'toString', -> @id
 ROLES.forEach (t) ->
   PersonSchema.virtual(t).get -> @role == t
 PersonSchema.virtual('login').get ->
   @github?.login or @twit?.screenName or @name.split(' ')[0]
 PersonSchema.virtual('githubLogin').get -> @github?.login
 # twitterScreenName isn't here because you can edit it
+
+# class methods
+PersonSchema.static 'findBySlug', (slug, rest...) ->
+  Person.findOne { slug: slug }, rest...
 
 # associations
 PersonSchema.method 'team', (next) ->
@@ -104,6 +113,9 @@ PersonSchema.method 'votes', (next) ->
   Vote = mongoose.model 'Vote'
   Vote.find personId: @id, next
 
+# callbacks
+
+## remove from team
 PersonSchema.pre 'remove', (next) ->
   myId = @_id
   @team (err, team) ->
@@ -136,6 +148,7 @@ PersonSchema.method 'updateWithGithub', (ghUser, token, callback) ->
   Person.createWithGithub.call
     create: (params, callback) =>
       _.extend this, params
+      @slug = @github.login.toLowerCase()
       @company ||= @github.company
       @location ||= @github.location
       @save callback
@@ -146,6 +159,7 @@ PersonSchema.method 'updateWithTwitter', (twitter, token, secret, callback) ->
     create: (params, callback) =>
       _.extend this, params
       @twitterScreenName = @twit.screenName
+      @slug = @twitterScreenName.toLowerCase()
       @name ||= @twit.name
       @location ||= @twit.location
       @bio ||= @twit.description
@@ -157,8 +171,9 @@ PersonSchema.method 'updateWithFB', (facebook, token, expires, callback) ->
   Person.createWithFB.call
     create: (params, callback) =>
       _.extend this, params
+      @slug = @_id
       @name ||= @fb.name.full
-      @location ||= facebook.location.name
+      @location ||= facebook.location?.name
       @bio ||= facebook.bio
       @email ||= @fb.email
       @imageURL ||= "http://graph.facebook.com/#{@fb.id}/picture?type=square"

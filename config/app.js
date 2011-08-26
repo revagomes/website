@@ -113,7 +113,6 @@ app.configure(function() {
 app.configure('development', function() {
   app.use(express.static(app.paths.public));
   app.use(express.profiler());
-  app.enable('deployment');
   app.enable('voting');
   require('../lib/mongo-log')(app.db.mongo);
 });
@@ -125,7 +124,6 @@ app.configure('production', function() {
     else
       next();
   });
-  app.disable('deployment');
   app.disable('voting');
 });
 

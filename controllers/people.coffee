@@ -21,7 +21,7 @@ app.post '/people', [m.ensureAdmin], (req, res) ->
     if err
       res.render2 'people/new', person: person
     else
-      res.redirect "people/#{person.id}"
+      res.redirect "people/#{person}"
 
 # me
 app.get '/people/me(\/edit)?', [m.ensureAuth], (req, res, next) ->
@@ -48,7 +48,7 @@ app.put '/people/:id', [m.loadPerson, m.ensureAccess], (req, res) ->
     if req.person.errors
       res.render2 'people/edit', person: req.person
     else
-      res.redirect "/people/#{req.person.id}"
+      res.redirect "/people/#{req.person}"
 
 # delete
 app.delete '/people/:id', [m.loadPerson, m.ensureAccess], (req, res, next) ->

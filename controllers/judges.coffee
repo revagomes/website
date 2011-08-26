@@ -13,6 +13,11 @@ app.get '/judges/nominations', (req, res, next) ->
     return next err if err
     res.render2 'judges/nominations', judges: judges
 
+app.get '/judges/technical', (req, res, next) ->
+  Person.find { role: 'judge', technical: true }, (err, judges) ->
+    return next err if err
+    res.render2 'judges', judges: _.shuffle(judges), subset: 'Technical'
+
 # new
 app.get '/judges/new', (req, res, next) ->
   res.render2 'judges/new', person: new Person(role: 'nomination')
@@ -31,7 +36,7 @@ app.post '/judges', (req, res) ->
       req.flash 'info', """
         Thanks for nominating #{judge.name} as a judge.
         We will review and process him/her shortly."""
-      res.redirect "people/#{judge.id}"
+      res.redirect "people/#{judge}"
 
 # edit (just redirects to person/edit with twitter login)
 app.get '/judges/:judgeId/edit', (req, res, next) ->
