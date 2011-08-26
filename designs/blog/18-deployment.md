@@ -7,7 +7,7 @@ and covers deployment.
 
 ### Overview
 
-[Joyent][Joyent], [Heroku][Heroku], and [Linode][Linode] will provide free, private instances where you may deploy your code during the competition. You will receive an invitation to each service via email before the competition starts.  The choice of service for your submission is up to you (kinda like Pokémon):
+[Joyent], [Heroku], and [Linode] will provide free, private instances where you may deploy your code during the competition. You will receive an invitation to each service via email before the competition starts.  The choice of service for your submission is up to you (kinda like Pokémon):
 
 - Joyent provides a full VPS with root-level access combined with the ease of
 git push deployment. But note that Joyent only provides Solaris (ZFS!).
@@ -157,8 +157,23 @@ awesome it is.
 
     <code><pre>$ git push origin master</pre></code>
 
+### Setting up Linode
+
+1. Login to the [Linode Manager].
+
+2. Enter the credentials from [your team page].
+
+3. Follow the [Deploying to Linode] blog post.
+
+[Linode Manager]: https://manager.linode.com/
+[your team page]: http://nodeknockout.com/teams/mine
+[Deploying to Linode]: http://blog.nodeknockout.com/post/9300619913/countdown-to-ko-14-deploying-your-node-js-app-to
+
 ### Additional Requirements
 
-All entries will be hosted at least until the competition winners are announced. During judging, we will require remote access to your instance via an SSH key to make sure there is no cheating. We will compare your deployed code with the code in your git repo. After the 48-hour competition
-deadline, you will still be allowed to restart processes, free up disk space,
-and perform other general sysadmin tasks (including playing lots of StarCraft 2).
+All entries will be hosted at least until the competition winners are
+announced. During judging, we will require remote access to your instance via
+an SSH key to make sure there is no cheating. We will compare your deployed
+code with the code in your git repo. After the 48-hour competition deadline,
+you will still be allowed to restart processes, free up disk space, and perform
+other general sysadmin tasks (including playing lots of StarCraft 2).
