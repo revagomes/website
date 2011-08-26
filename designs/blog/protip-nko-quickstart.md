@@ -124,7 +124,7 @@ awesome it is.
 1. Create an account at [no.de](http://no.de) (or login).
 
 1. Click "Order a Machine" button in the upper right hand corner.
-   - We will assume you name your smart machine `your-team-name`.
+   - We will assume you name your smart machine `your-team-slug`.
 
 1. Click on the smart machine you ordered.
 
@@ -133,11 +133,11 @@ awesome it is.
 
 1. Add joyent as a remote on your git repo:
 
-    <code><pre>$ git remote add joyent your-team-name.no.de:repo</pre></code>
+    <code><pre>$ git remote add joyent your-team-slug.no.de:repo</pre></code>
 
 1. Now you should be able to deploy with a git push:
 
-    <code></pre>$ git push joyent master</code></pre>
+    <code><pre>$ git push joyent master</pre></code>
 
 1. Load your app in a browser to verify that it works.
 
