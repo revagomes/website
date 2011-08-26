@@ -53,7 +53,7 @@ Then set up your package.json and dependencies:
 
 ### Create `server.js`
 
-    // server.js                                                                                                                     
+    // server.js
     var http = require('http')
     , nko = require('nko')('yourteamsecret');
 
