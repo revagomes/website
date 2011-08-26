@@ -120,6 +120,10 @@ awesome it is.
 
 <h3 id="joyent">Joyent (no.de)</h3>
 
+Detailed instructions for deploying to no.de are available [here](http://blog.nodeknockout.com/post/9393790204/coundown-to-ko-20-no-de-getting-started-guide).
+
+The no.de hosting service has just launched!  **Please send support inquiries to [node@joyent.com](mailto:node@joyent.com).**
+
 1. Create an account at [no.de](http://no.de) (or login).
 
 1. Click "Order a Machine" button in the upper right hand corner.
