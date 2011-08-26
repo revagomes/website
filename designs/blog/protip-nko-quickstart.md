@@ -21,7 +21,7 @@ the contest.</b>_
 For these instructions you will need two keys, both avaiable on [your
 team page][]:
 
-![Slug and secret](TBD)
+![Slug and secret](http://f.cl.ly/items/0t0V3Q1l1y2i2T0S0s0b/Screen%20Shot%202011-08-26%20at%2012.22.06%20PM.png)
 
 1. **your team slug** - in this example, `your-team-slug`
 2. **your team secret** - in this exmaple, `yourteamsecret`
@@ -64,13 +64,15 @@ started.
 
 <h3 id="#nko">Require the `nko` Module</h3>
 
-Make sure you require the nko module <b style="color:firebrick">or else
-your site will not be voted on</b>:
+Make sure you require the [nko module][] <b style="color:firebrick">or
+else your site will not be voted on</b>:
 
     require('nko')('yourteamsecret')
 
 _We use the `nko` module to determine where you site has been deployed,
 so we can send judges to the right spot to evaluate it._
+
+[nko module](https://github.com/nko2/website/tree/master/module#readme)
 
 <h2 id='github'>Step 2. Push to GitHub</h2>
 
@@ -215,7 +217,7 @@ team page] and verify that your app is correctly marked as deployed.
 
 If your app is deployed correctly, you should see a nice green checkbox.
 
-![Deployed Correctly](TBD)
+![Deployed Correctly](http://f.cl.ly/items/0O2X1R461a1D153o1A1B/Screen%20Shot%202011-08-26%20at%2012.22.06%20PM.png)
 
 # Additional Notes
 
