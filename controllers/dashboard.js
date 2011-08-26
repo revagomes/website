@@ -60,7 +60,7 @@ module.exports = function(app) {
     var twitterSearchStream = new TwitterNode({
       'user': env.secrets.twitterUser.user
       , 'password': env.secrets.twitterUser.password
-      , 'track': ['nko', 'nodeknockout']
+      , 'track': ['#nko', 'nodeknockout']
       , 'follow': [stickyUser]
     });
     
