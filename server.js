@@ -8,6 +8,7 @@ require('coffee-script');
   'deploys',
   'votes',
   'websocket',
+  'live',
   'redirect'
 ].forEach(function(controller) {
   require('./controllers/' + controller);

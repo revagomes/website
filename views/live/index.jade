@@ -1,18 +1,8 @@
-h3
-  | node.js knockout is a 48-hour coding contest featuring
-  a( href: 'http://nodejs.org' ) node.js
-  | .
+- title('Live dashboard')
+a#make-dashboard-fullscreen.button Fullscreen
+h1 Live dashboard
 
-section
-  h3
-    | node.js knockout 2011 will be
-    .dates
-      time.start( datetime: '2011-08-27T00:00:00Z' ) August 27
-      |  &ndash;
-      time.end( datetime: '2011-08-29T00:00:00Z' ) August 29, 2011
-  #countdown
-
-#dashboards
+#dashboards.livepage
   div.twitter-dashboard
     ul.user
     ul.search
@@ -20,6 +10,9 @@ section
     .title #node.js@freenode
     ul
 
+//h1 Github commits
+//div.github-commits
+//  ul
 script#tweet.template(type="text/html")
   li
     img.avatar

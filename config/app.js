@@ -87,6 +87,7 @@ app.configure(function() {
         'vendor/jquery.transloadit2.js',
         'vendor/md5.js',
         'application.coffee',
+        'dashboard.js',
         '*'
       ]
       , 'postManipulate': {

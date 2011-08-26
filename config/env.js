@@ -15,7 +15,11 @@ if (env.development) {
   env.twitter_app_id = 'EDyM8JM1QRoRArpeXcarCA';
   try { env.secrets = require('./secrets'); }
   catch(e) { throw "secret keys file is missing. see ./secrets.js.sample."; }
-
+  env.irc = {
+	  username: 'NKOtestBot',
+	  server: 'irc.bamze.net',
+	  channels: ['#nko']
+	};
 } else {
   env.hostname = 'http://nodeknockout.com';
 
@@ -29,4 +33,9 @@ if (env.development) {
     postageapp: process.env.POSTAGEAPP_SECRET,
     session: process.env.EXPRESS_SESSION_KEY
   };
+  env.irc = {
+	  username: 'MrNko',
+	  server: 'irc.freenode.net',
+	  channels: ['#node.js']
+	};
 }

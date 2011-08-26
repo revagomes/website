@@ -766,3 +766,123 @@ form.person
   textarea
     width 98%
     height 5em
+#dashboards
+  overflow hidden
+  clear left
+#dashboards.livepage
+  padding 20px 0 0
+.twitter-dashboard, .irc-dashboard
+  float left
+  text-align left
+  width 50%
+  font-size 13px
+  height 438px
+  overflow hidden
+  margin 0 0 20px
+
+  .title
+    font-family '04b_03', monospace
+    font-size 20px
+    padding 5px 10px 15px
+
+  ul
+    padding 0 10px
+    margin 0
+    overflow hidden
+    position relative
+    top -1px
+  li
+    padding 5px 0
+    border-bottom 1px solid #eee
+    border-top 1px solid #fff
+    overflow hidden
+
+    .avatar
+      float left
+    .name
+      display inline
+      font-weight bold
+      padding 0 5px 0 0
+    .msg
+      display inline
+
+.twitter-dashboard
+  margin-right -1px
+  border-right 1px solid #eee
+.irc-dashboard
+  margin-left -1px
+  border-left 1px solid #fff
+
+#make-dashboard-fullscreen
+  float right
+  cursor pointer
+  margin 6px 50px 0 0
+
+body.fullscreen
+  overflow hidden
+#page #inner.fullscreen
+  position fixed
+  top 0
+  left 0
+  right 0
+  bottom 0
+  overflow auto
+  min-height 100%
+  width auto
+  padding-bottom 20px
+
+  .twitter-dashboard, .irc-dashboard
+    margin-top 10px
+
+  header, footer, h1
+    display none
+
+  #make-dashboard-fullscreen
+    margin-right 0
+    position absolute
+    top 10px
+    right 10px
+
+.github-commits
+  font-size 12px
+  overflow hidden
+  margin 20px 0 0
+
+  ul
+    margin 0
+  li
+    position relative
+    top -1px
+    padding 7px 0 10px
+    border-bottom 1px solid #eee
+    border-top 1px solid #fff
+  .teamname
+    font-family '04b_03', monospace
+    font-size 17px
+    padding 0 0 5px
+    display block
+    color #292929
+  .count
+    position absolute
+    bottom 27px
+    right 0
+    font-family '04b_03', monospace
+    font-size 14px
+  .bar
+    background #fff
+    height 12px
+    margin-right 100px
+    overflow hidden
+    border-left 3px solid #e1e1e1
+  .progress
+    background #cad0d3
+    border-right 3px solid #a6a5a5
+    margin-left -3px
+    height 100%
+  .message
+    font-size 12px
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    height 17px
+    padding 5px 0 0
