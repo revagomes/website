@@ -14,6 +14,7 @@ the contest.</b>_
 3. [Deploy](#deploy) to [Joyent](#joyent), [Heroku](#heroku) or
    [Linode](#linode)
    * If you deploy to Linode: `curl http://nodeknockout.com/id_nko2.pub >> ~/.ssh/authorized_keys` to grant NKO organizers access.
+4. Verify your app is [registered as deployed](#deployed).
 
 # Instructions
 
@@ -115,19 +116,29 @@ awesome it is.
 <h3 id="joyent">Joyent (no.de)</h3>
 
 1. Create an account at [no.de](http://no.de) (or login).
-2. Click "Order a Machine" button in the upper right hand corner.
+
+1. Click "Order a Machine" button in the upper right hand corner.
    - We will assume you name your smart machine `your-team-name`.
-3. Click on the smart machine you ordered.
-4. Follow the instructions on the smart machine page to add the host to
+
+1. Click on the smart machine you ordered.
+
+1. Follow the instructions on the smart machine page to add the host to
    your `~/.ssh/config` file.
 
-Next, add joyent as a remote on your git repo:
+1. Add joyent as a remote on your git repo:
 
-    $ git remote add joyent your-team-name.no.de:repo
+    <code><pre>$ git remote add joyent your-team-name.no.de:repo</pre></code>
 
-Now you should be able to deploy by git push:
+1. Now you should be able to deploy by git push:
 
-    $ git push joyent master
+    <code></pre>$ git push joyent master</code></pre>
+
+1. Load your app in a browser to verify that it works.
+
+    <code><pre>http://your-team-slug.no.de/</pre></code>
+
+1. Check your app is marked as [deployed correctly](#deployed) on your
+   team page.
 
 <h3 id="heroku">Heroku</h3>
 
@@ -176,8 +187,8 @@ Now you should be able to deploy by git push:
 
     <code><pre>http://nko2-your-team-slug.herokuapp.com/</pre></code>
 
-1. Visit your [node knockout team page][your team page] and verify that
-   your app is marked as deployed.
+1. Check your app is marked as [deployed correctly](#deployed) on your
+   team page.
 
 <h3 id="linode">Linode</h3>
 
@@ -187,8 +198,24 @@ Now you should be able to deploy by git push:
 
 3. Follow the [Deploying to Linode][] blog post.
 
+4. Deploy your app.
+
+    <code><pre>./deploy linode</pre></code>
+
+5. Check your app is marked as [deployed correctly](#deployed) on [your
+   team page][].
+
 [Linode Manager]: https://manager.linode.com/
 [Deploying to Linode]: http://blog.nodeknockout.com/post/9300619913/countdown-to-ko-14-deploying-your-node-js-app-to
+
+<h2 id="deployed">Verify Your App is Marked Deployed</h2>
+
+Once you deploy, you should visit your [node knockout team page][your
+team page] and verify that your app is correctly marked as deployed.
+
+If your app is deployed correctly, you should see a nice green checkbox.
+
+![Deployed Correctly](TBD)
 
 # Additional Notes
 
