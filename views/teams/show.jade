@@ -36,6 +36,8 @@ h1= title(team.entry.name || team.name)
           time( datetime: lastDeployedAt.toISOString(),
                 title: lastDeployedAt.toISOString() )
             = relativeDate(lastDeployedAt)
+          |  &mdash;
+          a( href: team.entry.url )= team.entry.url
     - else
       h2.pending Not Yet Deployed
     h4 Deploy ping &mdash; 
