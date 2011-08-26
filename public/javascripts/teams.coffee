@@ -29,8 +29,12 @@ load = ->
     $('.step')
       .addClass(-> $(this).attr('id'))
       .removeProp('id')
+    $('ul.steps a').click (e) ->
+      if location.hash == $(this).attr('href')
+        e.preventDefault()
+        location.hash = 'none'
     $(window).hashchange (e) ->
-      hash = location.hash || '#nothing-at-all'
+      hash = location.hash || $('ul.steps li.pending:first a').attr('href')
       $('.step')
         .hide()
         .filter(hash.replace('#', '.'))
