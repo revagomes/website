@@ -7,13 +7,13 @@ load = ->
       parts = $(this).attr('datetime').split(/[-:TZ]/)
       parts[1]--; # js dates :( js dates are hot dates.
       start = Date.UTC.apply null, parts
-  
+
       $('#countdown').each ->
         $this = $(this)
-  
+
         pluralize = (count, str) ->
           count + ' ' + str + (if parseInt(count) != 1 then 's ' else ' ')
-  
+
         names = ['hour', 'minute', 'second']
         do tick = ->
           secs = ((start - serverLoadTime) - (new Date - localLoadTime)) / 1000

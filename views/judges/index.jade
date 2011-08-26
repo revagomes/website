@@ -4,6 +4,6 @@ ul.judges
   - each judge in judges
     li
       img.avatar( src: avatar_url(judge, 80) )
-      h3: a( href: '/people/' + judge.slug )= judge.name
+      h3: a( href: '/people/' + judge )= judge.name
       != partial('people/details', { person: judge })
       .bio!= markdown(judge.bio)
