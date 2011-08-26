@@ -32,8 +32,13 @@
       });
       ws.on('irc', function(irc) {
         var $irc = $templates.irc.clone();
-        $irc.find('.msg').text(irc.message);
-        $irc.find('.name').text(irc.from+':');
+        if (irc.message.match(/ACTION/)) {
+          $irc.find('.msg').text('*'+irc.from+' '+irc.message.replace(/ACTION/g, ''));
+          $irc.find('.name').remove();
+        } else {
+          $irc.find('.msg').text(irc.message);
+          $irc.find('.name').text(irc.from+':');
+        }
         $('.irc-dashboard ul').prepend($irc);
         ircMessages.push($irc);
         if (irc.length > 30) {
