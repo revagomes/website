@@ -29,6 +29,7 @@
         ws.emit('join', 'irc');
         ws.emit('join', 'twitter');
         ws.emit('join', 'github');
+        ws.emit('join', 'deploy');
       });
       ws.on('irc', function(irc) {
         var $irc = $templates.irc.clone();
@@ -53,6 +54,9 @@
       });
       ws.on('usertweet', function(tweet) {
         addTweet(tweet, 'user');
+      });
+      ws.on('deploy', function(deploy) {
+        addDeploy(deploy);
       });
       ws.on('commits', function(commits) {
         var $gitubContainer = $('.github-commits ul').empty();
@@ -79,6 +83,18 @@
   var tweets = {
     'search': []
     , 'user': []
+  };
+
+  function addDeploy(deploy) {
+    var $deploy = $templates.deploy.clone()
+      , team = deploy.team;
+    $deploy
+      .find('img.screenshot').attr('src', team.screenshot).end()
+      .find('a.name').text(team.name).attr('href', team.url || '#').end()
+      .find('a.team').text(team.by).attr('href', "http://nodeknockout.com/teams/" + team.slug).end()
+      .find('.when').text(deploy.updatedAt).end()
+      .find('.platform').text(deploy.platform).end()
+      .appendTo($('.deploys ul'));
   };
 
   function addTweet(tweet, container) {

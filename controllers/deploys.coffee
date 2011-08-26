@@ -22,3 +22,4 @@ app.all '/teams/:code/deploys', [m.loadTeam], (req, res) ->
       util.error err.toString().red
       return res.end JSON.stringify(err)
     res.end JSON.stringify(deploy)
+    app.events.emit 'deploy', deploy, req.team

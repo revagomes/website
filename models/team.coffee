@@ -71,10 +71,14 @@ TeamSchema.method 'prettifyURL', ->
     @entry.url = (if typeof(r.uri) is 'string' then r.uri else r.uri.href) or @entry.url
     @save()
 
-TeamSchema.method 'updateScreenshot', (callback) ->
+TeamSchema.method 'screenshot', ->
   return unless url = @entry.url
   qs = querystring.stringify url: url, expire: 1, resize: '160x93', 'out-format': 'png'
-  r = request.get "http://pinkyurl.com/i?#{qs}", (error, response, body) ->
+  "http://pinkyurl.com/i?#{qs}"
+
+TeamSchema.method 'updateScreenshot', (callback) ->
+  return unless @entry.url
+  r = request.get @screenshot(), (error, response, body) ->
     throw error if error
     # no callback
 
