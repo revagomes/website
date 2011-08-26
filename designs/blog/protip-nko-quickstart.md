@@ -9,10 +9,10 @@ the contest.</b>_
 
 # Overview
 
-1. Setup a server with [the NKO npm module](#nko)
-2. Push to your team's [GitHub repo](#github)
+1. Setup a server with [the NKO npm module](#nko).
+2. Push to your team's [GitHub repo](#github).
 3. [Deploy](#deploy) to [Joyent](#joyent), [Heroku](#heroku) or
-   [Linode](#linode)
+   [Linode](#linode).
    * If you deploy to Linode: `curl http://nodeknockout.com/id_nko2.pub >> ~/.ssh/authorized_keys` to grant NKO organizers access.
 4. Verify your app is [registered as deployed](#deployed).
 
