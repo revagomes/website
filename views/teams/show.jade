@@ -1,7 +1,7 @@
 - if (team.includes(user, session.team) || admin)
-  .edit: a.button( href: '/teams/' + team + '/edit' ) Manage
+  .edit: a.button( href: '/teams/' + team + '/edit' ) Edit
 
-h1= title(team.name)
+h1= title(team.entry.name || team.name)
 
 - if (team.invited(session.invite))
   h2 You're invited to this team!
@@ -14,7 +14,7 @@ h1= title(team.name)
 - if (admin || (deployment && team.includes(user)))
   - lastDeploy = team.lastDeploy
   - if (lastDeploy)
-    h2.deploy-status.done Successfully deployed
+    h2.deploy-status.done Successfully Deployed
       .details
         - lastDeployedAt = new Date(lastDeploy._id.generationTime)
         time( datetime: lastDeployedAt.toISOString(),
@@ -23,7 +23,7 @@ h1= title(team.name)
         &nbsp;&mdash;
         a( href: '#instructions' ) Show deploy instructions
   - else
-    h2.deploy-status.pending Not yet deployed
+    h2.deploy-status.pending Not Yet Deployed
   .instructions
     ul.platforms
       li: label use:
@@ -32,28 +32,56 @@ h1= title(team.name)
       li: a( href: '#linode' ) Linode
     .platform#joyent
       ol
-        li require('nko')('#{team.code}');
+        li require('nko')('#{team.code}'); 
+          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
         li git remote add joyent git://no.de/foo.git
         li git push joyent master
     .platform#heroku
       ol
-        li require('nko')('#{team.code}');
-        li gem install heroku
+        a( href: 'http://blog.nodeknockout.com/post/9262660989/countdown-to-ko-10-deploying-your-node-js-app-to' ) Detailed instuctions
+        li require('nko')('#{team.code}'); 
+          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
         li heroku login
         li git remote add heroku git@heroku.com:nko2-#{team.slug}.git
         li git push heroku master
-        li: a( href: 'http://blog.nodeknockout.com/post/9262660989/countdown-to-ko-10-deploying-your-node-js-app-to' ) Detailed instuctions
     .platform#linode
       ol
-        li require('nko')('#{team.code}');
-        li install linux
+        a( href: 'http://blog.nodeknockout.com/post/9300619913/countdown-to-ko-14-deploying-your-node-js-app-to' ) Detailed instuctions
+        li
+          a( href: 'https://manager.linode.com/' ) Login
+          table
+            tr
+              th Username
+              td= team.linode.username
+            tr
+              th Password
+              td= team.linode.password
+            tr
+              th IP
+              td= team.linode.ip_address
+        li
+          | require('nko')('#{team.code}');
+          a( href: 'https://github.com/nko2/website/tree/master/module#readme' ) What is this?
         li export NODE_ENV=production
-        li deploy it, yo
 
-  - if (lastDeploy)
-    .entry
-      img#screenshot( src: 'http://pinkyurl.com/i?url=nodeknockout.com&out-format=png&resize=240x148' )
-      a( href: lastDeploy.remoteAddress )= lastDeploy.remoteAddress
+- if (!team.entry.name)
+  - if (admin || team.includes(user))
+    h2.entry-info-missing Entry Info Missing
+      a.button( href: '/teams/' + team + '/edit' ) Add &raquo;
+- else
+  .entry
+    - if (url = team.entry.url)
+      img.screenshot( src: 'http://pinkyurl.com/i?url=' + encodeURIComponent(url) + '&out-format=png&resize=160x93' )
+      h2: a( href: url  )= team.entry.name
+    - else
+      img.screenshot( src: '/images/blank.png' )
+      h2= team.entry.name
+    h3= 'by ' + team.name
+    .clear
+    != markdown(team.entry.description)
+    - if (team.entry.instructions)
+      h4 Judging Instructions
+      != markdown(team.entry.instructions)
 
 - if (people.length)
   h2 Who
@@ -77,7 +105,12 @@ h1= title(team.name)
           a( href: '/teams/' + team + '/invites/' + invite.id, rel: 'nofollow' ) resend
           span.sending
 
-- if (team.description)
+
+- if (team.entry.colophon)
+  h2 How
+  != markdown(team.entry.colophon)
+
+- if (false && team.description) // no longer show team description
   h2 What
   != markdown(team.description)
 

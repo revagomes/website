@@ -162,7 +162,7 @@ PersonSchema.method 'updateWithFB', (facebook, token, expires, callback) ->
       _.extend this, params
       @slug = @_id
       @name ||= @fb.name.full
-      @location ||= facebook.location.name
+      @location ||= facebook.location?.name
       @bio ||= facebook.bio
       @email ||= @fb.email
       @imageURL ||= "http://graph.facebook.com/#{@fb.id}/picture?type=square"

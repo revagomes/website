@@ -1,0 +1,179 @@
+html
+  head
+    :stylus
+      box-shadow()
+        -webkit-box-shadow arguments
+        -moz-box-shadow arguments
+        box-shadow arguments
+      body
+        margin 0
+        padding 0
+        background-color transparent
+        font-family 'Helvetica Neue', Helvetica, Arial, sans-serif
+      #count
+        margin-left 0.5ex
+      #icon
+        display inline-block
+        text-align center
+        margin-right 3px
+      #icon img
+        width 16px
+        height 16px
+      #vote img
+        vertical-align middle
+      #button
+        cursor pointer
+        padding 3px
+        display inline-block
+        box-shadow inset 0 0 1px hsla(0, 0%, 0%, 0.2)
+        border-radius 2px
+        border 1px solid #999
+        border solid 1px hsla(0, 0%, 0%, 0.2)
+        background-color #ccc
+        background-color hsla(0, 0%, 90%, 0.7)
+        background-image -webkit-linear-gradient(-90deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.1) 50%)
+        background-image -moz-linear-gradient(-90deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.1) 50%)
+      #button #heart, #button #x
+        display none
+      #button.voted
+        cursor default
+        #heart
+          display inline-block
+        #facebook
+          display none
+      #button.voted #icon:hover
+        cursor pointer
+        #heart
+          display none
+        #x
+          display inline-block
+    - if (css)
+      <!--[if lt IE 7]><!-->
+      link( rel: 'stylesheet', href: css)
+      <!--<![endif]-->
+  body
+    #button( class: req.vote ? 'voted' : '' )
+      #icon
+        img#facebook(src: '/images/iframe/facebook.png')
+        img#heart(src: '/images/iframe/heart.png')
+        img#x(src: '/images/iframe/x.png')
+      img#vote(src: '/images/iframe/vote.png' )
+    span#count= count
+    script
+      (function() {
+        var XHR
+          , $ = function(x) { return document.getElementById(x); }
+          , button = $('button')
+          , _csrf = "_csrf=" + encodeURIComponent( "#{req.session._csrf}")
+          , nko =
+            { voter: #{req.user && req.user.voter ? 'true' : 'false' }
+            , vote: "#{vote && vote.id}"
+            , team: "#{req.team}" };
+
+        button.onclick = function(e) {
+          if (nko.voter) {
+            vote()
+          } else {
+            auth(e);
+          }
+        };
+        $('x').onclick = function(e) {
+          unvote()
+        };
+
+        function update(clss, delta) {
+          var $count = $('count')
+            , count = parseInt($count.innerHTML);
+          button.className = clss;
+          $count.innerHTML = count + delta;
+        }
+
+        function vote() {
+          if (nko.vote) { return; } // already have voted
+
+          post('/teams/' + nko.team + '/votes.iframe', _csrf, function(xhr) {
+            if (xhr.status === 200) {
+              nko.vote = xhr.responseText;
+              update('voted', 1);
+            } else {
+              error(xhr, 'Error could not vote.');
+            }
+          });
+        }
+
+        function unvote() {
+          del('/votes/' + nko.vote, _csrf, function(xhr) {
+            if (xhr.status === 200) {
+              nko.vote = null;
+              update('', -1);
+            } else {
+              error(xhr, 'Error could not remove vote.');
+            }
+          });
+        }
+
+        function error(xhr, msg) {
+          if (xhr.status === 401) { // unauthorized
+            nko.voter = false;
+            nko.vote = null;
+          }
+          alert(msg + ' Please try again.');
+        }
+
+        function auth(e) {
+          popup("/login/facebook?returnTo=" + location.pathname + "/authed",
+            e, 600, 420, 'facebook');
+        }
+
+        // called by the popup window when auth is complete
+        window.authed = function(v) {
+          nko.voter = true;
+          nko.vote = v;
+          console.log(v);
+          update(v ? 'voted' : '', 0);
+          vote();
+        }
+
+        function popup(href, e, w, h, target) {
+          var x = e.screenX - w / 2
+            , y = e.screenY - h / 2
+            , attrs = [
+                'height=' + h, 'width=' + w,
+                'left=' + x, 'top=' + y ].join(',')
+            , win = window.open(href, target, attrs);
+
+          if (!win) {
+            // TBD popups are blocked!
+          }
+
+          if (win && 'focus' in win) win.focus();
+        }
+
+        function post(url, data, fn) {
+          send('POST', url, data, fn);
+        }
+
+        function del(url, data, fn) {
+          send('DELETE', url, data, fn);
+        }
+
+        function send(method, url, data, fn) {
+          var xhr = new XHR;
+          xhr.open(method, url, true);
+          xhr.onreadystatechange = function(e) {
+            if (xhr.readyState === 4) {
+              fn(xhr)
+            }
+          };
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.send(data);
+        }
+
+        XHR = XMLHttpRequest || (function() {
+          try {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+          } catch (e) {
+            return null;
+          }
+        })();
+      }).call(this);

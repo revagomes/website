@@ -26,7 +26,7 @@ tool that integrates with Twitter.  What's a watchlist?  Think of it as
 an interactive list of stocks you might hold or be interested in
 holding.
 
-[[screens]]
+![TradeKing Screenshot](https://s3.amazonaws.com/2011.nodeknockout.com/TradeKing_Watchlist_Mashup1.jpg)
 
 ## Installation
 

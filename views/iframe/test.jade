@@ -1,0 +1,11 @@
+:stylus
+  .frame
+    float left
+    width 150px
+    padding 5px
+  iframe
+    border none
+
+- each c in [ 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white' ]
+  .frame( style: "background-color:" + c + ";" )
+    iframe( src: '/iframe/fortnight-labs' )

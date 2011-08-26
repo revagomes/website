@@ -56,7 +56,7 @@ app.post '/teams', (req, res, next) ->
 # my team
 app.get '/teams/mine(\/edit)?', [m.ensureAuth, m.loadPerson, m.loadPersonTeam], (req, res, next) ->
   return next 404 unless req.team
-  res.redirect "/teams/#{req.team.id}#{req.params[0] || ''}"
+  res.redirect "/teams/#{req.team}#{req.params[0] || ''}"
 
 # show (join)
 app.get '/teams/:id', [m.loadTeam, m.loadTeamPeople, m.loadTeamVotes, m.loadMyVote], (req, res) ->
@@ -76,10 +76,15 @@ app.all '/teams/:id/invites/:inviteId', [m.loadTeam, m.ensureAccess], (req, res)
 app.get '/teams/:id/edit', [m.loadTeam, m.ensureAccess, m.loadTeamPeople], (req, res) ->
   res.render2 'teams/edit', team: req.team, people: req.people
 
+# edit entry
+app.get '/teams/:id/entry/edit', [m.loadTeam, m.ensureAccess], (req, res) ->
+  res.render2 'entries/edit', team: req.team, entry: req.team.entry
+
 # update
 app.put '/teams/:id', [m.loadTeam, m.ensureAccess], (req, res, next) ->
   unless req.user.admin
-    delete req.body[attr] for attr in ['slug', 'code', 'search']
+    delete req.body[attr] for attr in ['slug', 'code', 'search', 'scores']
+    delete req.body.entry.url if req.body.entry
   _.extend req.team, req.body
   req.team.save (err) ->
     return next err if err and err.name != 'ValidationError'

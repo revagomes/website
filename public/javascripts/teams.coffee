@@ -66,6 +66,12 @@ load = ->
         left: pos.left + ($form.width() - $delete.outerWidth()) / 2
         top: pos.top
 
+    $('#entryVotable')
+      .change ->
+        $('.votable .technical').toggle $(this).is(':checked')
+        true
+      .change()
+
     $('a.pull', this).click ->
       li = $(this).closest('li')
       i = li.prevAll('li').length + 1

@@ -2,6 +2,7 @@ app = require '../config/app'
 Team = app.db.model 'Team'
 Person = app.db.model 'Person'
 Service = app.db.model 'Service'
+Vote = app.db.model 'Vote'
 m = require './middleware'
 
 # middleware
