@@ -23,6 +23,7 @@
     if (!ws) {
       ws = io.connect(null, {
         'port': '#socketIoPort#'
+        , 'force new connection': true
       });
       ws.on('connect', function() {
         ws.emit('join', 'irc');
