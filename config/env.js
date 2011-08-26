@@ -18,7 +18,7 @@ if (env.development) {
   env.irc = {
 	  username: 'NKOtestBot',
 	  server: 'irc.bamze.net',
-	  channels: ['#nko']
+	  channels: ['#nodeknockout', '#node.js']
 	};
 } else {
   env.hostname = 'http://nodeknockout.com';
@@ -31,11 +31,15 @@ if (env.development) {
     github: process.env.GITHUB_OAUTH_SECRET,
     twitter: process.env.TWITTER_OAUTH_SECRET,
     postageapp: process.env.POSTAGEAPP_SECRET,
-    session: process.env.EXPRESS_SESSION_KEY
+    session: process.env.EXPRESS_SESSION_KEY,
+    twitterUser: {
+      user: process.env.TWITTER_USER,
+      password: process.env.TWITTER_PASSWORD
+    }
   };
   env.irc = {
 	  username: 'MrNko',
 	  server: 'irc.freenode.net',
-	  channels: ['#node.js']
+	  channels: ['#nodeknockout', '#node.js']
 	};
 }
