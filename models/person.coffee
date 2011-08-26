@@ -91,7 +91,7 @@ PersonSchema.plugin auth,
         promise
 
 # instance methods
-PersonSchema.method 'toString', -> @slug or @id
+PersonSchema.method 'toString', -> @id
 ROLES.forEach (t) ->
   PersonSchema.virtual(t).get -> @role == t
 PersonSchema.virtual('login').get ->
