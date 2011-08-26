@@ -1,6 +1,6 @@
 # NKO Quick Start
 
-_Here's a quick overview to getting your [Node.js Knockout][1] app up
+_Here's a quick overview of how to get your [Node.js Knockout][1] app up
 and running correctly. <b style="color:firebrick">Please review the
 overview section of this post, as it contains essential information for
 the contest.</b>_
@@ -9,26 +9,26 @@ the contest.</b>_
 
 # Overview
 
-1. Setup a server with [the NKO npm module](#nko).
+1. Set up a server with [the NKO npm module](#nko).
 2. Push to your team's [GitHub repo](#github).
 3. [Deploy](#deploy) to [Joyent](#joyent), [Heroku](#heroku) or
    [Linode](#linode).
    * If you deploy to Linode: `curl http://nodeknockout.com/id_nko2.pub >> ~/.ssh/authorized_keys` to grant NKO organizers access.
-4. Verify your app is [registered as deployed](#deployed).
+4. Verify your app is [marked as deployed](#deployed).
 
 # Instructions
 
 For these instructions you will need two keys, both avaiable on [your
 team page][]:
 
-![Slug and secret](http://f.cl.ly/items/0t0V3Q1l1y2i2T0S0s0b/Screen%20Shot%202011-08-26%20at%2012.22.06%20PM.png)
+![Slug and secret](http://f.cl.ly/items/2v0e2D1C1H1m3t2w090c/Screen%20Shot%202011-08-26%20at%201.04.37%20PM.png)
 
 1. **your team slug** - in this example, `your-team-slug`
 2. **your team secret** - in this exmaple, `yourteamsecret`
 
 [your team page]: http://nodeknockout.com/teams/mine
 
-## Step 1. Setup a Server
+## Step 1. Set up a Server
 
 ### Create Project Folder
 
@@ -38,9 +38,13 @@ started.
     $ mkdir your-team-slug
     $ cd your-team-slug
 
-### Setup Dependencies
+### Set up Dependencies
 
-[Install npm][], then setup your package.json and dependencies:
+[Install npm][].
+
+    $ curl http://npmjs.org/install.sh | sh
+
+Then set up your package.json and dependencies:
 
     $ npm init
     $ npm install --save nko
@@ -69,14 +73,14 @@ else your site will not be voted on</b>:
 
     require('nko')('yourteamsecret')
 
-_We use the `nko` module to determine where you site has been deployed,
-so we can send judges to the right spot to evaluate it._
+_We use the `nko` module to determine where your site has been deployed,
+so we can send judges to the right url to evaluate it._
 
-[nko module](https://github.com/nko2/website/tree/master/module#readme)
+[nko module]:https://github.com/nko2/website/tree/master/module#readme
 
 <h2 id='github'>Step 2. Push to GitHub</h2>
 
-Intruct git to ignore your npm dependencies.
+Instruct git to ignore your npm dependencies.
 
     $ echo node_modules > .gitignore
 
@@ -94,7 +98,7 @@ Finally, set GitHub as the origin for the repository.
 <h2 id="deploy">Step 3. Deploy Your Server</h2>
 
 [Joyent](#joyent), [Heroku](#heroku), and [Linode](#linode) are
-providing free, private instances where you may deploy your code during
+providing free, private instances for you to deploy your code during
 the competition.
 
 The choice of service for your submission is up to you (kinda like Pokémon):
@@ -131,7 +135,7 @@ awesome it is.
 
     <code><pre>$ git remote add joyent your-team-name.no.de:repo</pre></code>
 
-1. Now you should be able to deploy by git push:
+1. Now you should be able to deploy with a git push:
 
     <code></pre>$ git push joyent master</code></pre>
 
@@ -179,7 +183,7 @@ awesome it is.
 
 1. Configure your remote Heroku repository.
 
-    <code><pre>$ git remote add heroku git@heroku.com:nko2-you-team-slug.git</pre></code>
+    <code><pre>$ git remote add heroku git@heroku.com:nko2-your-team-slug.git</pre></code>
 
 1. Deploy to Heroku.
 
@@ -217,7 +221,7 @@ team page] and verify that your app is correctly marked as deployed.
 
 If your app is deployed correctly, you should see a nice green checkbox.
 
-![Deployed Correctly](http://f.cl.ly/items/0O2X1R461a1D153o1A1B/Screen%20Shot%202011-08-26%20at%2012.22.06%20PM.png)
+![Deployed Correctly](http://f.cl.ly/items/1a1v1e1z0e3w1H2h340a/Screen%20Shot%202011-08-26%20at%201.04.37%20PM.png)
 
 # Additional Notes
 
