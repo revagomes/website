@@ -10,3 +10,6 @@ app.get '/iframe/:teamId', [m.loadTeam, m.loadMyVote], (req, res) ->
 
 app.get '/iframe/:teamId/authed', [m.loadTeam, m.loadMyVote], (req, res) ->
   res.render 'iframe/authed', layout: false, vote: req.vote
+
+app.get '/iframe/:teamId/test', (req, res) ->
+  res.render 'iframe/test', layout: false

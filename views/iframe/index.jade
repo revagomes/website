@@ -1,13 +1,6 @@
 html
   head
     :stylus
-      @font-face
-        font-family "04b_03"
-        src url('/fonts/04b_03__-webfont.eot')
-        src url('/fonts/04b_03__-webfont.eot?iefix') format('eot'), url('/fonts/04b_03__-webfont.woff') format('woff'), url('/fonts/04b_03__-webfont.ttf') format('truetype'), url('/fonts/04b_03__-webfont.svg#webfontiFL0wwqh') format('svg')
-        font-weight normal
-        font-style normal
-        font-size medium
       box-shadow()
         -webkit-box-shadow arguments
         -moz-box-shadow arguments
@@ -21,27 +14,25 @@ html
         margin-left 0.5ex
       #icon
         display inline-block
-        width 18px
         text-align center
+        margin-right 3px
       #icon img
+        width 16px
+        height 16px
+      #vote img
         vertical-align middle
-        height 18px
       #button
-        font-size medium
-        font-weight bold
-        border 1px solid black
-        padding 8px
-        display inline-block
         cursor pointer
-        background-color hsla(0, 0%, 0%, 0.1)
-        border solid 1px hsla(0, 0%, 0%, 0.15)
-        box-shadow 0 0 5px hsla(0, 0%, 0%, 0.4)
-        font-family '04b_03', monospace
-      #button .ko
-        background-color black
-        color white
-        padding 4px 4px 3px 6px
-        margin-left -0.5ex
+        padding 3px
+        display inline-block
+        box-shadow inset 0 0 1px hsla(0, 0%, 0%, 0.2)
+        border-radius 2px
+        border 1px solid #999
+        border solid 1px hsla(0, 0%, 0%, 0.2)
+        background-color #ccc
+        background-color hsla(0, 0%, 90%, 0.7)
+        background-image -webkit-linear-gradient(-90deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.1) 50%)
+        background-image -moz-linear-gradient(-90deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.1) 50%)
       #button #heart, #button #x
         display none
       #button.voted
@@ -66,8 +57,7 @@ html
         img#facebook(src: '/images/iframe/facebook.png')
         img#heart(src: '/images/iframe/heart.png')
         img#x(src: '/images/iframe/x.png')
-      |  Vote 
-      span.ko KO
+      img#vote(src: '/images/iframe/vote.png' )
     span#count= count
     script
       (function() {
