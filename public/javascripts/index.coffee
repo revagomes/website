@@ -10,6 +10,7 @@ load = ->
 
       $('#countdown').each ->
         $this = $(this)
+        append = $(this).text()
 
         pluralize = (count, str) ->
           count + ' ' + str + (if parseInt(count) != 1 then 's ' else ' ')
@@ -18,11 +19,11 @@ load = ->
         do tick = ->
           secs = ((start - serverLoadTime) - (new Date - localLoadTime)) / 1000
           if secs > 0
-            parts = [secs % 86400 / 3600, secs % 3600 / 60, secs % 60]
+            parts = [secs / 3600, secs % 3600 / 60, secs % 60]
             $this.html null
             $.each parts, (i, num) ->
               $this.append pluralize(Math.floor(num), names[i])
-            $this.append 'from now'
+            $this.append append if append
             setTimeout tick, 800
           else
             $this.html $('<h1>GOGOGOGOGOGO</h1>')

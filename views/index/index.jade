@@ -1,5 +1,8 @@
-- if (team)
-  section: a.register.button( href: '/teams/' + team ) View Your Team
+section
+  - if (team)
+    a.register.button( href: '/teams/' + team ) View Your Team
+  time.end( datetime: '2011-08-29T00:00:00Z', style: 'display:none;' ) August 29, 2011
+  #countdown left
 
 #dashboards
   div.twitter-dashboard
