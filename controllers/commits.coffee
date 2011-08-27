@@ -8,9 +8,9 @@ module.exports = (app) ->
       Team.findOne code: code, (err, team) ->
         return next err if err
         return next 404 unless team
-        console.log req.body.payload
         try
           payload = JSON.parse req.body.payload
+          console.log payload
           for commit in payload.commits
             app.events.emit 'commit', commit, team
         catch e
