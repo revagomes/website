@@ -141,10 +141,10 @@ module.exports = function(app) {
           , url: team.entry.url }
         , platform: deploy.platform
         , updatedAt: deploy.updatedAt };
-
       backlog.add(deployMessage);
       io.sockets.to('deploy').emit('deploy', deployMessage);
     });
+
     return function(client) {
       backlog.getAll().forEach(function(deploy) {
         client.emit('deploy', deploy);
