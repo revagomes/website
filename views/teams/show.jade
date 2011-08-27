@@ -90,29 +90,28 @@ h1
       input( type: 'hidden', name: '_method', value: 'PUT' )
 
       - if (!team.entry.votable)
-        input( type: 'hidden', name: 'entry[votable]', value: 1 )
-
+        h2.pending Not Votable
         p
           | Your app is not yet votable. When you make it votable,
           | judges will review it at:
           a( href: team.entry.url )= team.entry.url
+          | .
 
+        input( type: 'hidden', name: 'entry[votable]', value: 1 )
         .buttons: input.scary( type: 'submit', value: 'Make Votable' )
 
-        :markdown
-          **Once your app is votable, future deploys will not
-          change your url.**
+        p: b Future deploys will not change your url once your app is votable.
 
       - else
-        input( type: 'hidden', name: 'entry[votable]', value: 0 )
-
-        p Judges are currently reviewing your app at: 
+        h2.done Votable
+        p Judges will review your app at: 
           a( href: team.entry.url)= team.entry.url
+          | .
 
-        .buttons: input.scary( type: 'submit', value: 'Make Unvotable' )
+        input( type: 'hidden', name: 'entry[votable]', value: 0 )
+        .buttons: input( type: 'submit', value: 'Make Unvotable' )
 
-        :markdown
-          **Make it unvotable to deploy to a different location.**
+        p: b Make it unvotable to deploy to a different URL.
 
 - if (team.entry.name)
   .entry-info
