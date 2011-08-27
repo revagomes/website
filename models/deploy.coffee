@@ -48,7 +48,7 @@ DeploySchema.method 'urlForTeam', (team) ->
   'http://' + switch @platform
     when 'joyent', 'nodejitsu', 'localdomain' then @hostname
     when 'heroku' then "nko2-#{team.slug}.herokuapp.com"
-    when 'linode' then @remoteAddress
+    when 'linode' then "#{team.slug}.nko2.nodeknockout.com"
 
 # callbacks
 DeploySchema.post 'save', ->
