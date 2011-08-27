@@ -6,6 +6,7 @@ util = require 'util'
 Deploy = app.db.model 'Deploy'
 
 # create (if anyone finds the team by code, they're authorized)
+
 app.all '/teams/:code/deploys', [m.loadTeam], (req, res) ->
   util.log "#{'DEPLOY'.magenta} #{req.team.name} (#{req.team.id})"
   req.session.destroy()
@@ -22,3 +23,4 @@ app.all '/teams/:code/deploys', [m.loadTeam], (req, res) ->
       util.error err.toString().red
       return res.end JSON.stringify(err)
     res.end JSON.stringify(deploy)
+    app.events.emit 'deploy', deploy, req.team

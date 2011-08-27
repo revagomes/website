@@ -3,7 +3,8 @@ var express = require('express')
   , env = require('./env')
   , util = require('util')
   , port = env.port
-  , secrets = env.secrets;
+  , secrets = env.secrets
+  , EventEmitter = require('events').EventEmitter;
 
 // express
 var app = module.exports = express.createServer();
@@ -29,6 +30,9 @@ require('colors');
 require('../lib/render2');
 require('../lib/underscore.shuffle');
 require('../lib/regexp-extensions');
+
+// events
+app.events = new EventEmitter();
 
 // db
 app.db = require('../models')(env.mongo_url);

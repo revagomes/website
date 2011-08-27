@@ -1,12 +1,21 @@
 (function() {
-	var $templates = {};
-	$('.template').each(function(index) {
-	    var $this = $(this);
-	    $templates[$this.attr('id')] = $($this.html());
-	    $this.remove();
-	});
-
+  var $templates = {};
+  $('.template').each(function(index) {
+      var $this = $(this);
+      $templates[$this.attr('id')] = $($this.html());
+      $this.remove();
+  });
+  var domCache = {};
+  var $$ = (function() {
+    return function(selector) {
+      if (!domCache[selector]) {
+        domCache[selector] = $(selector);
+      }
+      return domCache[selector];
+    };
+  })();
   $(document).bind('end.pjax', function(e, xhr, pjax) {
+    domCache = {};
     if (ws) {
       ws.disconnect();
     }
@@ -29,6 +38,7 @@
         ws.emit('join', 'irc');
         ws.emit('join', 'twitter');
         ws.emit('join', 'github');
+        ws.emit('join', 'deploy');
       });
       ws.on('irc', function(irc) {
         var $irc = $templates.irc.clone();
@@ -39,7 +49,7 @@
           $irc.find('.msg').text(irc.message);
           $irc.find('.name').text(irc.from+':');
         }
-        $('.irc-dashboard ul').prepend($irc);
+        $$('.irc-dashboard ul').prepend($irc);
         ircMessages.push($irc);
         if (irc.length > 30) {
           $.each(ircMessages.slice(0, ircMessages.length-30), function(index, $oldIrc) {
@@ -54,8 +64,11 @@
       ws.on('usertweet', function(tweet) {
         addTweet(tweet, 'user');
       });
+      ws.on('deploy', function(deploy) {
+        addDeploy(deploy);
+      });
       ws.on('commits', function(commits) {
-        var $gitubContainer = $('.github-commits ul').empty();
+        var $gitubContainer = $$('.github-commits ul').empty();
         $.each(commits.teams, function(index, team) {
           var $team = $templates.team.clone();
           $team.find('.teamname').text(team.name).attr('href', '/teams/'+team.name).end()
@@ -80,6 +93,28 @@
     'search': []
     , 'user': []
   };
+  var deployList = []
+
+  function addDeploy(deploy) {
+    var $deploy = $templates.deploy.clone()
+      , team = deploy.team;
+    $deploy
+      .find('img.screenshot').attr('src', team.screenshot).end()
+      .find('a.name').text(team.name || team.slug).attr('href', team.url || '#').end()
+      .find('a.team').text(team.by).attr('href', "http://nodeknockout.com/teams/" + team.slug).end()
+      .find('.when').text('Deployed at: '+deploy.updatedAt.toString().match('..:..:..')[0]).end()
+      .find('.platform').text(deploy.platform).end()
+      .prependTo($$('.deploys-dashboard ul'));
+
+      deployList.push($deploy);
+      var maxCount = 30;
+      if (deployList.length > maxCount) {
+        $.each(deployList.slice(0, deployList.length-maxCount), function(index, $oldDeploy) {
+          $oldDeploy.remove();
+        });
+        deployList = deployList.slice(deployList.length-maxCount);
+      }
+  };
 
   function addTweet(tweet, container) {
     var $tweet = $templates.tweet.clone();
@@ -87,7 +122,7 @@
     .find('.name').text(tweet.user.screen_name+':').attr('href', 'http://twitter.com/'+tweet.user.screen_name).end()
     .find('.avatar').attr('src', tweet.user.profile_image_url);
 
-    $('.twitter-dashboard ul.'+container).prepend($tweet);
+    $$('.twitter-dashboard ul.'+container).prepend($tweet);
 
     var tweetsList = tweets[container];
     tweetsList.push($tweet);

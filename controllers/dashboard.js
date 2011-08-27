@@ -20,6 +20,9 @@ module.exports = function(app) {
         case 'github':
           setupGithub(client);
           break;
+        case 'deploy':
+          setupDeploys(client);
+          break;
       }
     });
   });
@@ -115,12 +118,37 @@ module.exports = function(app) {
       };
       return github;
     }
-    
+
     //setInterval(function() {
     //  io.sockets.to('github').emit('commits', getGithubTeamData());
     //}, 1000);
     return function(client) {
       client.emit('commits', getGithubTeamData());
+    };
+  })();
+
+  // Deploys
+  var setupDeploys = (function() {
+    var backlog = new Backlog('deploy', 30);
+
+    app.events.on('deploy', function(deploy, team) {
+      var deployMessage =
+        { team:
+          { name: team.entry.name
+          , by: team.name
+          , slug: team.slug
+          , screenshot: team.screenshot()
+          , url: team.entry.url }
+        , platform: deploy.platform
+        , updatedAt: deploy.updatedAt };
+      backlog.add(deployMessage);
+      io.sockets.to('deploy').emit('deploy', deployMessage);
+    });
+
+    return function(client) {
+      backlog.getAll().forEach(function(deploy) {
+        client.emit('deploy', deploy);
+      });
     };
   })();
 }
