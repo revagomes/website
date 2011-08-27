@@ -84,17 +84,27 @@
     'search': []
     , 'user': []
   };
+  var deployList = []
 
   function addDeploy(deploy) {
     var $deploy = $templates.deploy.clone()
       , team = deploy.team;
     $deploy
       .find('img.screenshot').attr('src', team.screenshot).end()
-      .find('a.name').text(team.name).attr('href', team.url || '#').end()
+      .find('a.name').text(team.name || team.slug).attr('href', team.url || '#').end()
       .find('a.team').text(team.by).attr('href', "http://nodeknockout.com/teams/" + team.slug).end()
-      .find('.when').text(deploy.updatedAt).end()
+      .find('.when').text('Deployed at: '+deploy.updatedAt.toString().match('..:..:..')[0]).end()
       .find('.platform').text(deploy.platform).end()
-      .appendTo($('.deploys ul'));
+      .prependTo($('.deploys-dashboard ul'));
+
+      deployList.push($deploy);
+      var maxCount = 30;
+      if (deployList.length > maxCount) {
+        $.each(deployList.slice(0, deployList.length-maxCount), function(index, $oldDeploy) {
+          $oldDeploy.remove();
+        });
+        deployList = deployList.slice(deployList.length-maxCount);
+      }
   };
 
   function addTweet(tweet, container) {
