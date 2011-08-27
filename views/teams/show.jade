@@ -161,7 +161,7 @@ h1
   != markdown(team.description)
 
 - if (voting)
-  h1 Votes
+  h1#votes Votes
   h2 Your Vote
   != partial('votes/form', { vote: vote })
   h2 All Votes

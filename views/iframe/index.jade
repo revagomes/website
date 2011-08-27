@@ -66,13 +66,16 @@ html
           , button = $('button')
           , _csrf = "_csrf=" + encodeURIComponent( "#{req.session._csrf}")
           , nko =
-            { voter: #{req.user && req.user.voter ? 'true' : 'false' }
+            { role: "#{req.user && req.user.role}"
             , vote: "#{vote && vote.id}"
             , team: "#{req.team}" };
 
         button.onclick = function(e) {
-          if (nko.voter) {
+          if (nko.vote) { return; }
+          if (nko.role === "voter") {
             vote()
+          } else if (nko.role) {
+            window.open('/teams/' + nko.team + '#votes', 'nko');
           } else {
             auth(e);
           }
@@ -127,9 +130,8 @@ html
 
         // called by the popup window when auth is complete
         window.authed = function(v) {
-          nko.voter = true;
+          nko.role = "voter";
           nko.vote = v;
-          console.log(v);
           update(v ? 'voted' : '', 0);
           vote();
         }
@@ -141,10 +143,6 @@ html
                 'height=' + h, 'width=' + w,
                 'left=' + x, 'top=' + y ].join(',')
             , win = window.open(href, target, attrs);
-
-          if (!win) {
-            // TBD popups are blocked!
-          }
 
           if (win && 'focus' in win) win.focus();
         }
