@@ -186,7 +186,18 @@ module.exports = [
     dedicated solutions, we can handle all the different levels of your data
     layer.
 
-    [1]: htts://mongohq.com/home
+    [1]: https://mongohq.com/home
+    '''
+,
+  name:  'Mozilla'
+  image: 'mozilla.png'
+  url:   'http://www.mozilla.org/'
+  description:
+    '''
+    Mozilla,  a non-profit organization and creator of Firefox whose
+    [mission][1] is to promote openness, innovation and opportunity on the Web.
+
+    [1]: http://www.mozilla.org/about/mission.html
     '''
 ,
   name:  'ngmoco'
