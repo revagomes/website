@@ -60,7 +60,7 @@ html
             li: a( href: '/judges' ) Judges
             li: a( href: '/sponsors' ) Sponsors
             li: a( href: '/prizes' ) Prizes
-            - if (req.user && (req.user.contestant || req.user.admin))
+            - if (req.user && (req.user.contestant || req.user.judge || req.user.admin))
               li: a( href: '/services' ) Services
 
         #flash

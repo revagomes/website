@@ -44,7 +44,7 @@ app.get '/now', (req, res) ->
   res.send Date.now().toString()
 
 app.get '/services', [m.ensureAuth], (req, res, next) ->
-  return next 401 unless req.user.contestant or req.user.admin
+  return next 401 unless req.user.contestant or req.user.judge or req.user.admin
   Service.sorted (error, services) ->
     next error if error
     res.render2 'index/services', services: services
