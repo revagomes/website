@@ -119,9 +119,10 @@
     var $deploy = $templates.deploy.clone()
       , team = deploy.team;
     $deploy
+      .find('a').attr('href', team.url || '#').end()
       .find('img.screenshot').attr('src', team.screenshot).end()
-      .find('a.name').text(team.name || team.slug).attr('href', team.url || '#').end()
-      .find('a.url').text(team.url).attr('href', team.url || '#').end()
+      .find('a.name').text(team.name || team.slug).end()
+      .find('a.url').text(team.url).end()
       .find('a.team').text(team.by).attr('href', "http://nodeknockout.com/teams/" + team.slug).end()
       .find('.date').text('deployed at '+deploy.updatedAt.toString().match('[1-9]?.:..')[0]).end()
       .prependTo($$('.deploys-dashboard ul'));
