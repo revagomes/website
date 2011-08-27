@@ -11,7 +11,11 @@
     ul
 
 h1#deploys Deploys
-div.deploys-dashboard
+.deploys-dashboard
+  ul
+
+h1#commits Commits
+.commits-dashboard
   ul
 
 script#tweet.template(type="text/html")
@@ -43,3 +47,14 @@ script#deploy.template(type="text/html")
       a.url
       | 
       span.date
+
+script#commit.template(type="text/html")
+  li
+    .message
+    .by
+      | &ndash; 
+      a.author
+      | , 
+      a.team
+      |  at 
+      span.at

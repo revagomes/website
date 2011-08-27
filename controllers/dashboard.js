@@ -91,39 +91,27 @@ module.exports = function(app) {
 
   // Github
   var setupGithub = (function() {
-    var backlog = new Backlog(30);
+    var backlog = new Backlog('github', 30);
 
-    var teamData = [ 'team1', 'team2', 'team3' ];
-    var dummy = ['commit msg #1','commit msg #2','commit msg #3','commit msg #4'];
+    app.events.on('commit', function(commit, team) {
+      var commitMessage =
+        { team:
+          { name: team.entry.name
+          , by: team.name
+          , slug: team.slug
+          , screenshot: team.screenshot()
+          , url: team.entry.url }
+        , message: commit.message.trim()
+        , author: commit.author.username
+        , timestamp: new Date(Date.parse(commit.timestamp)) };
+      backlog.add(commitMessage);
+      io.sockets.to('commit').emit('commit', commitMessage);
+    });
 
-    function getGithubTeamData() {
-      var teams = [];
-      teamData.forEach(function(name) {
-        teams.push({
-          'name': name
-          , 'commits': 0 | Math.random()* 236
-          , 'message': dummy[Math.floor(Math.random()*dummy.length)]
-        });
-      });
-
-      var max = 0;
-      teams = teams.sort(function(a,b) {
-        max = Math.max(max, a.commits);
-        return b.commits - a.commits;
-      }).slice(0,30);
-
-      var github = {
-        'max': max
-        , 'teams': teams
-      };
-      return github;
-    }
-
-    //setInterval(function() {
-    //  io.sockets.to('github').emit('commits', getGithubTeamData());
-    //}, 1000);
     return function(client) {
-      client.emit('commits', getGithubTeamData());
+      backlog.getAll().forEach(function(commit) {
+        client.emit('commit', commit);
+      });
     };
   })();
 

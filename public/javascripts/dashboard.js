@@ -39,6 +39,7 @@
         ws.emit('join', 'twitter');
         ws.emit('join', 'github');
         ws.emit('join', 'deploy');
+        ws.emit('join', 'commit');
       });
       ws.on('irc', function(irc) {
         var $irc = $templates.irc.clone();
@@ -67,6 +68,9 @@
       ws.on('deploy', function(deploy) {
         addDeploy(deploy);
       });
+      ws.on('commit', function(commit) {
+        addCommit(commit);
+      });
       ws.on('commits', function(commits) {
         var $gitubContainer = $$('.github-commits ul').empty();
         $.each(commits.teams, function(index, team) {
@@ -94,6 +98,22 @@
     , 'user': []
   };
   var deployList = []
+
+  function addCommit(commit) {
+    var $commit = $templates.commit.clone()
+      , $ul = $$('.commits-dashboard ul')
+      , team = commit.team;
+
+    $commit
+      .find('.message').text(commit.message).end()
+      .find('a.author').attr('href', 'http://github.com/' + commit.author).text(commit.author).end()
+      .find('a.team').attr('href', 'http://nodeknockout.com/teams/' + commit.team.slug).text(commit.team.by).end()
+      .find('.at').text(commit.timestamp.toString().match('[1-9]?.:..')[0]).end()
+      .prependTo($ul);
+
+    var maxCount = 30;
+    $ul.find('li').slice(maxCount).remove();
+  }
 
   function addDeploy(deploy) {
     var $deploy = $templates.deploy.clone()
