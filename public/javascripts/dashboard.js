@@ -47,7 +47,7 @@
           $irc.find('.name').remove();
         } else {
           $irc.find('.msg').text(irc.message);
-          $irc.find('.name').text(irc.from+':');
+          $irc.find('.name').text(irc.from);
         }
         $$('.irc-dashboard ul').prepend($irc);
         ircMessages.push($irc);
@@ -119,7 +119,7 @@
   function addTweet(tweet, container) {
     var $tweet = $templates.tweet.clone();
     $tweet.find('.msg').text(tweet.text).end()
-    .find('.name').text(tweet.user.screen_name+':').attr('href', 'http://twitter.com/'+tweet.user.screen_name).end()
+    .find('.name').text(tweet.user.screen_name).attr('href', 'http://twitter.com/'+tweet.user.screen_name).end()
     .find('.avatar').attr('src', tweet.user.profile_image_url);
 
     $$('.twitter-dashboard ul.'+container).prepend($tweet);
