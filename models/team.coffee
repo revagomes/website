@@ -25,7 +25,7 @@ TeamSchema = module.exports = new mongoose.Schema
     colophon: String
     votable:
       type: Boolean
-      default: true
+      default: false
     technical: Boolean
   emails:
     type: [ mongoose.SchemaTypes.Email ]

@@ -33,17 +33,19 @@
     | What libraries, icons, web service APIs, and tools did you use?
   textarea( name: 'entry[colophon]', id: 'entryColophon' )= entry.colophon
 
-.votable
-  input( type: 'hidden', name: 'entry[votable]', value: 0 )
-  input( type: 'checkbox', name: 'entry[votable]', id: 'entryVotable', checked: entry.votable )
-  label( for: 'entryVotable' ) Yes! I want judges to vote on my entry.
-  p.note
-    | Uncheck this box if your entry isn't ready to be judged when the
-    | competition ends.
-  .technical
-    input( type: 'hidden', name: 'entry[technical]', value: 0 )
-    input( type: 'checkbox', name: 'entry[technical]', id: 'entryTechnical', checked: entry.technical )
-    label( for: 'entryTechnical' )!= "I'd prefer <a href='/judges/technical'>technical judges</a>."
+- if (admin)
+  .votable
+    input( type: 'hidden', name: 'entry[votable]', value: 0 )
+    input( type: 'checkbox', name: 'entry[votable]', id: 'entryVotable', checked: entry.votable )
+    label( for: 'entryVotable' ) Yes! I want judges to vote on my entry.
     p.note
-      | Please only select this box if your entry cannot be evaluated fairly
-      | by non-technical judges.
+      | Uncheck this box if your entry isn't ready to be judged when the
+      | competition ends.
+
+.technical
+  input( type: 'hidden', name: 'entry[technical]', value: 0 )
+  input( type: 'checkbox', name: 'entry[technical]', id: 'entryTechnical', checked: entry.technical )
+  label( for: 'entryTechnical' )!= "I'd prefer <a href='/judges/technical'>technical judges</a>."
+  p.note
+    | Please only select this box if your entry cannot be evaluated fairly
+    | by non-technical judges.

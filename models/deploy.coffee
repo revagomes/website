@@ -55,7 +55,7 @@ DeploySchema.post 'save', ->
   @team (err, team) =>
     throw err if err
     team.lastDeploy = @toObject()
-    team.entry.url = @urlForTeam team
+    team.entry.url = @urlForTeam team unless team.entry.votable
     team.save (err) ->
       throw err if err
       team.prettifyURL()
