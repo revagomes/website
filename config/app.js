@@ -4,7 +4,8 @@ var express = require('express')
   , util = require('util')
   , port = env.port
   , secrets = env.secrets
-  , EventEmitter = require('events').EventEmitter;
+  , EventEmitter = require('events').EventEmitter
+  , commits = require('./../controllers/commits');
 
 // express
 var app = module.exports = express.createServer();
@@ -143,6 +144,10 @@ app.configure(function() {
   }));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+
+  // hacky solution for post commit hooks not to check csrf
+  app.use(commits(app));
+
   app.use(express.csrf());
   app.use(function(req, res, next) { if (req.body) delete req.body._csrf; next(); });
   app.use(express.logger());
