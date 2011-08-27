@@ -36,8 +36,10 @@ script#team.template(type="text/html")
 script#deploy.template(type="text/html")
   li
     img.screenshot
-    a.name
+    h3: a.name
     .by by 
       a.team
     .when
-    .platform
+      a.url
+      | 
+      span.date

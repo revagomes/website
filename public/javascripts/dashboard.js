@@ -101,9 +101,9 @@
     $deploy
       .find('img.screenshot').attr('src', team.screenshot).end()
       .find('a.name').text(team.name || team.slug).attr('href', team.url || '#').end()
+      .find('a.url').text(team.url).attr('href', team.url || '#').end()
       .find('a.team').text(team.by).attr('href', "http://nodeknockout.com/teams/" + team.slug).end()
-      .find('.when').text('Deployed at: '+deploy.updatedAt.toString().match('..:..:..')[0]).end()
-      .find('.platform').text(deploy.platform).end()
+      .find('.date').text('deployed at '+deploy.updatedAt.toString().match('[1-9]?.:..')[0]).end()
       .prependTo($$('.deploys-dashboard ul'));
 
       deployList.push($deploy);

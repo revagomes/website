@@ -382,6 +382,134 @@ form.vote
     margin 0.25em 0px
   a.register.button
     font-size x-large
+  #dashboards
+    overflow hidden
+    clear left
+  .deploys-dashboard
+    text-align left
+    margin-top 1em
+    li
+      overflow hidden
+      margin-bottom 1em
+    img.screenshot
+      float left
+      margin 0 10px 0 0
+      width 160px
+      height 93px
+      border solid 2px hsla(0, 0%, 0%, 0.1)
+      border-radius 2px
+    h3
+      margin 0.25em 0 0
+    .by, .when
+      font-size small
+      line-height 150%
+    .when
+      font-size x-small
+  .twitter-dashboard, .irc-dashboard
+    float left
+    text-align left
+    width 50%
+    font-size 13px
+    max-height 600px
+    overflow hidden
+    margin 0 0 20px
+    h2
+      padding 0 10px
+      margin 0 0 0.5em
+      font-size 19px
+    ul
+      padding 0 10px
+      margin 0
+      overflow hidden
+      position relative
+      top -1px
+    li
+      padding 5px 0
+      border-bottom 1px solid #eee
+      border-top 1px solid #fff
+      overflow hidden
+      .avatar
+        float left
+      .name
+        display inline
+        font-weight bold
+        padding 0 5px 0 0
+      .msg
+        display inline
+  .twitter-dashboard
+    margin-right -1px
+    border-right 1px solid #eee
+  .irc-dashboard
+    margin-left -1px
+    border-left 1px solid #fff
+  #make-dashboard-fullscreen
+    float right
+    cursor pointer
+    margin 6px 50px 0 0
+  .github-commits
+    font-size 12px
+    overflow hidden
+    margin 20px 0 0
+    ul
+      margin 0
+    li
+      position relative
+      top -1px
+      padding 7px 0 10px
+      border-bottom 1px solid #eee
+      border-top 1px solid #fff
+    .teamname
+      font-family '04b_03', monospace
+      font-size 17px
+      padding 0 0 5px
+      display block
+      color #292929
+    .count
+      position absolute
+      bottom 27px
+      right 0
+      font-family '04b_03', monospace
+      font-size 14px
+    .bar
+      background #fff
+      height 12px
+      margin-right 100px
+      overflow hidden
+      border-left 3px solid #e1e1e1
+    .progress
+      background #cad0d3
+      border-right 3px solid #a6a5a5
+      margin-left -3px
+      height 100%
+    .message
+      font-size 12px
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
+      height 17px
+      padding 5px 0 0
+  .price-images
+    overflow hidden
+    li
+      float left
+      padding 5px
+      list-style none
+    img
+      float left
+      width 98px
+      height 90px
+      background #fff
+  .one-per-team
+    position relative
+    top -0px
+    left 4px
+    background url(/images/one_per_team.png)
+    width 16px
+    height 16px
+    text-indent -100px
+    overflow hidden
+    display inline-block
+    cursor help
 
 #page.index-locations #inner
   p#map iframe, img.map
@@ -834,82 +962,6 @@ form.person
   textarea
     width 98%
     height 5em
-#dashboards
-  overflow hidden
-  clear left
-#dashboards.livepage
-  padding 20px 0 0
-
-.deploys-dashboard
-  text-align left
-  margin-top 20px
-
-  ul
-    padding 0 10px
-    margin 0
-    overflow hidden
-    position relative
-    top -1px
-  li
-    padding 5px 0
-    border-bottom 1px solid #eee
-    border-top 1px solid #fff
-    overflow hidden
-  .screenshot
-    float left
-    margin 0 10px 0 0
-    width 160px
-    height 93px
-  .name
-    font-family '04b_03', monospace
-    color #000
-    font-size 20px
-
-.twitter-dashboard, .irc-dashboard
-  float left
-  text-align left
-  width 50%
-  font-size 13px
-  max-height 600px
-  overflow hidden
-  margin 0 0 20px
-
-  h2
-    padding 0 10px
-    margin 0 0 0.5em
-    font-size 19px
-  ul
-    padding 0 10px
-    margin 0
-    overflow hidden
-    position relative
-    top -1px
-  li
-    padding 5px 0
-    border-bottom 1px solid #eee
-    border-top 1px solid #fff
-    overflow hidden
-
-    .avatar
-      float left
-    .name
-      display inline
-      font-weight bold
-      padding 0 5px 0 0
-    .msg
-      display inline
-
-.twitter-dashboard
-  margin-right -1px
-  border-right 1px solid #eee
-.irc-dashboard
-  margin-left -1px
-  border-left 1px solid #fff
-
-#make-dashboard-fullscreen
-  float right
-  cursor pointer
-  margin 6px 50px 0 0
 
 body.fullscreen
   overflow hidden
@@ -935,71 +987,3 @@ body.fullscreen
     position absolute
     top 10px
     right 10px
-
-.github-commits
-  font-size 12px
-  overflow hidden
-  margin 20px 0 0
-
-  ul
-    margin 0
-  li
-    position relative
-    top -1px
-    padding 7px 0 10px
-    border-bottom 1px solid #eee
-    border-top 1px solid #fff
-  .teamname
-    font-family '04b_03', monospace
-    font-size 17px
-    padding 0 0 5px
-    display block
-    color #292929
-  .count
-    position absolute
-    bottom 27px
-    right 0
-    font-family '04b_03', monospace
-    font-size 14px
-  .bar
-    background #fff
-    height 12px
-    margin-right 100px
-    overflow hidden
-    border-left 3px solid #e1e1e1
-  .progress
-    background #cad0d3
-    border-right 3px solid #a6a5a5
-    margin-left -3px
-    height 100%
-  .message
-    font-size 12px
-    white-space nowrap
-    overflow hidden
-    text-overflow ellipsis
-    height 17px
-    padding 5px 0 0
-
-.price-images
-  overflow hidden
-  li
-    float left
-    padding 5px
-    list-style none
-  img
-    float left
-    width 98px
-    height 90px
-    background #fff
-
-.one-per-team
-  position relative
-  top -0px
-  left 4px
-  background url(/images/one_per_team.png)
-  width 16px
-  height 16px
-  text-indent -100px
-  overflow hidden
-  display inline-block
-  cursor help
