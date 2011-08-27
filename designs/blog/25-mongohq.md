@@ -11,7 +11,7 @@ We are happy to provide the full MongoDB infrastructure for the Node Knockout co
 
 1. Add your Node Knockout Database
 
-    Assuming you are still logged into MongoHQ, visit this link: http://www.mongohq.com/nodekosignup and from there, you will see one of the database options is for a Node Knockout database. Select the database, give it a name, and click the green “Create” button.
+    Assuming you are still logged into MongoHQ, visit this link: https://mongohq.com/databases/new?promo=nodeko and from there, you will see one of the database options is for a Node Knockout database. Select the database, give it a name, and click the green “Create” button.
 
 1. Get your Connection Info
 
