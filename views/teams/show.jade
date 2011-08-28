@@ -20,7 +20,7 @@ h1
     li( class: team.lastDeploy ? 'done' : 'pending' )
       a( href: '#deploy' ) Deploy
     li( class: team.entry.votable ? 'done' : 'pending' )
-      a( href: '#votable' ) Votable
+      a( href: '#votable' ) Submit for Voting
 
   .step#entry
     - if (!team.entry.name)
@@ -90,31 +90,32 @@ h1
       input( type: 'hidden', name: '_method', value: 'PUT' )
 
       - if (!team.entry.votable)
-        h2.pending Not Votable
+        h2.pending Not Officially Submitted
         p
-          | Your app is not yet votable. When you make it votable,
-          | judges will review it at:
+          | Your app is not yet officially submitted for voting. When you
+          | submit it for voting, judges will review it at:
           a( href: team.entry.url )= team.entry.url
           | .
 
         input( type: 'hidden', name: 'entry[votable]', value: 1 )
-        .buttons: input.scary( type: 'submit', value: 'Make Votable' )
+        .buttons: input.scary( type: 'submit', value: 'Submit for Voting' )
 
         p
           b Future deploys will not change your URL once your app is votable.
-          |  You can make your app votable any time between now and judging
-          | week. You can also change your mind at any time.
+          |  You can submit your app for voting any time between now and
+          | judging week. You can also change your mind and remove it from
+          | voting later.
 
       - else
-        h2.done Votable
+        h2.done Submitted for Voting
         p Judges will review your app at: 
           a( href: team.entry.url)= team.entry.url
           | .
 
         input( type: 'hidden', name: 'entry[votable]', value: 0 )
-        .buttons: input( type: 'submit', value: 'Make Unvotable' )
+        .buttons: input( type: 'submit', value: 'Remove from Voting' )
 
-        p: b Make it unvotable to deploy to a different URL.
+        p: b Remove it from voting to deploy to a different URL.
         
         h3
           a( href: '/scores#' + team.slug ) Team Score
