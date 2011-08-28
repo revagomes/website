@@ -80,7 +80,6 @@ app.configure(function() {
         'polyfills.js',
         'vendor/hoptoad-notifier.js',
         'vendor/hoptoad-key.js',
-        'vendor/modernizr-2.0.4.js',
         'vendor/json2.js',
         'vendor/jquery-1.6.2.js',
         'vendor/jquery.ba-hashchange.js',
