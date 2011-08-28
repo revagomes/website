@@ -190,12 +190,13 @@ TeamSchema.method 'prettifyURL', ->
 
 TeamSchema.method 'screenshot', ->
   return unless url = @entry.url
-  qs = querystring.stringify url: url, expire: 1, resize: '160x93', 'out-format': 'png'
+  qs = querystring.stringify url: url, resize: '160x93', 'out-format': 'png'
   "http://pinkyurl.com/i?#{qs}"
 
 TeamSchema.method 'updateScreenshot', (callback) ->
+  return
   return unless @entry.url
-  r = request.get @screenshot(), (error, response, body) ->
+  r = request.get @screenshot() + '&expire=1', (error, response, body) ->
     throw error if error
     # no callback
 
