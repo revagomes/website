@@ -1,0 +1,26 @@
+- title('Entries')
+h1 Entries (#{teams.count})
+ul.teams
+  - each team in teams
+    li
+      - if (team.entry.name)
+        .entry-info
+          - if (url = team.entry.url)
+            a( href: url )
+              img.screenshot( src: 'http://pinkyurl.com/i?url=' + encodeURIComponent(url) + '&out-format=png&resize=160x93' )
+            h2: a( href: url )= team.entry.name
+          - else
+            img.screenshot( src: '/images/blank.png' )
+            h2= team.entry.name
+          h4 by 
+            a( href: '/teams/' + team )= team.name
+          .clear
+          != markdown(team.entry.description)
+          - if (team.entry.instructions)
+            h4 Judging Instructions
+            != markdown(team.entry.instructions)
+      - else
+        h3: a( href: '/teams/' + team )= team.name
+  - q = req.query
+  - q.page = (+req.query.page || 1) + 1
+  .more: a( href: req.url.split('?')[0] + '?' + qs.stringify(q) ) more

@@ -1,9 +1,9 @@
 # unbind infinite scrolling on pjax
 $(document).bind 'start.pjax', ->
-  $('#page.teams ul.teams').data('infinitescroll')?.unbind()
+  $('#page.teams ul.teams, #page.teams-entries ul.teams').data('infinitescroll')?.unbind()
 
 load = ->
-  $('#page.teams').each ->
+  $('#page.teams, #page.teams-entries').each ->
     $('ul.teams').infinitescroll
       navSelector: '.more'
       nextSelector: '.more a'

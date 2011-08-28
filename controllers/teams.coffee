@@ -32,6 +32,19 @@ app.get /^\/teams(\/pending)?\/?$/, (req, res, next) ->
         layout = req.header('x-pjax')? || !req.xhr
         res.render2 'teams', teams: teams, people: people, layout: layout
 
+# entries index
+app.get '/entries', (req, res, next) ->
+  page = (req.param('page') or 1) - 1
+  query = { lastDeploy: {$ne: null} }
+  options = { sort: [['updatedAt', -1]], limit: 50, skip: 50 * page }
+  Team.find query, {}, options, (err, teams) ->
+    return next err if err
+    Team.count query, (err, count) ->
+      return next err if err
+      teams.count = count
+      layout = req.header('x-pjax')? || !req.xhr
+      res.render2 'teams/entries', teams: teams, layout: layout
+
 # new
 app.get '/teams/new', (req, res, next) ->
   Team.canRegister (err, yeah) ->
