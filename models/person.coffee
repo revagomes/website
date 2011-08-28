@@ -111,7 +111,32 @@ PersonSchema.method 'team', (next) ->
   Team.findOne peopleIds: @id, next
 PersonSchema.method 'votes', (next) ->
   Vote = mongoose.model 'Vote'
-  Vote.find personId: @id, next
+  Vote.find personId: @id, {}, { sort: [['updatedAt', -1]] }, next
+PersonSchema.method 'nextTeam', (next) ->
+  filter =
+    'entry.name': /\w/ # has name
+    'entry.votable': true # votable
+    'lastDeploy': ($ne: null) # deployed
+    'peopleIds': ($ne: @id) # not mine
+  # TBD - running
+
+  # if you're a judge and not-technical, can't be technical
+  filter.technical = false if @judge and not @techincal
+
+  # TBD
+  # sort by minimum vote count for your type
+  # then by number of votes that the team has left
+  sort = [['updatedAt', 1]]
+
+  Vote = mongoose.model 'Vote'
+  Team = mongoose.model 'Team'
+  Vote.distinct 'teamId', personId: @id, (err, votedOn) ->
+    next err if err
+    filter._id = $nin: votedOn # not already voted
+    Team.find filter, {}, { sort: sort, limit: 1 }, (err, teams) ->
+      # findOne doesn't seem to work with sort
+      next err if err
+      next null, teams[0]
 
 # callbacks
 

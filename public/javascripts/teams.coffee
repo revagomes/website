@@ -45,24 +45,6 @@ load = ->
             .addClass('selected')
     .hashchange()
 
-    requestAt = Date.now()
-    hoverAt = null
-    $('form.vote')
-      .hover (e) ->
-        hoverAt or= Date.now()
-      .submit (e) ->
-        $(this)
-          .find('input[type=hidden].hoverAt').val(hoverAt).end()
-          .find('input[type=hidden].requestAt').val(requestAt).end()
-      .delegate 'a.change', 'click', (e) ->
-        e.preventDefault()
-        $form = $(this).closest('form').toggleClass('view edit')
-        $form[0].reset()
-        $('input, textarea', $form)
-          .change() # reset stars
-          .prop('disabled', $form.is('.view'))
-      .find('input[type=range]').stars()
-
   $('#page.teams-edit').each ->
 
     # show the delete box on load if the hash is delete

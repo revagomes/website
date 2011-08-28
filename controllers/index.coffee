@@ -43,6 +43,15 @@ app.get '/judging', (req, res) ->
 app.get '/now', (req, res) ->
   res.send Date.now().toString()
 
+app.get '/scores', (req, res, next) ->
+  Team.sortedByScore (error,teams) ->
+    return next error if error
+    res.render2 'index/scores', teams: teams
+
+app.get '/scores/update', (req, res) ->
+  Team.updateAllSavedScores (err) ->
+    res.end err or 'ok'
+
 app.get '/services', [m.ensureAuth], (req, res, next) ->
   return next 401 unless req.user.contestant or req.user.judge or req.user.admin
   Service.sorted (error, services) ->

@@ -3,7 +3,7 @@
 - else
   form.vote(
     'class': vote ? 'view' : 'edit',
-    action: vote ? '/votes/' + vote.id : '/teams/' + team.id + '/votes',
+    action: vote ? '/votes/' + vote.id : '/teams/' + (typeof(nextTeam) !== 'undefined' ? nextTeam : team).id + '/votes',
     method: 'POST'
   )
     != _csrf
@@ -14,12 +14,15 @@
     input( type: 'hidden', name: 'audit[accept]', value: req.header('accept') )
     - each f in [ 'requestAt', 'hoverAt' ]
       input( type: 'hidden', name: 'audit[' + f + ']', class: f )
-    .person
-      img.avatar( src: avatar_url(user, 40) )
-      = user.login
-      .role= user.role
-      - if (vote && !user.voter)
-        .view.change: a.change( href: '#' ) Edit your vote
+    - if (typeof(nextTeam) === 'undefined')
+      .person
+        img.avatar( src: avatar_url(user, 40) )
+        = user.login
+        .role= user.role
+        - if (vote && !user.voter)
+          .view.change: a.change( href: '#' ) Edit your vote
+    - else
+      h3.your-vote Your Vote
     - if (user.voter)
       .voter
         - if (vote)
@@ -55,3 +58,6 @@
             a.edit.change( href: '#' ) Cancel
           - else
             input.scary( type: 'submit', value: 'Vote' )
+            - if (typeof(nextTeam) !== 'undefined')
+              | on 
+              a( href: '/teams' + nextTeam )= nextTeam.name
