@@ -104,9 +104,9 @@ run() {
   local url="`config_get user`@`config_get host`"
   local key=`config_get key`
   if test -n "$key"; then
-    local shell="ssh -i $key $url"
+    local shell="ssh -A -i $key $url"
   else
-    local shell="ssh $url"
+    local shell="ssh -A $url"
   fi
   echo $shell "\"$@\"" >> $LOG
   $shell $@
