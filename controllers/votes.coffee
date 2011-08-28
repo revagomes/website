@@ -18,6 +18,8 @@ buildVote = (req) ->
 
 # create
 app.post '/teams/:teamId/votes', [ensureVoting, m.ensureAuth, m.loadTeam], (req, res, next) ->
+  # team members may not vote on their own teams
+  return next 401 if req.user and req.team.includes(req.user)
   vote = buildVote req
   vote.save (err) ->
     return next err if err

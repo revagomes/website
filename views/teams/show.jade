@@ -166,6 +166,9 @@ h1
 - if (voting)
   h1#votes Votes
   h2 Your Vote
-  != partial('votes/form', { vote: vote })
+  - if (req.user && team.includes(req.user))
+    p.sorry Team members may not vote on their own teams.
+  - else
+    != partial('votes/form', { vote: vote })
   h2 Other Votes
   ul.votes!= partial('votes/vote', votes)
