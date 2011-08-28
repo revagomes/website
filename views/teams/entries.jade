@@ -1,22 +1,23 @@
 - title('Entries')
 h1 Entries (#{teams.count})
+
+span.all See 
+  a( href: '/teams' ) all teams
+
 ul.teams
   - each team in teams
     li
       - if (team.entry.name !== null)
+        - url = team.entry.url
         .entry-info
-          - if (url = team.entry.url)
-            a( href: url )
-              img.screenshot( src: 'http://pinkyurl.com/i?url=' + encodeURIComponent(url) + '&out-format=png&resize=160x93' )
-            h2: a( href: url )= team.entry.name
-          - else
-            img.screenshot( src: '/images/blank.png' )
-            h2= team.entry.name
+          a( href: url )
+            img.screenshot( src: 'http://pinkyurl.com/i?url=' + encodeURIComponent(url) + '&out-format=png&resize=160x93' )
+          h2: a( href: url )= team.entry.name
           h4 by 
             a( href: '/teams/' + team )= team.name
-          .clear
-          - if (p = markdown(team.entry.description).match('<p>[^<]+</p>'))
-            != p
+          .description
+            - if (p = markdown(team.entry.description).match('<p>[^<]+</p>'))
+              != p
       - else
         h3: a( href: '/teams/' + team )= team.name
   - q = req.query
