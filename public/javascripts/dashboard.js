@@ -111,7 +111,7 @@
       return;
         
     return day_diff == 0 && (
-        diff < 60 && "just now" ||
+        diff < 60 && diff + ' seconds ago' ||
         diff < 120 && "1 minute ago" ||
         diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
         diff < 7200 && "1 hour ago" ||
@@ -130,7 +130,7 @@
       .find('.screenshot').attr('src', team.screenshot || '/images/default-screenshot.png').end()
       .find('a:has(.screenshot)').attr('href', team.url).end()
       .find('.name').text(team.name || team.by).end()
-      .find('.date').text('commited at ' + prettyDate(commit.timestamp)).end()
+      .find('.date').text('commited ' + prettyDate(commit.timestamp)).end()
       .find('.commit').text(commit.message).end()
       .find('.url').text(team.url).attr('href', team.url).end()
       .find('a.team').attr('href', 'http://nodeknockout.com/teams/' + team.slug).text(team.by).end()
