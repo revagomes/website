@@ -6,6 +6,11 @@
   iframe
     border none
 
-- each c in [ 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white' ]
+script
+  alert(#{1});
+
+- each c in [ 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'white' ]
   .frame( style: "background-color:" + c + ";" )
     iframe( src: '/iframe/fortnight-labs' )
+.frame( style: "background-color:black;" )
+  iframe( src: '/iframe/fortnight-labs?css=https://raw.github.com/gist/1176404/e336c0efd7c6d78fa1f49fda2f5e813ab747f580/ko-button.css' )
