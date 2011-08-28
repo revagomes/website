@@ -275,6 +275,10 @@ form.vote
       cursor pointer
   &.view .edit
     display none
+  .your-vote
+    width 80px
+    margin-top 3px
+    float left
 
 #page
   position relative
@@ -687,9 +691,9 @@ form.vote
   .step, .entry-info
     box-shadow inset 0 0 5px hsla(0, 0%, 0%, 0.1)
     background-color hsla(0, 0%, 95%, 0.5)
-    padding 10px
     border-radius 2px
   .step
+    padding 10px
     margin-top 5px
     display none
     h2
@@ -728,6 +732,10 @@ form.vote
   .step.votable
     .buttons
       text-align center
+  ul.people
+    line-height 200%
+
+#page.teams-show, #page.people-show
   .entry-info
     display block
     margin-top 1em
@@ -745,8 +753,6 @@ form.vote
       border-radius 2px
     .clear
       clear both
-  ul.people
-    line-height 200%
 
 #page.teams #inner
   form.search
@@ -808,7 +814,7 @@ form.vote
         background-color hsla(0, 0%, 95%, 0.5)
         padding 10px
         border-radius 2px
-        margin-top 1em
+        margin 1em
         overflow hidden
         padding 20px
         h2, h3, h4, .description
@@ -845,7 +851,7 @@ form.vote
       text-align center
       text-transform uppercase
       font-size small
-  > h1
+  h1.name
     margin-left 0
     padding-left 19px
   .details
@@ -857,6 +863,25 @@ form.vote
       margin-bottom -2px
   .team, .bio
     clear left
+  .next-vote
+    box-shadow inset 0 0 5px hsla(200, 30%, 50%, 0.2)
+    background-color hsla(200, 30%, 80%, 0.2)
+    padding 20px
+    .entry-info
+      margin 0 0 1em 0
+      img.screenshot
+        margin-left 0
+      .buttons
+        margin-top 15px
+      font-size small
+      padding 0
+    form.vote
+      box-shadow none
+      background-color transparent
+      border none
+      margin 0
+      padding 0
+    margin-bottom 1em
 
 #page.errors-404 #inner
   .troll

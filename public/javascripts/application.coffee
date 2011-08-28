@@ -49,5 +49,24 @@ load = ->
     $('form.delete a', this).click ->
       $(this).closest('form').fadeOut('fast')
       false
+
+  requestAt = Date.now()
+  hoverAt = null
+  $('form.vote')
+    .hover (e) ->
+      hoverAt or= Date.now()
+    .submit (e) ->
+      $(this)
+        .find('input[type=hidden].hoverAt').val(hoverAt).end()
+        .find('input[type=hidden].requestAt').val(requestAt).end()
+    .delegate 'a.change', 'click', (e) ->
+      e.preventDefault()
+      $form = $(this).closest('form').toggleClass('view edit')
+      $form[0].reset()
+      $('input, textarea', $form)
+        .change() # reset stars
+        .prop('disabled', $form.is('.view'))
+    .find('input[type=range]').stars()
+
 $(load)
 $(document).bind 'end.pjax', load

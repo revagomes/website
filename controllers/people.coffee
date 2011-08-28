@@ -29,10 +29,19 @@ app.get '/people/me(\/edit)?', [m.ensureAuth], (req, res, next) ->
 
 # show
 app.get '/people/:id', [m.loadPerson, m.loadPersonTeam, m.loadPersonVotes], (req, res, next) ->
-  res.render2 'people/show',
-    person: req.person
-    team: req.team
-    votes: req.votes
+  render = (nextTeam) ->
+    res.render2 'people/show',
+      person: req.person
+      team: req.team
+      votes: req.votes
+      nextTeam: nextTeam
+      vote: null
+  if req.person.id is req.user.id
+    req.user.nextTeam (err, nextTeam) ->
+      return next err if err
+      render nextTeam
+  else
+    render()
 
 # edit
 app.get '/people/:id/edit', [m.loadPerson, m.ensureAccess], (req, res, next) ->
