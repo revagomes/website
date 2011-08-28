@@ -35,7 +35,7 @@ app.get /^\/teams(\/pending)?\/?$/, (req, res, next) ->
 # entries index
 app.get '/entries', (req, res, next) ->
   page = (req.param('page') or 1) - 1
-  query = { lastDeploy: {$ne: null}, 'entry.name': {$ne: null} }
+  query = { 'entry.votable': true }
   options = { sort: [['updatedAt', -1]], limit: 50, skip: 50 * page }
   Team.find query, {}, options, (err, teams) ->
     return next err if err
