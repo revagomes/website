@@ -103,7 +103,7 @@
    */
 
   function prettyDate (time) {
-    var date = new Date(time),
+    var date = time instanceof Date ? time : new Date(time),
       diff = (((new Date()).getTime() - date.getTime()) / 1000),
       day_diff = Math.floor(diff / 86400);
         
@@ -130,7 +130,7 @@
       .find('.screenshot').attr('src', team.screenshot || '/images/default-screenshot.png').end()
       .find('a:has(.screenshot)').attr('href', team.url).end()
       .find('.name').text(team.name || team.by).end()
-      .find('.date').text('commited at ' + prettyDate(Number(commit.timestamp))).end()
+      .find('.date').text('commited at ' + prettyDate(commit.timestamp)).end()
       .find('.commit').text(commit.message).end()
       .find('.url').text(team.url).attr('href', team.url).end()
       .find('a.team').attr('href', 'http://nodeknockout.com/teams/' + team.slug).text(team.by).end()
