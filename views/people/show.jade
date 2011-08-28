@@ -8,7 +8,7 @@ h1.name= title(person.name)
 != partial('details')
 
 
-- if (typeof(team) !== 'undefined')
+- if (team)
   h2
     | On
     a( href: '/teams/' + team )= team.name
