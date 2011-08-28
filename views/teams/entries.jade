@@ -3,7 +3,7 @@ h1 Entries (#{teams.count})
 ul.teams
   - each team in teams
     li
-      - if (team.entry.name)
+      - if (team.entry.name !== null)
         .entry-info
           - if (url = team.entry.url)
             a( href: url )
@@ -15,10 +15,8 @@ ul.teams
           h4 by 
             a( href: '/teams/' + team )= team.name
           .clear
-          != markdown(team.entry.description)
-          - if (team.entry.instructions)
-            h4 Judging Instructions
-            != markdown(team.entry.instructions)
+          - if (p = markdown(team.entry.description).match('<p>[^<]+</p>'))
+            != p
       - else
         h3: a( href: '/teams/' + team )= team.name
   - q = req.query
