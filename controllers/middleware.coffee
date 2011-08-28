@@ -74,7 +74,11 @@ module.exports =
       next()
 
   loadTeamVotes: (req, res, next) ->
-    req.team.votes (err, votes) ->
+    query = teamId: req.team.id
+    # exclude my vote from the vote list on the team page
+    if req.user
+      query.personId = $ne: req.user.id
+    Vote.find query, (err, votes) ->
       return next err if err
       req.votes = votes
       Vote.people votes, next
