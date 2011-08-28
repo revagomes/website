@@ -54,6 +54,16 @@ TeamSchema = module.exports = new mongoose.Schema
     popularity: Number
     popularity_count: Number
     overall: Number
+  voteCounts:
+    judge:
+      type: Number
+      default: 0
+    contestant:
+      type: Number
+      default: 0
+    team: # votes by team members
+      type: Number
+      default: 0
 TeamSchema.plugin require('mongoose-types').useTimestamps
 TeamSchema.index updatedAt: -1
 

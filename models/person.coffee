@@ -123,10 +123,10 @@ PersonSchema.method 'nextTeam', (next) ->
   # if you're a judge and not-technical, can't be technical
   filter.technical = false if @judge and not @techincal
 
-  # TBD
+  sort = []
   # sort by minimum vote count for your type
-  # then by number of votes that the team has left
-  sort = [['updatedAt', 1]]
+  sort.push ['voteCounts.' + @role, 1] if @judge or @contestant
+  sort.push ['updatedAt', -1]
 
   Vote = mongoose.model 'Vote'
   Team = mongoose.model 'Team'

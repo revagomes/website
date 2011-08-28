@@ -24,6 +24,9 @@ app.post '/teams/:teamId/votes', [ensureVoting, m.ensureAuth, m.loadTeam], (req,
   vote.save (err) ->
     return next err if err
     res.redirect 'back'
+    if req.user.judge or req.user.contestant
+      req.team.voteCounts[req.user.role].increment()
+      req.team.save()
 
 # create - iframe
 app.post '/teams/:teamId/votes.iframe', [m.loadTeam], (req, res, next) ->
