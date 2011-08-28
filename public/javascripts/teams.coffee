@@ -34,18 +34,26 @@ load = ->
         e.preventDefault()
         location.hash = 'none'
     $(window).hashchange (e) ->
-      hash = location.hash || $('ul.steps li.pending:first a').attr('href')
-      $('.step')
-        .hide()
-        .filter(hash.replace('#', '.'))
-          .show()
-      $('ul.steps a')
-        .removeClass('selected')
-        .filter('a[href="' + hash + '"]')
-          .addClass('selected')
+      if hash = location.hash || $('ul.steps li.pending:first a').attr('href')
+        $('.step')
+          .hide()
+          .filter(hash.replace('#', '.'))
+            .show()
+        $('ul.steps a')
+          .removeClass('selected')
+          .filter('a[href="' + hash + '"]')
+            .addClass('selected')
     .hashchange()
 
+    requestAt = Date.now()
+    hoverAt = null
     $('form.vote')
+      .hover (e) ->
+        hoverAt or= Date.now()
+      .submit (e) ->
+        $(this)
+          .find('input[type=hidden].hoverAt').val(hoverAt).end()
+          .find('input[type=hidden].requestAt').val(requestAt).end()
       .delegate 'a.change', 'click', (e) ->
         e.preventDefault()
         $form = $(this).closest('form').toggleClass('view edit')

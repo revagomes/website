@@ -64,12 +64,17 @@ html
         var XHR
           , $ = function(x) { return document.getElementById(x); }
           , button = $('button')
-          , _csrf = "_csrf=" + encodeURIComponent( "#{req.session._csrf}")
           , nko =
             { role: "#{req.user && req.user.role}"
             , vote: "#{vote && vote.id}"
-            , team: "#{req.team}" };
+            , team: "#{req.team}" }
+          , _csrf = "#{req.session._csrf}"
+          , requestAt = Date.now()
+          , hoverAt;
 
+        button.onmouseover = function(e) {
+          hoverAt = hoverAt || Date.now();
+        }
         button.onclick = function(e) {
           if (nko.vote) { return; }
           if (nko.role === "voter") {
@@ -94,7 +99,15 @@ html
         function vote() {
           if (nko.vote) { return; } // already have voted
 
-          post('/teams/' + nko.team + '/votes.iframe', _csrf, function(xhr) {
+          post('/teams/' + nko.team + '/votes.iframe',
+            { _csrf: _csrf
+            , 'audit[userAgent]': "#{req.header('user-agent')}"
+            , 'audit[referrer]': "#{req.header('referrer')}"
+            , 'audit[accept]': "#{req.header('accept')}"
+            , 'audit[hoverAt]': hoverAt
+            , 'audit[requestAt]': requestAt }
+            , function(xhr) {
+
             if (xhr.status === 200) {
               nko.vote = xhr.responseText;
               update('voted', 1);
@@ -105,7 +118,7 @@ html
         }
 
         function unvote() {
-          del('/votes/' + nko.vote, _csrf, function(xhr) {
+          del('/votes/' + nko.vote, { _csrf: _csrf }, function(xhr) {
             if (xhr.status === 200) {
               nko.vote = null;
               update('', -1);
@@ -164,7 +177,16 @@ html
             }
           };
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          xhr.send(data);
+          xhr.send(encode(data));
+        }
+
+        function encode(data) {
+          var encoded = [];
+          for (k in data) {
+            encoded.push(encodeURIComponent(k)
+              + '=' + encodeURIComponent(data[k]));
+          }
+          return encoded.join('&');
         }
 
         XHR = XMLHttpRequest || (function() {

@@ -26,9 +26,7 @@ VoteSchema = module.exports = new mongoose.Schema
     referrer: String
     accept: String
     requestAt: Number
-    renderAt: Number
     hoverAt: Number
-    responseAt: Number
 VoteSchema.plugin require('mongoose-types').useTimestamps
 
 # one vote per person-team-type

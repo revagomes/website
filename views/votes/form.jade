@@ -12,8 +12,8 @@
     input( type: 'hidden', name: 'audit[userAgent]', value: req.header('user-agent') )
     input( type: 'hidden', name: 'audit[referrer]', value: req.header('referrer') )
     input( type: 'hidden', name: 'audit[accept]', value: req.header('accept') )
-    - each f in [ 'requestAt', 'renderAt', 'hoverAt', 'responseAt' ]
-      input( type: 'hidden', name: 'audit[' + f + ']' )
+    - each f in [ 'requestAt', 'hoverAt' ]
+      input( type: 'hidden', name: 'audit[' + f + ']', class: f )
     .person
       img.avatar( src: avatar_url(user, 40) )
       = user.login
