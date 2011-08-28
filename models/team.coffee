@@ -45,11 +45,14 @@ TeamSchema = module.exports = new mongoose.Schema
     contestant_design: Number
     contestant_innovation: Number
     contestant_completeness: Number
+    contestant_count: Number
     judge_utility: Number
     judge_design: Number
     judge_innovation: Number
     judge_completeness: Number
+    judge_count: Number
     popularity: Number
+    popularity_count: Number
     overall: Number
 TeamSchema.plugin require('mongoose-types').useTimestamps
 TeamSchema.index updatedAt: -1
@@ -75,60 +78,49 @@ TeamSchema.static 'sortedByScore', (next) ->
 TeamSchema.static 'updateAllSavedScores', (next) ->
   map = ->
     ret =
-      contestant_utility:
-        sum: 0
-        count: 0
-      contestant_design:
-        sum: 0
-        count: 0
-      contestant_innovation:
-        sum: 0
-        count: 0
-      contestant_completeness:
-        sum: 0
-        count: 0
-      judge_utility:
-        sum: 0
-        count: 0
-      judge_design:
-        sum: 0
-        count: 0
-      judge_innovation:
-        sum: 0
-        count: 0
-      judge_completeness:
-        sum: 0
-        count: 0
-      popularity: 0
+      contestant_utility: 0
+      contestant_design: 0
+      contestant_innovation: 0
+      contestant_completeness: 0
+      contestant_count: 0
+      judge_utility: 0
+      judge_design: 0
+      judge_innovation: 0
+      judge_completeness: 0
+      judge_count: 0
+      popularity_count: 0
     if this.type == 'contestant' or this.type == 'judge'
-      ret[this.type + '_utility'] = { sum: this.utility, count: 1 }
-      ret[this.type + '_design'] = { sum: this.design, count: 1 }
-      ret[this.type + '_innovation'] = { sum: this.innovation, count: 1 }
-      ret[this.type + '_completeness'] = { sum: this.completeness, count: 1 }
+      ret[this.type + '_utility'] = this.utility
+      ret[this.type + '_design'] = this.design
+      ret[this.type + '_innovation'] = this.innovation
+      ret[this.type + '_completeness'] = this.completeness
+      ret[this.type + '_count'] = 1
     else if this.type == 'voter'
-      ret.popularity = 1
+      ret.popularity_count = 1
     emit this.teamId, ret
 
   reduce = (key,vals) ->
     ret = vals.shift()
     vals.forEach (val) ->
       for field of ret
-        if field == 'popularity'
-          ret[ field ] += val[ field ]
-        else
-          ret[ field ].sum += val[ field ].sum
-          ret[ field ].count += val[ field ].count
+        ret[ field ] += val[ field ]
     ret
     
   finalize = (key,val) ->
     ret = {}
-    for field of val
-      if field != 'popularity'
-        if val[ field ].count == 0
-          ret[ field ] = 0
-        else
-          ret[ field ] = val[ field ].sum / val[ field ].count
-    ret[ 'popularity' ] = val.popularity
+    [ 'contestant_utility', 'contestant_design', 'contestant_innovation', 'contestant_completeness' ].forEach (field) ->
+      if val.contestant_count != 0
+        ret[ field ] = val[ field ] / val.contestant_count
+      else
+        ret[ field ] = 0
+    ret[ 'contestant_count' ] = val.contestant_count
+    [ 'judge_utility', 'judge_design', 'judge_innovation', 'judge_completeness' ].forEach (field) ->
+      if val.judge_count != 0
+        ret[ field ] = val[ field ] / val.judge_count
+      else
+        ret[ field ] = 0
+    ret[ 'judge_count' ] = val.judge_count
+    ret[ 'popularity_count' ] = val.popularity_count
     ret
              
   mrCommand =
@@ -144,10 +136,10 @@ TeamSchema.static 'updateAllSavedScores', (next) ->
       console.log result
       return next [err,result]
     
-    maxPopularity = 0
+    max_popularity_count = 0
     computedScores = result.documents[0].results
     computedScores.forEach (computedScore) ->
-      maxPopularity = Math.max maxPopularity, computedScore.value.popularity
+      max_popularity_count = Math.max max_popularity_count, computedScore.value.popularity_count
     Team.find {}, (err,teams) ->
       teams.forEach (team) ->
         id = team._id
@@ -156,13 +148,13 @@ TeamSchema.static 'updateAllSavedScores', (next) ->
         if computedScore
           overall = 0
           for field of computedScore.value
-            if field != 'popularity'
-              team.scores[ field ] = computedScore.value[ field ]
+            team.scores[ field ] = computedScore.value[ field ]
+            if field != 'contestant_count' and field != 'judge_count' and field != 'popularity_count'
               overall += computedScore.value[ field ]
-          if maxPopularity == 0
+          if max_popularity_count == 0
             team.scores.popularity = 0
           else
-            team.scores.popularity = computedScore.value.popularity / maxPopularity * 10
+            team.scores.popularity = computedScore.value.popularity_count / max_popularity_count * 10
           overall += team.scores.popularity
           team.scores.overall = overall
         else
