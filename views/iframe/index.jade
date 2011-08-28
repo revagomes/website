@@ -9,9 +9,12 @@ html
         margin 0
         padding 0
         background-color transparent
-        font-family 'Helvetica Neue', Helvetica, Arial, sans-serif
+        font-family Verdana, Arial, sans-serif
+        font-size 13px
       #count
         margin-left 0.5ex
+        position absolute
+        top 4px
       #icon
         display inline-block
         text-align center
@@ -52,7 +55,7 @@ html
       link( rel: 'stylesheet', href: css)
       <!--<![endif]-->
   body
-    #button( class: req.vote ? 'voted' : '' )
+    span#button( class: req.vote ? 'voted' : '' )
       #icon
         img#facebook(src: '/images/iframe/facebook.png')
         img#heart(src: '/images/iframe/heart.png')
