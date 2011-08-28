@@ -13,10 +13,6 @@ section
     h2: a( href: 'http://webchat.freenode.net/') #nodeknockout&nbsp;#node.js
     ul
 
-h1#deploys Deploys
-.deploys-dashboard
-  ul
-
 h1#commits Commits
 .commits-dashboard
   ul
@@ -53,11 +49,12 @@ script#deploy.template(type="text/html")
 
 script#commit.template(type="text/html")
   li
-    .message
-    .by
-      | &ndash; 
-      a.author
-      | , 
+    a: img.screenshot
+    span.date
+    h3: a.name
+    .by by 
       a.team
-      |  at 
-      span.at
+    .when
+      a.url
+    .commit
+  

@@ -390,16 +390,6 @@ form.vote
     overflow hidden
     clear left
   .commits-dashboard
-    ul li
-      text-align left
-      margin-bottom 1em
-      .message
-        white-space pre-wrap
-        font-size small
-        font-family '04b_03', monospace
-      .by
-        font-size x-small
-  .deploys-dashboard
     text-align left
     margin-top 1em
     li
@@ -417,8 +407,20 @@ form.vote
     .by, .when
       font-size small
       line-height 150%
+      display inline-block
     .when
       font-size x-small
+      padding 0 0 0 10px
+    .commit
+      font-size 13px
+      line-height 18px
+      padding 5px 0 0
+    .date
+      float right
+      font-size 12px
+      font-weight bold
+      position relative
+      top 3px
   .twitter-dashboard, .irc-dashboard
     float left
     text-align left

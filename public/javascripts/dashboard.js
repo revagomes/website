@@ -38,7 +38,6 @@
         ws.emit('join', 'irc');
         ws.emit('join', 'twitter');
         ws.emit('join', 'github');
-        ws.emit('join', 'deploy');
         ws.emit('join', 'commit');
       });
       ws.on('irc', function(irc) {
@@ -64,9 +63,6 @@
       });
       ws.on('usertweet', function(tweet) {
         addTweet(tweet, 'user');
-      });
-      ws.on('deploy', function(deploy) {
-        addDeploy(deploy);
       });
       ws.on('commit', function(commit) {
         addCommit(commit);
@@ -105,37 +101,18 @@
       , team = commit.team;
 
     $commit
-      .find('.message').text(commit.message).end()
-      .find('a.author').attr('href', 'http://github.com/' + commit.author).text(commit.author).end()
-      .find('a.team').attr('href', 'http://nodeknockout.com/teams/' + commit.team.slug).text(commit.team.by).end()
-      .find('.at').text(commit.timestamp.toString().match('[1-9]?.:..')[0]).end()
+      .find('.screenshot').attr('src', team.screenshot || '/images/default-screenshot.png').end()
+      .find('a:has(.screenshot)').attr('href', team.url).end()
+      .find('.name').text(team.name || team.by).end()
+      .find('.date').text('commited at '+commit.timestamp.toString().match('[1-9]?.:..')[0]).end()
+      .find('.commit').text(commit.message).end()
+      .find('.url').text(team.url).attr('href', team.url).end()
+      .find('a.team').attr('href', 'http://nodeknockout.com/teams/' + team.slug).text(team.by).end()
       .prependTo($ul);
 
     var maxCount = 30;
     $ul.find('li').slice(maxCount).remove();
   }
-
-  function addDeploy(deploy) {
-    var $deploy = $templates.deploy.clone()
-      , team = deploy.team;
-    $deploy
-      .find('a').attr('href', team.url || '#').end()
-      .find('img.screenshot').attr('src', team.screenshot).end()
-      .find('a.name').text(team.name || team.slug).end()
-      .find('a.url').text(team.url).end()
-      .find('a.team').text(team.by).attr('href', "http://nodeknockout.com/teams/" + team.slug).end()
-      .find('.date').text('deployed at '+deploy.updatedAt.toString().match('[1-9]?.:..')[0]).end()
-      .prependTo($$('.deploys-dashboard ul'));
-
-      deployList.push($deploy);
-      var maxCount = 30;
-      if (deployList.length > maxCount) {
-        $.each(deployList.slice(0, deployList.length-maxCount), function(index, $oldDeploy) {
-          $oldDeploy.remove();
-        });
-        deployList = deployList.slice(deployList.length-maxCount);
-      }
-  };
 
   function addTweet(tweet, container) {
     var $tweet = $templates.tweet.clone();
