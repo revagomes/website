@@ -4,6 +4,7 @@ m = require './middleware'
 Vote = app.db.model 'Vote'
 
 ensureVoting = (req, res, next) ->
+  return next() if req.user?.admin
   if app.enabled 'voting' then next() else next 401
 
 buildVote = (req) ->

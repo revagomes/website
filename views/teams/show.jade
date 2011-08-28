@@ -167,7 +167,7 @@ h1
   h2 What
   != markdown(team.description)
 
-- if (voting)
+- if (admin || voting)
   h1#votes Votes
   h2 Your Vote
   - if (req.user && team.includes(req.user))

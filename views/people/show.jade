@@ -16,7 +16,7 @@ h1.name= title(person.name)
 .bio!= markdown(person.bio)
 
 
-- if (voting)
+- if (admin || voting)
   - if (nextTeam)
     h1 Next Vote
     p
