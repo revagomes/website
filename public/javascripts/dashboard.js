@@ -95,6 +95,32 @@
   };
   var deployList = []
 
+  /**
+   * Formats a date as `time ago`.
+   *
+   * @param {Number} timestamp
+   * @api private
+   */
+
+  function prettyDate (time) {
+    var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
+      diff = (((new Date()).getTime() - date.getTime()) / 1000),
+      day_diff = Math.floor(diff / 86400);
+        
+    if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
+      return;
+        
+    return day_diff == 0 && (
+        diff < 60 && "just now" ||
+        diff < 120 && "1 minute ago" ||
+        diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
+        diff < 7200 && "1 hour ago" ||
+        diff < 86400 && Math.floor( diff / 3600 ) + " hours ago") ||
+      day_diff == 1 && "Yesterday" ||
+      day_diff < 7 && day_diff + " days ago" ||
+      day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
+  }
+
   function addCommit(commit) {
     var $commit = $templates.commit.clone()
       , $ul = $$('.commits-dashboard ul')
@@ -104,7 +130,7 @@
       .find('.screenshot').attr('src', team.screenshot || '/images/default-screenshot.png').end()
       .find('a:has(.screenshot)').attr('href', team.url).end()
       .find('.name').text(team.name || team.by).end()
-      .find('.date').text('commited at '+commit.timestamp.toString().match('[1-9]?.:..')[0]).end()
+      .find('.date').text('commited at ' + prettyDate(Number(commit.timestamp))).end()
       .find('.commit').text(commit.message).end()
       .find('.url').text(team.url).attr('href', team.url).end()
       .find('a.team').attr('href', 'http://nodeknockout.com/teams/' + team.slug).text(team.by).end()
