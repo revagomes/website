@@ -121,7 +121,7 @@ PersonSchema.method 'nextTeam', (next) ->
   # TBD - running
 
   # if you're a judge and not-technical, can't be technical
-  filter.technical = false if @judge and not @technical
+  filter.technical = ($ne: true) if @judge and not @technical
 
   sort = []
   # sort by minimum vote count for your type
