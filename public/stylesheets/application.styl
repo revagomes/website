@@ -27,6 +27,7 @@ inverted()
   text-shadow 0px -1px 0px hsla(0, 0%, 0%, 0.5)
   box-shadow 0 1px 3px hsla(0, 0%, 0%, 0.5)
 
+x-small = 10px
 small = 14px
 medium = 18px
 large = 24px
@@ -1026,3 +1027,37 @@ body.fullscreen
     position absolute
     top 10px
     right 10px
+
+#page.index-scores #inner
+  h3
+    color red
+    margin 0.5em 0px !important
+  table
+    font-size small
+    font-weight normal
+    border-collapse collapse
+    table-layout fixed
+    td, th
+      margin 0px
+      width 13%
+      text-align right
+      padding 2px 0px
+      vertical-align bottom
+    th
+      font-size x-small
+      font-weight normal
+      overflow hidden
+      text-overflow ellipsis
+    th.teamName
+      font-weight bold
+      font-size small
+    tr.all, tr.unconfirmed
+      color #ccc
+    tr *:first-child
+      text-align left
+      width 20%
+    tr.final td
+      border-top 1px solid black
+      padding-bottom 1.5em
+    td.overall
+      font-weight bold

@@ -40,6 +40,17 @@ TeamSchema = module.exports = new mongoose.Schema
     default: -> rbytes.randomBytes(12).toString('base64')
   linode: {}
   search: String
+  scores:
+    contestant_utility: Number
+    contestant_design: Number
+    contestant_innovation: Number
+    contestant_completeness: Number
+    judge_utility: Number
+    judge_design: Number
+    judge_innovation: Number
+    judge_completeness: Number
+    popularity: Number
+    overall: Number
 TeamSchema.plugin require('mongoose-types').useTimestamps
 TeamSchema.index updatedAt: -1
 
@@ -56,6 +67,110 @@ TeamSchema.static 'uniqueName', (name, next) ->
   Team.count { name: name }, (err, count) ->
     return next err if err
     next null, !count
+TeamSchema.static 'sortedByScore', (next) ->
+  Team.find {}, {}, {sort: [['scores.overall', -1]]}, (error,teams) ->
+    return next error if error
+    next null, teams
+    
+TeamSchema.static 'updateAllSavedScores', (next) ->
+  map = ->
+    ret =
+      contestant_utility:
+        sum: 0
+        count: 0
+      contestant_design:
+        sum: 0
+        count: 0
+      contestant_innovation:
+        sum: 0
+        count: 0
+      contestant_completeness:
+        sum: 0
+        count: 0
+      judge_utility:
+        sum: 0
+        count: 0
+      judge_design:
+        sum: 0
+        count: 0
+      judge_innovation:
+        sum: 0
+        count: 0
+      judge_completeness:
+        sum: 0
+        count: 0
+      popularity: 0
+    if this.type == 'contestant' or this.type == 'judge'
+      ret[this.type + '_utility'] = { sum: this.utility, count: 1 }
+      ret[this.type + '_design'] = { sum: this.design, count: 1 }
+      ret[this.type + '_innovation'] = { sum: this.innovation, count: 1 }
+      ret[this.type + '_completeness'] = { sum: this.completeness, count: 1 }
+    else if this.type == 'voter'
+      ret.popularity = 1
+    emit this.teamId, ret
+
+  reduce = (key,vals) ->
+    ret = vals.shift()
+    vals.forEach (val) ->
+      for field of ret
+        if field == 'popularity'
+          ret[ field ] += val[ field ]
+        else
+          ret[ field ].sum += val[ field ].sum
+          ret[ field ].count += val[ field ].count
+    ret
+    
+  finalize = (key,val) ->
+    ret = {}
+    for field of val
+      if field != 'popularity'
+        if val[ field ].count == 0
+          ret[ field ] = 0
+        else
+          ret[ field ] = val[ field ].sum / val[ field ].count
+    ret[ 'popularity' ] = val.popularity
+    ret
+             
+  mrCommand =
+    mapreduce:'votes'
+    map:map.toString()
+    reduce:reduce.toString()
+    finalize:finalize.toString()
+    out:{inline:1}
+    
+  mongoose.connection.db.executeDbCommand mrCommand, (err,result) ->
+    if err or not result.documents[0].ok
+      console.log err
+      console.log result
+      return next [err,result]
+    
+    maxPopularity = 0
+    computedScores = result.documents[0].results
+    computedScores.forEach (computedScore) ->
+      maxPopularity = Math.max maxPopularity, computedScore.value.popularity
+    Team.find {}, (err,teams) ->
+      teams.forEach (team) ->
+        id = team._id
+        computedScore = _.detect computedScores, (x) ->
+          id.equals x._id
+        if computedScore
+          overall = 0
+          for field of computedScore.value
+            if field != 'popularity'
+              team.scores[ field ] = computedScore.value[ field ]
+              overall += computedScore.value[ field ]
+          if maxPopularity == 0
+            team.scores.popularity = 0
+          else
+            team.scores.popularity = computedScore.value.popularity / maxPopularity * 10
+          overall += team.scores.popularity
+          team.scores.overall = overall
+        else
+          TeamSchema.eachPath (path) ->
+            if path.indexOf('scores.') == 0
+              team.scores[ path.substring 7 ] = 0
+        team.save()
+    next()
 
 # instance methods
 TeamSchema.method 'toString', -> @slug or @id
