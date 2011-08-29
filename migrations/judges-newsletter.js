@@ -1,3 +1,3 @@
-db.people.find({ role: 'judge', email: /@/ }).forEach(function(person) {
+db.people.find({ role: 'judge', email: /@/, twitterScreenName: /\w/ }).forEach(function(person) {
   print(person.email);
 });
