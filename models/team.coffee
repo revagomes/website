@@ -75,7 +75,7 @@ TeamSchema.static 'uniqueName', (name, next) ->
     return next err if err
     next null, !count
 TeamSchema.static 'sortedByScore', (next) ->
-  Team.find {}, {}, {sort: [['scores.overall', -1]]}, (error,teams) ->
+  Team.find { 'entry.votable': true, lastDeploy: {$ne:null} }, {}, {sort: [['scores.overall', -1]]}, (error,teams) ->
     return next error if error
     next null, teams
     
