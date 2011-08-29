@@ -145,7 +145,7 @@ app.configure(function() {
   app.use(express.methodOverride());
 
   // hacky solution for post commit hooks not to check csrf
-  app.use(commits(app));
+  // app.use(commits(app));
 
   app.use(express.csrf());
   app.use(function(req, res, next) { if (req.body) delete req.body._csrf; next(); });
