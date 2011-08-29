@@ -270,7 +270,7 @@ TeamSchema.pre 'remove', (next) ->
 
 ## search index
 TeamSchema.pre 'save', (next) ->
-  only = name: 1, location: 1, 'github.login': 1, 'twit.screenName': 1
+  only = name: 1, location: 1, 'github.login': 1, 'twit.screenName': 1, entry: 1
   Person.find _id: { '$in': @peopleIds }, only, (err, people) =>
     return next err if err
     @search =
@@ -279,6 +279,8 @@ TeamSchema.pre 'save', (next) ->
       #{@description}
       #{_.pluck(people, 'login').join(';')}
       #{_.pluck(people, 'location').join(';')}
+      #{@entry?.name || ''}
+      #{@entry?.description || ''}
       """
     next()
 
