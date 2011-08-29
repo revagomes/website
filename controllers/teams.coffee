@@ -33,7 +33,8 @@ app.get /^\/teams(\/pending)?\/?$/, (req, res, next) ->
         res.render2 'teams', teams: teams, people: people, layout: layout
 
 # entries index
-app.get '/entries', (req, res, next) ->
+# also services / possibly
+app.get /^\/(entries)?\/?$/, (req, res, next) ->
   page = (req.param('page') or 1) - 1
   query = { 'entry.votable': true, lastDeploy: {$ne: null} }
   options = { sort: [['updatedAt', -1]], limit: 50, skip: 50 * page }

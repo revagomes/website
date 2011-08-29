@@ -4,9 +4,10 @@ h1 Entries (#{teams.count})
 span.all See 
   a( href: '/teams' ) all teams
 
-p Don't see your team? 
-  a.button( href: '/teams/mine#votable' ) Submit your entry
-  |  for voting
+- if (req.user && req.user.contestant)
+  p Don't see your team? 
+    a.button( href: '/teams/mine#votable' ) Submit your entry
+    |  for voting
 
 ul.teams
   - each team in teams

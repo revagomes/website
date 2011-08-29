@@ -19,7 +19,8 @@ loadCanRegister = (req, res, next) ->
     req.teamsLeft = left
     next()
 
-app.get '/', [loadCurrentPersonWithTeam, loadCanRegister], (req, res) ->
+app.get '/', [loadCurrentPersonWithTeam, loadCanRegister], (req, res, next) ->
+  return next()
   res.render2 'index/index',
     team: req.team
     canRegister: req.canRegister

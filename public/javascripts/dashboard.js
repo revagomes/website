@@ -1,4 +1,5 @@
 (function() {
+  return;
   var $templates = {};
   $('.template').each(function(index) {
       var $this = $(this);
