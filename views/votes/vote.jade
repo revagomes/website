@@ -10,6 +10,8 @@ li.vote
   - else if (vote.team)
     .team
       a( href: vote.team.entry.url )= vote.team.entry.name
+      .by by 
+        a( href: '/teams/' + vote.team )= vote.team.name
       time.created-at( datetime: vote.createdAt.toJSON(), title: vote.createdAt )
         = relativeDate(vote.createdAt)
   - if (vote.type === 'voter')
