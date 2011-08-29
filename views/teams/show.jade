@@ -116,7 +116,7 @@ h1
         .buttons: input( type: 'submit', value: 'Remove from Voting' )
 
         p: b Remove it from voting to deploy to a different URL.
-        
+
         h3
           a( href: '/scores#' + team.slug ) Team Score
 
@@ -168,10 +168,15 @@ h1
 
 - if (admin || voting)
   h1#votes Votes
-  h2 Your Vote
-  - if (req.user && team.includes(req.user))
-    p.sorry Team members may not vote on their own teams.
-  - else
-    != partial('votes/form', { vote: vote })
-  h2 Other Votes
+
+  - if (req.user)
+    h2 Your Vote
+    - if (team.includes(req.user))
+      p.sorry Team members may not vote on their own teams.
+    - else
+      != partial('votes/form', { vote: vote })
+      p: a( href: '/people/' + req.user + '#votes' )  View all your votes &rarr;
+
+    h2 Other Votes
+
   ul.votes!= partial('votes/vote', votes)

@@ -18,21 +18,21 @@ h1.name= title(person.name)
 
 - if (admin || voting)
   - if (nextTeam)
-    h1 Next Vote
+    h1#next-vote Next Entry to Review
     p
-      | You should vote on
-      a( href: '/teams' + nextTeam )= nextTeam.entry.name
-      |  next.
+      | Review entry
+      a( href: nextTeam.entry.url, target: 'entry' )= nextTeam.entry.name
+      |  below.
 
     .next-vote
       .entry-info
-        a( href: nextTeam.entry.url ): img.screenshot( src: nextTeam.screenshot() )
-        h2: a( href: nextTeam.entry.url )= nextTeam.entry.name
+        a( href: nextTeam.entry.url, target: 'entry' ): img.screenshot( src: nextTeam.screenshot() )
+        h2: a( href: nextTeam.entry.url, target: 'entry' )= nextTeam.entry.name
         h3
           | by 
-          a( href: '/teams/' + nextTeam )= nextTeam.name
+          a( href: '/teams/' + nextTeam, target: 'team' )= nextTeam.name
         .buttons
-          a.button( href: nextTeam.entry.url, target: 'nextVote' ) View Entry
+          a.button( href: nextTeam.entry.url, target: 'entry' ) View Entry
         .clear
         != markdown(nextTeam.entry.description)
         - if (nextTeam.entry.instructions)
@@ -42,8 +42,12 @@ h1.name= title(person.name)
       != partial('votes/form', { vote: vote, nextTeam: nextTeam })
 
 
-  h1 Your Votes
-  ul.votes!= partial('votes/vote', votes)
+  - if (votes.length)
+    - if (req.user && (req.user.id === req.person.id))
+      h1#votes Your Votes
+    - else
+      h1#votes Votes
+    ul.votes!= partial('votes/vote', votes)
 
 - if (admin)
   - var twitterBase = 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(('@' + person.twitterScreenName).replace('@@', '@') + ' ');
