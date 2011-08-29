@@ -62,6 +62,7 @@ load = ->
       $stars = $this.find('div.stars')
       if $stars.length != $stars.filter(':has(.star.filled)').length
         alert 'All ratings must have at least 1 star.'
+        e.stopImmediatePropagation()
         false
       else true
     .delegate 'a.change', 'click', (e) ->

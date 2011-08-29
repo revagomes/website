@@ -54,8 +54,9 @@ h1.name= title(person.name)
   - if (votes.length)
     - if (req.user && (req.user.id === req.person.id))
       h1#votes Your Votes (#{votes.length})
-      - each vote in votes
-        != partial('votes/form', { vote: vote })
+      .votes
+        - each vote in votes
+          != partial('votes/form', { vote: vote })
     - else
       h1#votes Votes (#{votes.length})
       ul.votes!= partial('votes/vote', votes)

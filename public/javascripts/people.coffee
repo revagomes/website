@@ -37,6 +37,31 @@ $('form.person .twitter input').live('blur', ->
 ).change()
 
 load = ->
+  # editing votes on your page does an ajax submit
+  $('#page.people-show .votes form.vote').submit (e) ->
+    $form = $(this)
+    $inputs = $form.find('input, textarea')
+    debugger
+    $.ajax
+      type: $form.attr 'method'
+      url: $form.attr 'action'
+      data: $form.serializeArray()
+      beforeSend: ->
+        $inputs.prop('disabled', true)
+      success: (data) ->
+        if $inputs.filter('[name=_method]').val() is 'DELETE'
+          $form.remove()
+        else
+          # update the defaults
+          $inputs.each ->
+            this.defaultValue = $(this).val()
+          $form.find('a.change:first').click()
+      error: (xhr) ->
+        # TODO this is lame
+        alert 'Error editing vote. Please try again'
+        $inputs.prop 'disabled', false
+    e.preventDefault()
+
   $('form.person .image_url').each ->
     $i = $(this)
 
