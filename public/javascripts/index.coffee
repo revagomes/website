@@ -1,9 +1,9 @@
 load = ->
-  $.get '/now', (data) ->
-    serverLoadTime = new Date parseInt data
-    localLoadTime = new Date
-    # countdown
-    $('time:first').each ->
+  # countdown
+  $('time:first').each ->
+    $.get '/now', (data) ->
+      serverLoadTime = new Date parseInt data
+      localLoadTime = new Date
       parts = $(this).attr('datetime').split(/[-:TZ]/)
       parts[1]--; # js dates :( js dates are hot dates.
       start = Date.UTC.apply null, parts
