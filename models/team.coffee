@@ -55,15 +55,9 @@ TeamSchema = module.exports = new mongoose.Schema
     popularity_count: Number
     overall: Number
   voteCounts:
-    judge:
-      type: Number
-      default: 0
-    contestant:
-      type: Number
-      default: 0
-    team: # votes by team members
-      type: Number
-      default: 0
+    judge: Number
+    contestant: Number
+    voter: Number
 TeamSchema.plugin require('mongoose-types').useTimestamps
 TeamSchema.index updatedAt: -1
 
@@ -171,6 +165,10 @@ TeamSchema.static 'updateAllSavedScores', (next) ->
           TeamSchema.eachPath (path) ->
             if path.indexOf('scores.') == 0
               team.scores[ path.substring 7 ] = 0
+        _.extend team.voteCounts,
+          judge: team.scores.judge_count
+          contestant: team.scores.contestant_count
+          voter: team.scores.popularity_count
         team.save()
     next()
 
