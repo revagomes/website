@@ -41,7 +41,6 @@ load = ->
   $('#page.people-show .votes form.vote').submit (e) ->
     $form = $(this)
     $inputs = $form.find('input, textarea')
-    debugger
     $.ajax
       type: $form.attr 'method'
       url: $form.attr 'action'
