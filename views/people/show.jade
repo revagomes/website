@@ -7,11 +7,11 @@
 h1.name= title(person.name)
 != partial('details')
 
-
 - if (team)
-  h2
-    | On
+  p
+    | Contestant on
     a( href: '/teams/' + team )= team.name
+    | .
 
 .bio!= markdown(person.bio)
 
