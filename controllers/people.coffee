@@ -36,7 +36,7 @@ app.get '/people/:id', [m.loadPerson, m.loadPersonTeam, m.loadPersonVotes], (req
       votes: req.votes
       nextTeam: nextTeam
       vote: null
-  if req.user and (req.person.id is req.user.id) and (req.user.contestant or req.user.judge)
+  if req.user and (req.person.id is req.user.id) and (req.user.contestant or req.user.judge or req.user.voter)
     req.user.nextTeam (err, nextTeam) ->
       return next err if err
       render nextTeam
