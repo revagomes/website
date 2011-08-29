@@ -38,6 +38,8 @@
         - else
           input.scary( type: 'submit', value: '♥ this entry' )
     - else if (user.contestant || user.judge)
+      p Contestant and judge voting will open soon.
+    - else if (user.contestant || user.judge)
       table
         tr
           - each d in Vote.dimensions

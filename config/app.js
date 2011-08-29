@@ -117,7 +117,7 @@ app.configure(function() {
 app.configure('development', function() {
   app.use(express.static(app.paths.public));
   app.use(express.profiler());
-  app.disable('voting');
+  app.enable('voting');
   require('../lib/mongo-log')(app.db.mongo);
 });
 app.configure('production', function() {
@@ -128,7 +128,7 @@ app.configure('production', function() {
     else
       next();
   });
-  app.disable('voting');
+  app.enable('voting');
 });
 
 app.configure(function() {
