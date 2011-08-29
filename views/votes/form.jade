@@ -2,62 +2,26 @@
   p.sign-in: a.scary.button( href: '/login' ) Sign in to vote
 - else
   form.vote(
-    'class': vote ? 'view' : 'edit',
-    action: vote ? '/votes/' + vote.id : '/teams/' + (typeof(nextTeam) !== 'undefined' ? nextTeam : team).id + '/votes',
+    'class': vote.isNew ? 'edit' : 'view',
+    action: vote.isNew ? '/teams/' + vote.team + '/votes' : '/votes/' + vote.id,
     method: 'POST'
   )
+    - if (!vote.isNew)
+      - if (user.voter)
+        input( type: 'hidden', name: '_method', value: 'DELETE' )
+      - else
+        input( type: 'hidden', name: '_method', value: 'PUT' )
     != _csrf
-    - if (vote && !req.user.voter)
-      input( type: 'hidden', name: '_method', value: 'PUT' )
+
     input( type: 'hidden', name: 'audit[userAgent]', value: req.header('user-agent') )
     input( type: 'hidden', name: 'audit[referrer]', value: req.header('referrer') )
     input( type: 'hidden', name: 'audit[accept]', value: req.header('accept') )
     - each f in [ 'requestAt', 'hoverAt' ]
       input( type: 'hidden', name: 'audit[' + f + ']', class: f )
-    - if (typeof(nextTeam) === 'undefined')
-      .person
-        img.avatar( src: avatar_url(user, 40) )
-        = user.login
-        .role= user.role
-        - if (vote && !user.voter)
-          .view.change: a.change( href: '#' ) Edit your vote
-    - else
-      h3.your-vote Your Vote
+
+    != partial('info', { vote: vote, form: true })
+
     - if (user.voter)
-      .voter
-        - if (vote)
-          | You
-          span.heart ♥ 
-          | this entry
-          .view: a.change( href: '#' ) Change your mind
-          .edit
-            input( type: 'hidden', name: '_method', value: 'DELETE' )
-            input.scary( type: 'submit', value: 'Delete your vote' )
-            | 
-            a.change( href: '#' ) Cancel
-        - else
-          input.scary( type: 'submit', value: '♥ this entry' )
+      != partial('form-voter', { vote: vote })
     - else if (user.contestant || user.judge)
-      table
-        tr
-          - each d in Vote.dimensions
-            th: label( for: d )= Vote.label(d)
-        tr.stars
-          - each d in Vote.dimensions
-            td: input( name: d, id: d, type: 'range', min: 0, max: 5,
-              value: vote ? vote[d] : 0
-              disabled: !!vote )
-        tr: td( colspan: 4 )
-          textarea.edit( name: 'comment',
-                    placeholder: 'Be awesome. Give some feedback.'
-                  )= vote && vote.comment
-          - if (vote)
-            .comment.view!= markdown(vote.comment)
-            input.edit( type: 'submit', value: 'Save' )
-            | 
-            a.edit.change( href: '#' ) Cancel
-          - else
-            input.scary( type: 'submit', value: 'Vote' )
-            - if (typeof(nextTeam) !== 'undefined')
-              |  for 
-              a( href: nextTeam.entry.url, target: 'entry' )= nextTeam.entry.name
+      != partial('form-judge', { vote: vote })

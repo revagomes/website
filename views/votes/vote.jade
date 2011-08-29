@@ -1,19 +1,5 @@
 li.vote
-  - if (vote.person)
-    .person
-      a( href: '/people/' + vote.personId )
-        img.avatar( src: avatar_url(vote.person, 40) )
-        = vote.person.login
-      .role= vote.person.role
-      time.created-at( datetime: vote.createdAt.toJSON(), title: vote.createdAt )
-        = relativeDate(vote.createdAt)
-  - else if (vote.team)
-    .team
-      a( href: vote.team.entry.url )= vote.team.entry.name
-      .by by 
-        a( href: '/teams/' + vote.team )= vote.team.name
-      time.created-at( datetime: vote.createdAt.toJSON(), title: vote.createdAt )
-        = relativeDate(vote.createdAt)
+  != partial('info', { vote: vote })
   - if (vote.type === 'voter')
     .heart ♥
   - else

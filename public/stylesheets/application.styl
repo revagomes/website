@@ -216,7 +216,7 @@ aside
   clear left
   overflow hidden
   line-height 100%
-  .person, .team
+  .info
     float left
     width 120px
     margin-right 10px
@@ -225,23 +225,24 @@ aside
       height auto
       vertical-align top
       float left
-    .by
-      font-size small
-    .created-at
-      font-size x-small
-      display block
-      line-height 150%
-  .person
-    line-height 125%
-    .role, .created-at
-      margin-left 45px
-    .role
-      font-size small
     > .change
       clear left
       font-size small
       margin-top 1em
       text-align center
+    .created-at
+      font-size x-small
+      display block
+      line-height 150%
+    &.team
+      .by
+        font-size small
+    &.person
+      line-height 125%
+      .role, .created-at
+        margin-left 45px
+      .role
+        font-size small
   .voter
     text-align center
   div.stars
@@ -279,10 +280,9 @@ form.vote
       cursor pointer
   &.view .edit
     display none
-  .your-vote
+  .info h3
     width 80px
     margin-top 3px
-    float left
 
 #page
   position relative

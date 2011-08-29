@@ -26,39 +26,39 @@ h1.name= title(person.name)
 - else
   .bio!= markdown(person.bio)
 
-
 - if (admin || voting)
-  - if (nextTeam)
+  - if (nextVote.team)
     h1#next-vote Suggested Entry to Review
     p
       | We think you should take a look at
-      a( href: nextTeam.entry.url, target: 'entry' )= nextTeam.entry.name
+      a( href: nextVote.team.entry.url, target: 'entry' )= nextVote.team.entry.name
       |  below.
 
     .next-vote
       .entry-info
-        a( href: nextTeam.entry.url, target: 'entry' ): img.screenshot( src: nextTeam.screenshot() )
-        h2: a( href: nextTeam.entry.url, target: 'entry' )= nextTeam.entry.name
+        a( href: nextVote.team.entry.url, target: 'entry' ): img.screenshot( src: nextVote.team.screenshot() )
+        h2: a( href: nextVote.team.entry.url, target: 'entry' )= nextVote.team.entry.name
         h3
           | by 
-          a( href: '/teams/' + nextTeam, target: 'team' )= nextTeam.name
+          a( href: '/teams/' + nextVote.team, target: 'team' )= nextVote.team.name
         .buttons
-          a.button( href: nextTeam.entry.url, target: 'entry' ) View Entry
+          a.button( href: nextVote.team.entry.url, target: 'entry' ) View Entry
         .clear
-        != markdown(nextTeam.entry.description)
-        - if (nextTeam.entry.instructions)
+        != markdown(nextVote.team.entry.description)
+        - if (nextVote.team.entry.instructions)
           h4 Judging Instructions
-          != markdown(nextTeam.entry.instructions)
+          != markdown(nextVote.team.entry.instructions)
 
-      != partial('votes/form', { vote: vote, nextTeam: nextTeam })
-
+      != partial('votes/form', { vote: nextVote })
 
   - if (votes.length)
     - if (req.user && (req.user.id === req.person.id))
       h1#votes Your Votes (#{votes.length})
+      - each vote in votes
+        != partial('votes/form', { vote: vote })
     - else
       h1#votes Votes (#{votes.length})
-    ul.votes!= partial('votes/vote', votes)
+      ul.votes!= partial('votes/vote', votes)
 
 - if (admin)
   - var twitterBase = 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(('@' + person.twitterScreenName).replace('@@', '@') + ' ');
@@ -66,4 +66,3 @@ h1.name= title(person.name)
     a.button( href: twitterBase + encodeURIComponent("You've been nominated to judge @node_knockout! Interested? Takes ~2hrs online, at your convenience, between 8/29 and 9/5."), target: 'twitter' ) Confirm
   - if (person.judge)
     a.button( href: twitterBase + encodeURIComponent("Sweet! Made you a judge. You can edit your profile at") + "&url=" + encodeURIComponent('http://nodeknockout.com' + req.url.replace('/people/', '/judges/') + '/edit'), target: 'twitter') Alert
-

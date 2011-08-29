@@ -76,11 +76,15 @@ app.get '/teams/mine(\/edit)?', [m.ensureAuth, m.loadPerson, m.loadPersonTeam], 
 # show (join)
 app.get '/teams/:id', [m.loadTeam, m.loadTeamPeople, m.loadTeamVotes, m.loadMyVote], (req, res) ->
   req.session.invite = req.param('invite') if req.param('invite')
+
+  vote = req.vote or new Vote
+  vote.team = req.team
+  vote.person = req.user
   res.render2 'teams/show'
     team: req.team
     people: req.people
     votes: req.votes
-    vote: req.vote
+    vote: vote
 
 # resend invitation
 app.all '/teams/:id/invites/:inviteId', [m.loadTeam, m.ensureAccess], (req, res) ->

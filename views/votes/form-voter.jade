@@ -1,0 +1,12 @@
+.voter
+  - if (vote.isNew)
+    input.scary( type: 'submit', value: '♥ this entry' )
+  - else
+    | You
+    span.heart ♥ 
+    | this entry
+    .view: a.change( href: '#' ) Change your mind
+    .edit
+      input.scary( type: 'submit', value: 'Delete your vote' )
+      | 
+      a.change( href: '#' ) Cancel

@@ -3,6 +3,7 @@ app = require '../config/app'
 m = require './middleware'
 Person = app.db.model 'Person'
 Team = app.db.model 'Team'
+Vote = app.db.model 'Vote'
 
 # index
 app.get '/people', (req, res, next) ->
@@ -30,12 +31,14 @@ app.get '/people/me(\/edit)?', [m.ensureAuth], (req, res, next) ->
 # show
 app.get '/people/:id', [m.loadPerson, m.loadPersonTeam, m.loadPersonVotes], (req, res, next) ->
   render = (nextTeam) ->
+    nextVote = new Vote
+    nextVote.team = nextTeam
+    nextVote.nextVote = true
     res.render2 'people/show',
       person: req.person
       team: req.team
       votes: req.votes
-      nextTeam: nextTeam
-      vote: null
+      nextVote: nextVote
   if req.user and (req.person.id is req.user.id) and (req.user.contestant or req.user.judge or req.user.voter)
     req.user.nextTeam (err, nextTeam) ->
       return next err if err
