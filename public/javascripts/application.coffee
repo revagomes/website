@@ -56,9 +56,13 @@ load = ->
     .hover (e) ->
       hoverAt or= Date.now()
     .submit (e) ->
-      $(this)
+      $this = $(this)
         .find('input[type=hidden].hoverAt').val(hoverAt).end()
         .find('input[type=hidden].requestAt').val(requestAt).end()
+      if $this.find('div.stars:has(.star.filled)').length < 4
+        alert 'All ratings must have at least 1 star.'
+        false
+      else true
     .delegate 'a.change', 'click', (e) ->
       e.preventDefault()
       $form = $(this).closest('form').toggleClass('view edit')
