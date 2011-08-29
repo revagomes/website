@@ -78,7 +78,7 @@ module.exports =
     # exclude my vote from the vote list on the team page
     if req.user
       query.personId = $ne: req.user.id
-    Vote.find query, (err, votes) ->
+    Vote.find query, {}, { sort: [['updatedAt', -1]] }, (err, votes) ->
       return next err if err
       req.votes = votes
       Vote.people votes, next
