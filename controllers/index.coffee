@@ -49,9 +49,10 @@ app.get '/scores', (req, res, next) ->
     return next error if error
     res.render2 'index/scores', teams: teams
 
-app.get '/scores/update', (req, res) ->
+app.get '/scores/update', (req, res, next) ->
   Team.updateAllSavedScores (err) ->
-    res.end err or 'ok'
+    next err if err
+    res.redirect '/scores'
 
 app.get '/services', [m.ensureAuth], (req, res, next) ->
   return next 401 unless req.user.contestant or req.user.judge or req.user.admin
