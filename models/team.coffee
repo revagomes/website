@@ -204,7 +204,7 @@ TeamSchema.method 'people', (next) ->
 TeamSchema.method 'deploys', (next) ->
   Deploy.find teamId: @id, next
 TeamSchema.method 'votes', (next) ->
-  Vote.find teamId: @id, next
+  Vote.find teamId: @id, {}, { sort: [['updatedAt', -1]] }, next
 
 # validations
 
