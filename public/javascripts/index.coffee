@@ -1,6 +1,6 @@
 load = ->
   # countdown
-  $('time:first').each ->
+  $('#page.index-index time:first').each ->
     $.get '/now', (data) ->
       serverLoadTime = new Date parseInt data
       localLoadTime = new Date
