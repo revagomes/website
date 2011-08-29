@@ -59,7 +59,8 @@ load = ->
       $this = $(this)
         .find('input[type=hidden].hoverAt').val(hoverAt).end()
         .find('input[type=hidden].requestAt').val(requestAt).end()
-      if $this.find('div.stars:has(.star.filled)').length < 4
+      $stars = $this.find('div.stars')
+      if $stars.length != $stars.filter(':has(.star.filled)').length
         alert 'All ratings must have at least 1 star.'
         false
       else true
