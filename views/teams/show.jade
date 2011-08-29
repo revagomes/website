@@ -130,6 +130,7 @@ h1
       img.screenshot( src: '/images/blank.png' )
       h2= team.entry.name
     h3= 'by ' + team.name
+    a.button.vote.scary( href: '#votes' ) Vote
     .clear
     != markdown(team.entry.description)
     - if (team.entry.instructions)
