@@ -3,6 +3,12 @@ mongoose = require 'mongoose'
 ObjectId = mongoose.Schema.ObjectId
 Person = mongoose.model 'Person'
 
+Dimension =
+  type: Number
+  validate: [ (v) ->
+    v == null || 0 < v < 6
+  , 'out of bounds' ]
+
 VoteSchema = module.exports = new mongoose.Schema
   personId:
     type: ObjectId
@@ -15,10 +21,10 @@ VoteSchema = module.exports = new mongoose.Schema
     required: true
     enum: Person.ROLES
   comment: String
-  utility: Number
-  design: Number
-  innovation: Number
-  completeness: Number
+  utility: Dimension
+  design: Dimension
+  innovation: Dimension
+  completeness: Dimension
   audit:
     remoteAddress: String
     remotePort: Number
