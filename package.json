@@ -35,7 +35,7 @@
     "relative-date": "1.1.0",
     "request": "2.1.1",
     "socket.io": "0.7.9",
-    "stylus": "0.14.0",
+    "stylus": "0.54.8",
     "uglify-js": "1.0.6",
     "underscore": "1.1.7",
     "irc": "0.2.0",
