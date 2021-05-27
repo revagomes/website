@@ -37,7 +37,7 @@
     "socket.io": "0.7.9",
     "stylus": "0.14.0",
     "uglify-js": "1.0.6",
-    "underscore": "1.1.7",
+    "underscore": "1.13.1",
     "irc": "0.2.0",
     "twitter-node": "0.0.2",
     "redis": "0.6.7"
