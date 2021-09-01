@@ -1,0 +1,117 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.21.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - mongoose-auth > everyauth > connect > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > body-parser > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > compression > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > connect-timeout > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > express-session > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > finalhandler > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > morgan > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-index > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > send > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > body-parser > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > compression > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > connect-timeout > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > express-session > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > finalhandler > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > morgan > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-index > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-static > send > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-static > send > debug:
+        patched: '2021-09-01T02:52:55.312Z'
+  'npm:mime:20170907':
+    - mongoose-auth > everyauth > express > send > mime:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-static > send > mime:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-static > send > mime:
+        patched: '2021-09-01T02:52:55.312Z'
+  'npm:ms:20170412':
+    - mongoose-auth > everyauth > connect > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > connect-timeout > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > send > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > body-parser > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > compression > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > connect-timeout > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > express-session > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > finalhandler > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > morgan > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-index > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > send > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > connect-timeout > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-static > send > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > body-parser > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > compression > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > connect-timeout > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > express-session > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > finalhandler > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > morgan > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-index > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-static > send > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-static > send > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-static > send > debug > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-favicon > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-favicon > ms:
+        patched: '2021-09-01T02:52:55.312Z'
+  'npm:negotiator:20160616':
+    - mongoose-auth > everyauth > connect > compression > accepts > negotiator:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > connect > serve-index > accepts > negotiator:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > compression > accepts > negotiator:
+        patched: '2021-09-01T02:52:55.312Z'
+    - mongoose-auth > everyauth > express > connect > serve-index > accepts > negotiator:
+        patched: '2021-09-01T02:52:55.312Z'
