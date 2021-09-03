@@ -10,7 +10,9 @@
   "author": "NKO Team <all@nodeknockout.com>",
   "main": "./server.js",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon --debug"
+    "start": "./node_modules/.bin/nodemon --debug",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "directories": {
     "lib": "."
@@ -40,10 +42,12 @@
     "underscore": "1.1.7",
     "irc": "0.2.0",
     "twitter-node": "0.0.2",
-    "redis": "0.6.7"
+    "redis": "0.6.7",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "nodemon": "0.5.3",
     "node-inspector": "0.1.8"
-  }
+  },
+  "snyk": true
 }
