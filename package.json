@@ -24,7 +24,7 @@
     "connect-assetmanager": "0.0.21",
     "connect-redis": "1.0.7",
     "discount": "0.2.0",
-    "express": "2.4.4",
+    "express": "4.20.0",
     "jade": "0.11.0",
     "hoptoad-notifier": "0.1.3",
     "mongoose": "1.8.1",
